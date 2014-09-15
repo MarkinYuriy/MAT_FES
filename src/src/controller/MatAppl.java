@@ -1,5 +1,8 @@
 package controller;
 
-public class MatAppl {
+import mat.Person;
 
+public class MatAppl {
+	Person person = null;
+	
 }
