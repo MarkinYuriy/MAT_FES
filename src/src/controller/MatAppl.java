@@ -49,8 +49,8 @@ public class MatAppl {
 			model.addAttribute("name","name or email incorrect!");
 			return "login";}
 	//	userName=pers.getFirstName()+" "+pers.getLastName();
-//		userName=pers.getName();
-//		userEmail=pers.getEmail();
+		userName=pers.getName();
+		userEmail=pers.getEmail();
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		return "home";
