@@ -13,7 +13,7 @@ class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcesso
 />
 <!-- <bean id="ifesbes1" class="model.test"/> -->
 <bean id="ifesbes1" class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">
-<property name="serviceUrl" value="http://localhost:8080/MAT_BES1/bes1_webservice.service"></property>
+<property name="serviceUrl" value="http://localhost:8080/MAT_BES1/bes1_service.service"></property>
 <property name="serviceInterface" value="mat.IFesBes1"></property>
 </bean>
 <tx:annotation-driven transaction-manager="transactionManager"/>

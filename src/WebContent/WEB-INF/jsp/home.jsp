@@ -167,7 +167,7 @@
 <form id="log" >
     <span><a class="logo" href="http://myavailabletime.com/">MyAvailableTime</a></span>
     <span class="topmenu" style="float:right;"> Logout</span>
-    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='buf'">Account settings</button></span>
+    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='accountsetings'">Account settings</button></span>
     <span class="topmenu" style="float:right;"> Logged in as: ${userName}</span>
 </form>
 </div>
