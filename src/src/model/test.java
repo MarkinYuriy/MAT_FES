@@ -38,7 +38,8 @@ public class test implements IFesBes1, IBackConnector {
 	@Override
 	public String[] getMattNames(String username) {
 		// TODO Auto-generated method stub
-		return null;
+		String[]buf={"Table 1","Table 2","Table 3","Table 4 "};
+		return buf;
 	}
 
 	@Override

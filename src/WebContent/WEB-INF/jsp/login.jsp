@@ -27,7 +27,7 @@
 	<input type="checkbox"  onclick="if(this.checked){pas.type='text'}else {pas.type='password'; }">
 	<a id="p1">${password}</a><br>
 	
-	<p id="p1">${result}</p>
+	<p id="p1">${aktiv}</p>
 	<input type="submit" value="LOGIN" onclick="form1.action='home'"/><br>
  	<input type="submit" value="registry" onclick="form1.action='registry'"/><br>
 </form>

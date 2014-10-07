@@ -1,3 +1,10 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*"%>
+<%@taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
 <head>
     <meta charset="utf-8">
     <meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
@@ -8,10 +15,29 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
+       <script>
+         function insertTable(){
+           
+            document.getElementById('placetable').innerHTML = tfooter;
+           }
+    </script>
     <script type="text/javascript">
-        $(function() {
-            $( ".datepicker" ).datepicker({ dateFormat: "dd M yy"});
-        });
+
+			function show(state){
+
+					document.getElementById('bes2').style.display = state;	
+					var x = document.getElementById('Google');
+					x.disabled= false;
+					
+			}
+			
+		</script>
+		  <script type="text/javascript">
+         function url(mattname){
+        
+        StringBuffer str="http://loclahost:8080/myavailabletime/viewMatt?table="+mattname+", username="+${userName};
+        document.getElementById("a").innerHTML = str;
+        }
     </script>
     <style>
         head {
@@ -66,8 +92,7 @@
         p {
             font-size: 0.6em;
         }
-
-
+		
         #wrapper {
             width: 100%;
             overflow: hidden; /* will contain if #first is longer than #second */
@@ -112,6 +137,7 @@
             font-size: 1em;
             color: red;
         }
+       
         #table1
         {
             border:solid 1px;
@@ -130,19 +156,20 @@
             vertical-align:middle;
         }
 
-
-
-
     </style>
  
 
 </head>
 <body>
+
+
 <div class="header">
+<form id="log" >
     <span><a class="logo" href="http://myavailabletime.com/">MyAvailableTime</a></span>
     <span class="topmenu" style="float:right;"> Logout</span>
-    <span class="topmenu" style="float:right;"> Account settings</span>
+    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='buf'">Account settings</button></span>
     <span class="topmenu" style="float:right;"> Logged in as: ${userName}</span>
+</form>
 </div>
 
 <div id="wrapper">
@@ -151,12 +178,37 @@
             <p style="font-size: 1em ">${userName} Distribution Calendars</p>
         </div>
         <form  id="form2" >
-         <div>	<button  onclick="form2.action='buf'">Create a new Avaliable calendar</button></div>
-        
+         <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button></div>
+        <p>Existing calendars</p>
         </form>
         <form name="tableForm">
 
-            <div id="placetable"></div>
+            <div id="placetable">
+                     
+   <d:forEach items="${matt}" var="item" >
+   <table width='80%' border='1'>
+
+   <tr>
+   <td colspan='8'>${item}</td>
+   </tr>
+   <tr>
+   <td colspan='8'><a href="http://loclahost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}">http://loclahost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}</a></td>
+   </tr>
+   <tr>
+		<td><img src='<d:url value='/resurs/glas.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/soed.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/chel.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resurs/mus.jpg'/>' width='30' height='30'></td>
+   </tr>
+ 
+  </table>
+  </d:forEach>
+            </div>
+            
         </form>
     </div>
 
@@ -165,22 +217,16 @@
             <p style="font-size: 1em ">Account Settings</p>
             <p style="font-size:0.6em">General information:</p>
             <form style="font-size: 0.6em">
-                Name:<input type="text" name="firstname" value="${userName}" disabled = false style="width: 70%; float: right;"  ><br>
-                Email:<input type="text" name="Email" value="" disabled = false style="width: 70%; float: right;"  ><br>
+                Name:<input type="text" name="firstname" value="${name}" disabled style="width: 70%; float: right;"  ><br>
+                Email:<input type="text" name="Email" value="${email}" disabled  style="width: 70%; float: right;"  ><br>
             </form>
             <p style="font-size:0.5em">Synched accounts:</p>
                      
-			<p>Google <input type="checkbox" id="Google" disabled = false style="border: none; float: right; width: 50px; "></p>
-			<p>Apple (me) <input type="checkbox" id="Apple" disabled = false style="border: none; float: right; width: 50px; "></p>
-			<p>Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled = false style="border: none; float: right; width: 50px; "></p>
-			<p>Facebook <input type="checkbox" id="Facebook" disabled = false style="border: none; float: right; width: 50px; "></p>
-			<p>Twitter <input type="checkbox" id="Twitter" disabled = false style="border: none; float: right; width: 50px; "></p>
-		 
-		 
-		 
-		
-
-
+			<p>Google <input type="checkbox" id="Google" disabled style="border: none; float: right; width: 50px; "></p>
+			<p>Apple (me) <input type="checkbox" id="Apple" disabled style="border: none; float: right; width: 50px; "></p>
+			<p>Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled  style="border: none; float: right; width: 50px; "></p>
+			<p>Facebook <input type="checkbox" id="Facebook" disabled  style="border: none; float: right; width: 50px; "></p>
+			<p>Twitter <input type="checkbox" id="Twitter" disabled  style="border: none; float: right; width: 50px; "></p>
 
             <p id="demo" style="text-align: right; font-size: 0.4em"></p>
           
