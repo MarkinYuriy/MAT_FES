@@ -112,6 +112,11 @@
             color: #888888;
 
         }
+        .close{
+		cursor: pointer;
+		
+	}
+        
         #shareembedemail {
             display: inline-block;
             text-align: center;
@@ -168,10 +173,13 @@
             <p style="font-size: 1em ">${userName} Distribution Calendars</p>
         </div>
         <form  id="form2" >
-         <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button></div>
-        <p>Existing calendars</p>
+         <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
+         <p>Existing calendars</p>
+        <button type="submit" onclick="form2.action='mail'">mail</button>
+         </div>
+       
         </form>
-        <form name="tableForm">
+        <form id="tableForm" name="tableForm">
 
             <div id="placetable">
                      
@@ -182,12 +190,12 @@
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a href="http://loclahost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}">http://loclahost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}</a></td>
+   <td colspan='8'><a href="http://localhost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}</a></td>
    </tr>
    <tr>
 		<td><img src='<d:url value='/resurs/glas.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resurs/soed.jpg'/>' width='30' height='30'></td>
+		<td><img class="close" src='<d:url value='/resurs/soed.jpg'/>' onclick="tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>
@@ -212,7 +220,7 @@
             </form>
             <p style="font-size:0.5em">Synched accounts:</p>
                      
-			<p>Google <input type="checkbox" id="Google" disabled=${google} style="border: none; float: right; width: 50px; "></p>
+			<p>Google <input type="checkbox" id="Google" disabled=true style="border: none; float: right; width: 50px; "></p>
 			<p>Apple (me) <input type="checkbox" id="Apple" disabled style="border: none; float: right; width: 50px; "></p>
 			<p>Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled  style="border: none; float: right; width: 50px; "></p>
 			<p>Facebook <input type="checkbox" id="Facebook" disabled  style="border: none; float: right; width: 50px; "></p>

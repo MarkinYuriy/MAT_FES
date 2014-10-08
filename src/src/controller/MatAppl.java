@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping({"/"})
 public class MatAppl {
-	String name;
+	String m_name;
 	String userName;
 	String userEmail;
 //--------------------------------------------SZS
@@ -177,10 +177,11 @@ public class MatAppl {
 	}
 	@RequestMapping({"/homereturn"})
 	public String homereturn (Model model){
-		model.addAttribute("name",name);
+		model.addAttribute("name",m_name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
-		model.addAttribute("matt",getMatt());
+		model.addAttribute("matt",ifesbes1.getMattNames(userName));
+		model.addAttribute("google",getMatt());
 		return "home";	
 	}
 	@RequestMapping({"/home"})
@@ -199,7 +200,7 @@ public class MatAppl {
 		Person pers=ifesbes1.getProfile(name);
 		userName=pers.getEmail();
 		userEmail=pers.getEmail();
-		name=pers.getName();
+		m_name=pers.getName();
 		model.addAttribute("name",name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
@@ -228,5 +229,12 @@ public class MatAppl {
 		  ifesbes1.setActive(user,hash);
 	   return "login";
 	 }
-	
+	@RequestMapping({"/mail"})
+	public String mail(Model model){
+		String [] buf=connector.getContacts(userName, ifesbes1.getProfile(userName).getSnNames());
+		for (int i=0;i<buf.length;i++)
+		System.out.println(buf[i]);
+		model.addAttribute("getmail",buf);
+		return "mailContacts";
+	}
 }
