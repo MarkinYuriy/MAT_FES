@@ -1,11 +1,14 @@
 package controller;
 
+import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 import mat.IFesBes1;
 import mat.IFrontConnector;
+import mat.Matt;
+import mat.MattData;
 import mat.Person;
 import mat.Response;
 
@@ -16,12 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping({"/","/"})
+@RequestMapping({"/"})
 public class MatAppl {
 	String name;
 	String userName;
 	String userEmail;
-	
+//--------------------------------------------SZS
+	mat.MattData data;
+	String mattName=null;
+	String newTablJSON=null;
+	Matt oldMatt=null;
+	Matt newMatt=null;
+	ArrayList<Boolean> newTabList;	
+//--------------------------------------------SZE
 	@Autowired
 	IFesBes1 ifesbes1;
 	@Autowired
@@ -75,6 +85,85 @@ public class MatAppl {
 		model.addAttribute("userName",userName);
 		return "createMatt";
 	}
+//--------------------------------------------SZS
+/*	@RequestMapping({"/createMatt"})
+	public String createMattData(HttpServletRequest request, Model model){
+	//----for creating MATT from the very beginning----
+		String mattToJSON=null;
+		String name = request.getParameter("mattName");
+		String nDaysStr=request.getParameter("nDays");
+		int nDays = Integer.parseInt(request.getParameter(nDaysStr));//number of days
+		String dateStr = request.getParameter("startDate");
+		Date startDate = null;
+		try {
+			startDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String dateEnd = request.getParameter("endDate");
+		String startHourStr=request.getParameter("startHour");
+		int startHour = Integer.parseInt(startHourStr);
+		String endHourStr=request.getParameter("endHour");
+		int endHour = Integer.parseInt(endHourStr);
+		String timeSlotStr=request.getParameter("timeSlot");
+		int timeSlot = Integer.parseInt(timeSlotStr); //in minutes
+		String password = null;
+		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
+		mattName=name;//----???----for creating URL
+		oldMatt=ifesbes1.createMatt(data, userName);
+		mattToJSON = oldMatt.mattToJson();  
+		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
+		return "saveMatt";
+	}
+	
+	@RequestMapping({"/saveMatt"})
+	public String saveMattData(HttpServletRequest request, Model model){
+		String name = request.getParameter("mattName");
+		String nDaysStr=request.getParameter("nDays");
+		String dateStr = request.getParameter("startDate");
+		String dateEnd = request.getParameter("endDate");
+		String startHourStr=request.getParameter("startHour");
+		String endHourStr=request.getParameter("endHour");
+		String timeSlotStr=request.getParameter("timeSlot");
+	 
+		//----for saving new MATT to DataBase after user correction----
+		newTabList=new ArrayList<Boolean>();
+		newTablJSON=request.getParameter("newTabl");
+		//newTablJSON.replaceAll("[]{}",",");//needs in special cases
+		newTabList=Matt.fromBrowser2Matt(newTablJSON);
+		newMatt.setData(oldMatt.getData());
+		newMatt.setSlots(newTabList);
+		ifesbes1.saveMatt(oldMatt,newMatt,userName);
+		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
+		return "savedMatt";
+    }
+	   
+	 //----for viewing sharing MATT from URL----
+	@RequestMapping({"/viewMatt"})
+	public String viewMatt(HttpServletRequest request,Model model){
+		String userName4Matt=request.getParameter("username");
+		String mattName=request.getParameter("table");
+	  
+		Matt matt4Sharing=ifesbes1.getMatt(mattName, userName4Matt);
+		String mattToJson4URL = matt4Sharing.matt2browser();
+		model.addAttribute("JSON", mattToJson4URL);
+		return "viewMatt";//name of JSP viewing file
+	}
+	 
+	private void addingAtributes(Model model,String name,String nDaysStr, 
+			String dateStr,String dateEnd,String startHourStr,String endHourStr,
+			String timeSlotStr,String mattToJSON){
+		model.addAttribute("JSON", mattToJSON);
+		model.addAttribute("mattName",name);
+		model.addAttribute("nDays",nDaysStr);
+		model.addAttribute("startDate",nDaysStr);
+		model.addAttribute("endDate",dateEnd);
+		model.addAttribute("startHour",startHourStr);
+		model.addAttribute("endHour",endHourStr);
+		model.addAttribute("timeSlot",timeSlotStr);
+	}*/
+//--------------------------------------------SZE
+
 	@RequestMapping({"/person"})
 	public String person(@RequestParam ("firstName") String firstName,/*@RequestParam ("lastName") String lastName,*/
 			@RequestParam ("email") String email,@RequestParam ("password") String password,Model model) {
@@ -132,7 +221,7 @@ public class MatAppl {
 	public String registry(){
 		return "registry";
 	}
-	@RequestMapping({ "/activate" })
+	@RequestMapping({"/activate"})
 	 public String activate(HttpServletRequest request){
 		String user=request.getParameter("user");
 		String hash=request.getParameter("hash");
