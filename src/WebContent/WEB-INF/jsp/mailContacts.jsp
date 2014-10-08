@@ -144,6 +144,7 @@
 			si.options[i].selected = true;
 		}
 		document.getElementById("sendEmails").submit();
+		document.getElementById("sendE").submit();
 	}
 </script>
 <style type="text/css">
@@ -165,14 +166,15 @@
 			</c:forEach>
 		</select>
 	</div>
-	<div 
+<form id="sendE" action="send" method="post" >	
+<div 
 	style="width: 100px; float: left;">
 	    <!-- <p type="lable" style="color: white;" _____ /> -->
 	    <span id="answer1" style="display: none;">
 	    <p>  _____ </p>
 	    
 	    </span>
-	    
+    
 	    <span id="answer1" style="display: initial;"></span>
 		<input type="button" class="btn" value="Add" onclick="addItems();" />
 		<input type="button" class="btn" value="Add All" onclick="addAll();" />
@@ -180,8 +182,9 @@
 		<input type="button" class="btn" value="Remove All" onclick="removeAll();" /> 
 		<!-- <input type="button" class="btn" value="Move Up" onclick="moveUp();" /> 
 		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
-		<input type="button" class="btn" value="Submit" onclick="frmSubmit();" />
+		<input type="submit" class="btn" value="Submit" onclick="frmSubmit();" />
 	</div>
+	</form>
 	<div style="float: left; width: 270;">
 		<p>Emails to send</p>
 		<select name="sendEmails" id="sendEmails" style="width: 250; height: 200;"

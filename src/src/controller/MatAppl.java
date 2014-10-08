@@ -231,10 +231,25 @@ public class MatAppl {
 	 }
 	@RequestMapping({"/mail"})
 	public String mail(Model model){
-		String [] buf=connector.getContacts(userName, ifesbes1.getProfile(userName).getSnNames());
-		for (int i=0;i<buf.length;i++)
-		System.out.println(buf[i]);
-		model.addAttribute("getmail",buf);
+		String [] buf1 = {connector.GOOGLE};
+/*		Person p = ifesbes1.getProfile(userName);
+		System.out.println(p.toString());
+		String [] buf1= p.getSnNames();*/
+		String [] buf = connector.getContacts(userName, buf1);
+/*		for (int i=0;i<buf.length;i++)
+			System.out.println(buf[i]);
+*/		model.addAttribute("getmail",buf);
 		return "mailContacts";
 	}
+	
+	@RequestMapping({"/send"})
+	public String sendEmail(HttpServletRequest request, Model model){
+		String[] sendEmails = new String[1];
+		sendEmails[0] =	request.getParameter("sendEmails");
+		System.out.println(sendEmails[0]);
+		if(connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE))
+			System.out.println("yes");
+		return homereturn(model);
+	}
+	
 }
