@@ -24,6 +24,7 @@ public class MatAppl {
 	
 	@Autowired
 	IFesBes1 ifesbes1;
+	@Autowired
 	IFrontConnector connector;
 	
 	@RequestMapping({"/"})
@@ -72,7 +73,7 @@ public class MatAppl {
 	@RequestMapping({"/dom"})
 	public String dom (Model model) {
 		model.addAttribute("userName",userName);
-		return "creatMatt";
+		return "createMatt";
 	}
 	@RequestMapping({"/person"})
 	public String person(@RequestParam ("firstName") String firstName,/*@RequestParam ("lastName") String lastName,*/
