@@ -13,14 +13,10 @@
     <title>MyMatt</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
-       <script>
-         function insertTable(){
-           
-            document.getElementById('placetable').innerHTML = tfooter;
-           }
-    </script>
+      
     <script type="text/javascript">
 
 			function show(state){
@@ -32,13 +28,7 @@
 			}
 			
 		</script>
-		  <script type="text/javascript">
-         function url(mattname){
-        
-        StringBuffer str="http://loclahost:8080/myavailabletime/viewMatt?table="+mattname+", username="+${userName};
-        document.getElementById("a").innerHTML = str;
-        }
-    </script>
+		
     <style>
         head {
             width: auto;
@@ -222,7 +212,7 @@
             </form>
             <p style="font-size:0.5em">Synched accounts:</p>
                      
-			<p>Google <input type="checkbox" id="Google" disabled style="border: none; float: right; width: 50px; "></p>
+			<p>Google <input type="checkbox" id="Google" disabled=${google} style="border: none; float: right; width: 50px; "></p>
 			<p>Apple (me) <input type="checkbox" id="Apple" disabled style="border: none; float: right; width: 50px; "></p>
 			<p>Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled  style="border: none; float: right; width: 50px; "></p>
 			<p>Facebook <input type="checkbox" id="Facebook" disabled  style="border: none; float: right; width: 50px; "></p>

@@ -114,16 +114,19 @@ public class MatAppl {
 		model.addAttribute("name",name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
-		model.addAttribute("matt",getMatt());
+		model.addAttribute("matt",ifesbes1.getMattNames(userName));
+		model.addAttribute("google",getMatt());
 		return "home";
 	}
 	
-	private String[] getMatt() {
-		String[] mas=ifesbes1.getMattNames(userName);
+	private String getMatt() {
+	//	String[] mas=ifesbes1.getMattNames(userName);
+		String[] mas=connector.getAuthorizedSocialNames(userName);
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i=0;i<mas.length;i++)
 			list.add(mas[i]);
-		return mas;
+		
+		return "false";
 	}
 	@RequestMapping({"/registry"})
 	public String registry(){
