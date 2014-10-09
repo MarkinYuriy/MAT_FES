@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*"%>
 <%@taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
 <head>
@@ -13,20 +12,59 @@
     <title>MyMatt</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+   
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
-      
-    <script type="text/javascript">
-
-			function show(state){
-
-					document.getElementById('bes2').style.display = state;	
-					var x = document.getElementById('Google');
-					x.disabled= false;
-					
-			}
-			
+   
+    
+<!--     <script>
+    function getXmlHttp(){
+    	  var xmlhttp;
+    	  try {
+    	    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+    	  } catch (e) {
+    	    try {
+    	      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    	    } catch (E) {
+    	      xmlhttp = false;
+    	    }
+    	  }
+    	  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+    	    xmlhttp = new XMLHttpRequest();
+    	  }
+    	  return xmlhttp;
+    	}
+    </script>
+    <script>
+    function vote() {
+    	StringBuffer send1;
+    	var x=document.getElementById("Google").name;
+    	var y=document.getElementById("Google").checked;
+    	var req = getXmlHttp();
+    	req.open("GET", "socialseti"+'?'+x+'='+y, true);
+    	req.send(null);
+    	return true;
+    }
+    </script> -->
+    <script>
+    $(document).ready(function() {
+    	$('#socialseti').click(
+		function show(){
+			var google=document.getElementById("Google").checked;
+			var data ="Google="+encodeURIComponent(google);
+			var x=document.getElementById("Google");
+			$.ajax({
+				url : "socialseti",
+				data : data,
+				type : "GET",
+				complete: function(jXHR, status) {
+					x.checked=response;
+				}
+			});
+		return true;
+		});
+    });
 		</script>
 		
     <style>
@@ -174,7 +212,7 @@
         </div>
         <form  id="form2" >
          <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
-         <p>Existing calendars</p>
+         <p style="font-size:1em">Existing calendars</p>
         <button type="submit" onclick="form2.action='mail'">mail</button>
          </div>
        
@@ -214,20 +252,20 @@
         <div class="right">
             <p style="font-size: 1em ">Account Settings</p>
             <p style="font-size:0.6em">General information:</p>
-            <form style="font-size: 0.6em">
-                Name:<input type="text" name="firstname" value="${name}" disabled style="width: 70%; float: right;"  ><br>
-                Email:<input type="text" name="Email" value="${email}" disabled  style="width: 70%; float: right;"  ><br>
-            </form>
-            <p style="font-size:0.5em">Synched accounts:</p>
+            <form id="socialseti" action="socialseti" style="font-size: 0.6em">
+                <p style="font-size:1em">Name:<input type="text" name="firstname" value="${name}" disabled style="width: 70%; float: right;"  ></p>
+                <p style="font-size:1em">Email:<input type="text" name="Email" value="${email}" disabled  style="width: 70%; float: right;"  ></p>
+            
+          		<p style="font-size:1em">Synched accounts:</p>
                      
-			<p>Google <input type="checkbox" id="Google" disabled=true style="border: none; float: right; width: 50px; "></p>
-			<p>Apple (me) <input type="checkbox" id="Apple" disabled style="border: none; float: right; width: 50px; "></p>
-			<p>Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled  style="border: none; float: right; width: 50px; "></p>
-			<p>Facebook <input type="checkbox" id="Facebook" disabled  style="border: none; float: right; width: 50px; "></p>
-			<p>Twitter <input type="checkbox" id="Twitter" disabled  style="border: none; float: right; width: 50px; "></p>
-
-            <p id="demo" style="text-align: right; font-size: 0.4em"></p>
-          
+				<p style="font-size:1em">Google <input type="checkbox" id="Google" style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple" disabled style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled  style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled  style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Twitter <input type="checkbox" id="Twitter" disabled  style="border: none; float: right; width: 50px; "></p>
+								
+            	<p id="demo" style="text-align: right; font-size: 0.4em"></p>
+          	</form>
 
         </div  >
 
