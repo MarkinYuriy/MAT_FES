@@ -34,6 +34,9 @@ public class MatAppl {
 	Matt newMatt=null;
 	ArrayList<Boolean> newTabList;	
 //--------------------------------------------SZE
+	
+	private Person user;
+	
 	@Autowired
 	IFesBes1 ifesbes1;
 	@Autowired
@@ -47,41 +50,100 @@ public class MatAppl {
 	public String buf() {
 		return "buf";
 	}
-	@RequestMapping({"/accountsetings"})
-	public String accountsetings (Model model) {
-		 String[] data = new String[0];
-	        try {
-	            data = connector.getApplicationData(IFrontConnector.GOOGLE);
-	        } catch (Exception e) {
-	            e.getMessage();
-	        }
-	        String clientID = data[IFrontConnector.INDEX_ID];
-	        StringBuffer scopes = new StringBuffer();
-	        for (int i = IFrontConnector.INDEX_SCOPES; i < data.length; i++) {
-	            scopes.append(data[i]);
-	            scopes.append(" ");
-	        }
-
-	        //Add attributes to read from google_signin.jsp
-	        model.addAttribute("id", clientID);
-	        model.addAttribute("scopes", scopes);
-
-	    return "account_setings";
+//-----------------Account settings
+	@RequestMapping({"/accountsettings"})
+	public String accountsettings (Model model) {
+		 String[] dataGoogle = new String[0];
+		 String[] authorizedSN = null;
+		 String[] choosedSN = null;
+		 HashMap<String, Boolean> authSN = new HashMap<String, Boolean>();
+	//Add Authorize attributes
+	     try {
+	    	 dataGoogle = connector.getApplicationData(IFrontConnector.GOOGLE);
+	     } catch (Exception e) {
+	    	 e.getMessage();
+	     }
+	     String clientIDGoogle = dataGoogle[IFrontConnector.INDEX_ID];
+	     StringBuffer scopesGoogle = new StringBuffer();
+	     for (int i = IFrontConnector.INDEX_SCOPES; i < dataGoogle.length; i++) {
+	    	 scopesGoogle.append(dataGoogle[i]);
+	    	 scopesGoogle.append(" ");
+	     }
+	     model.addAttribute("idGoogle", clientIDGoogle);
+	     model.addAttribute("scopesGoogle", scopesGoogle);
+	//Add Social Networks attributes
+	     try {
+	    	 authorizedSN = connector.getAuthorizedSocialNames(userName);
+	    	 user = ifesbes1.getProfile(userName);
+	     } catch (Exception e) {
+	    	 e.getMessage();
+	     }
+	     choosedSN = user.getSnNames();
+    	 model.addAttribute("GoogleAuth", "disabled");
+    	 model.addAttribute("FacebookAuth", "disabled");
+    	 model.addAttribute("AppleAuth", "disabled");
+    	 model.addAttribute("TwitterAuth", "disabled");
+    	 model.addAttribute("WindowsAuth", "disabled");
+	     for(int i=0; i<authorizedSN.length; i++){
+	    	 model.addAttribute(authorizedSN[i]+"Auth", "");
+	    	 authSN.put(authorizedSN[i], true);	    	 
+	     }
+	     for(int j=0; j<choosedSN.length; j++)
+	    	 if(authSN.get(choosedSN[j]))
+	    		 model.addAttribute(choosedSN[j]+"Ch", "checked");
+	//Add Person attributes
+	     model.addAttribute("username", userName);
+	     model.addAttribute("name", m_name);
+	     model.addAttribute("email", userEmail);
+	     return "account_settings";
 	}
 	@RequestMapping({"/resauto"})
-	 public String login(String code, String access_token, Model model) {
-	  System.out.println("A code: "+code);
-	  System.out.println("A access_token: "+access_token);
-	        if (code!=null) {
-	            try {
-	             connector.authorize(userName, IFrontConnector.GOOGLE, code);
-	            } catch (RuntimeException e) {
-	                model.addAttribute("error", e.getMessage());
-	                return "error_form";
-	            }
-	        }
-	        return homereturn(model);
-	 }
+	 public String resultAuthorization(String code, String access_token, Model model) {
+/*		System.out.println("A code: "+code);
+		System.out.println("A access_token: "+access_token);*/
+		if (code!=null) {
+			try {
+				connector.authorize(userName, IFrontConnector.GOOGLE, code);
+			} catch (RuntimeException e) {
+				model.addAttribute("error", e.getMessage());
+				return "error_form";
+			}
+		}
+		return accountsettings(model);
+	}
+	
+	@RequestMapping({"/savesettings"})
+	public String saveSettings(HttpServletRequest request, Model model) {
+		int resultSave = -1;
+/*		String name = request.getParameter("firstname");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String password1 = request.getParameter("password1");
+*/		String googleCheck = request.getParameter("google_check");
+		String appleCheck = request.getParameter("apple_check");
+		String windowsCheck = request.getParameter("windows_check");
+		String facebookCheck = request.getParameter("facebook_check");
+		String twitterCheck = request.getParameter("twitter_check");
+		ArrayList<String> sN = new ArrayList<String>();
+/*		if(name!=null && !name.equals("")) user.setName(name);
+		if(email!=null && email.contains("@")) user.setEmail(email);
+		if(password!=null && !password.equals("*******") && password.equals(password1))
+			user.setPassword(password);*/
+		if(googleCheck!=null && googleCheck.equals("on")) sN.add(connector.GOOGLE);
+		if(appleCheck!=null && appleCheck.equals("on")) sN.add(connector.APPLE);
+		if(windowsCheck!=null && windowsCheck.equals("on")) sN.add(connector.WINDOWS);
+		if(facebookCheck!=null && facebookCheck.equals("on")) sN.add(connector.FACEBOOK);
+		if(twitterCheck!=null && twitterCheck.equals("on")) sN.add(connector.TWITTER);
+		user.setSnNames(sN.toArray(new String[sN.size()]));
+		try {
+			resultSave = ifesbes1.updateProfile(user);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		System.out.println(resultSave);
+		return homereturn (model);
+	}
+//-------------------Create Matt
 	@RequestMapping({"/dom"})
 	public String dom (Model model) {
 		model.addAttribute("userName",userName);
