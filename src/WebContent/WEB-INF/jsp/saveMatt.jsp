@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Krasnov
   Date: 10/11/14
-  Time: 00:37
+  Time: 00:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,17 +13,17 @@
     <meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <title>Create new</title>
+    <title>Save</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css">
-
     <script type="text/javascript">
         $(function() {
             $( ".datepicker" ).datepicker({ dateFormat: "dd M yy"});
         });
     </script>
+
     <style>
         head {
             width: auto;
@@ -141,18 +141,12 @@
             vertical-align:middle;
         }
 
-
-
-
     </style>
-
-
 
 
 </head>
 <body>
 <div class="header">
-
     <span><a class="logo" href="http://myavailabletime.com/">MyAvailableTime</a></span>
     <span class="topmenu" style="float:right;"> Logout</span>
     <span class="topmenu" style="float:right;"> Account settings</span>
@@ -164,10 +158,77 @@
         <div class="left">
             <p style="font-size: 1em ">Username's Somename Calendar</p>
         </div>
-        <form name="tableForm">
+        <div>
+            <table id="mattTable">
 
-            <div id="placetable"></div>
-        </form>
+            </table>
+            <script>
+                /*this should be removed, used for testing only*/
+                var arr = '[["petya"],["h1","h2","h3","h4","h5"],["9:00","10:00","11:00","12:00"],[[0,1,0,0,1],[0,1,0,1,0],[0,0,1,0,1],[1,1,0,1,0]]]';
+
+                /*instead "arr" we pass string with matt data whatever its name is
+                 file  named "json" is changing its value due to color selection
+                 and should be passed to controller on @RequestMapping*/
+
+                var json = JSON.parse(arr);
+                var json_example = json;
+
+                /*generating a table according to our data*/
+
+                var oldTable = document.getElementById('mattTable'),
+                        newTable = oldTable.cloneNode();
+                var tr = document.createElement('tr');
+                for(var i = 0; i < json_example[1].length; i++){
+                    var th = document.createElement('th');
+                    th.appendChild(document.createTextNode(json_example[1][i]));
+                    tr.appendChild(th);
+                }
+            </script>
+            <script>
+                newTable.appendChild(tr);
+                for(var i = 0; i < json_example[2].length; i++){
+                    var tr = document.createElement('tr');
+                    for(var j = 0; j < json_example[1].length; j++){
+                        var td = document.createElement('td');
+                        var id = "td" + i + j
+                        td.id = id;
+                        td.appendChild(document.createTextNode(json_example[2][i]));
+                        if(json_example[3][i][j]) {
+                            td.style.backgroundColor = "green";
+                            td.style.cursor = "pointer";
+                            td.setAttribute("onClick", "changeColor(id)");
+                            td.style.cursor = "pointer";
+                        }
+                        tr.appendChild(td);
+                    }
+                    newTable.appendChild(tr);
+                }
+                oldTable.parentNode.replaceChild(newTable, oldTable);
+
+                /*this part is changing color of our calendar and affects to "json" data,
+                 this data should be passed to controller, don't know how:)
+                 mayby it should be stringified, have to check it out!
+                 */
+                function changeColor(arg)
+                {
+                    var i = arg.slice(2,3);
+                    var j = arg.slice(3,4);
+
+                    var cell = document.getElementById(arg);
+                    if(cell.style.backgroundColor == "green")
+                    {
+                        cell.style.backgroundColor = "yellow";
+                        json[2][i][j]=0;
+                    }
+                    else if
+                            (cell.style.backgroundColor == "yellow")
+                    {
+                        cell.style.backgroundColor = "green";
+                        json[2][i][j]=1;
+                    }
+                }
+            </script>
+        </div>
     </div>
 
 
@@ -182,9 +243,9 @@
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <form style="font-size: 0.6em">
-                Name:<input id="mattName" type="text" style="width: 70%; float: right;"  ><br>
+                Name:<input type="text" name="firstname" style="width: 70%; float: right;"  ><br>
             </form>
-            <p>Number of days	<select id="nDays"  style="margin-left: 20px; float: right;">
+            <p>Number of days	<select id="days" name="saf" style="margin-left: 20px; float: right;">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -195,9 +256,9 @@
             </select></p>
 
 
-            <p>Starting date <input type="text" class="datepicker" id="startDate" value="select date"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 100px; text-align: right;  "></p>
+            <p>Starting date <input type="text" class="datepicker" id="datepicker" value="select date"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 100px; text-align: right;  "></p>
 
-            <p>Ending date<input type="text" class="datepicker" id="endDate" value="select date" style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 100px; text-align: right; "></p>
+            <p>Ending date<input type="text" class="datepicker" id="datepickers" value="select date" style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 100px; text-align: right; "></p>
 
 
 
@@ -253,60 +314,26 @@
                 <option value="23">23:00</option>
                 <option value="24">24:00</option>
             </select> </p>
-            <p>Time slot 	<select id="timeSlot" name="saf" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
+            <p>Time slot 	<select id="timeslot" name="saf" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
                 <option value="4">15 min</option>
                 <option value="2">30 min</option>
                 <option value="1">1 hour</option>
 
             </select> </p>
-            <div>
 
-                <!-- <div id="shareembedemail"><p>Share this calendar</p></div>
-                 <div id="shareembedemail"><a href="https://plus.google.com/share?url=http://myavailabletime.com" onclick="javascript:window.open(this.href,
-   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                     <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a></div>
-                 <div id="shareembedemail">
-                     <a href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.14:8181/Booksclient" onclick="javascript:window.open(this.href,
-   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                         <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="16" height="16">
-                     </a>
-                 </div>
-             </div>
+            <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
+                <form action="saveMatt">
+                    <button id="save">Save</button>
+                </form>
+            </div>
 
-             <form style="font-size: 0.5em">
-                 <input type="checkbox" id="checkbox1" name="passreqstatus" value="value" onclick="if(this.checked){
- document.getElementById('textarea1').removeAttribute('disabled');document.getElementById('textarea1').focus()}
- else {
- document.getElementById('textarea1').setAttribute('disabled');
- }"/>
-
-                 This calendar requires a password<br>
-             </form>
-             <form >
-                 <input type="text" id="textarea1" name="firstname" size="40" disabled ><br>
-             </form>-->
-                <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                    <form action="createMatt">
-                        <button id="createMatt"  >Create</button>
-                    </form>
-                </div>
+            <p id="demo" style="text-align: right; font-size: 0.4em"></p>
 
 
+        </div  >
 
-
-                <p id="demo" style="text-align: right; font-size: 0.4em"></p>
-
-
-
-            </div  >
-
-
-
-
-
-
-        </div >
     </div >
+</div >
 
 </body>
 </html>

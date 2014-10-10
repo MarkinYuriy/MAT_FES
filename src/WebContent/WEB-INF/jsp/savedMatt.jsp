@@ -2,149 +2,150 @@
   Created by IntelliJ IDEA.
   User: Krasnov
   Date: 10/11/14
-  Time: 00:37
+  Time: 00:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <title>Create new</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
+<meta charset="utf-8">
+<meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title>Share</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
 
-    <script type="text/javascript">
-        $(function() {
-            $( ".datepicker" ).datepicker({ dateFormat: "dd M yy"});
-        });
-    </script>
-    <style>
-        head {
-            width: auto;
-        }
-        body {
-            width: auto;
-            background:#f0f0f0;
-            margin-left: auto;
-            margin-right: auto;
-        }
+<script type="text/javascript">
+    $(function() {
+        $( ".datepicker" ).datepicker({ dateFormat: "dd M yy"});
+    });
+</script>
+<style>
+    head {
+        width: auto;
+    }
+    body {
+        width: auto;
+        background:#f0f0f0;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        .header {
-            font-family: Arial, Helvetica, sans-serif;
-            background: black;
-            width: auto;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .topmenu {
-            display: inline-block;
-            text-align:;
-            color: white;
-            padding: 10px 19px 10px 0px;
-            font-weight:100;
-            font-size: 0.9em}
-        .logo {
-            display: inline-block;
-            text-align:left;
-            color: white;
-            padding: 10px 0px 7px 19px;
-        }
-        a.logo:link{
-            text-decoration:none;
-            color:#ffffff;
-        }
-        a.logo:hover{
-            text-decoration:none;
-            color:#e9e9e9;
-        }
-        a.logo:active{
-            text-decoration:none;
-            color:#e0e0e0;
-        }
-        a.logo:visited{
-            text-decoration:none;
-            color:#ffffff;
-        }
-        p {
-            font-size: 0.6em;
-        }
-
-
-        #wrapper {
-            width: 100%;
-            overflow: hidden; /* will contain if #first is longer than #second */
-        }
-        #first {
-            width: 65%;
-            float:left; /* add this */
-
-        }
-        #second {
-            overflow: hidden; /* if you don't want #second to wrap below #first */
-            background: #d6f000;
-        }
-        .left {
-            text-align: left;
-            padding:0px 20px 0 20px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.6em;
-            color: #888888;
-
-        }
-        .right {
-            text-align: left;
-            padding:0px 20px 0 20px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 1.6em;
-            color: #888888;
-
-        }
-        #shareembedemail {
-            display: inline-block;
-            text-align: center;
-        }
+    .header {
+        font-family: Arial, Helvetica, sans-serif;
+        background: black;
+        width: auto;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .topmenu {
+        display: inline-block;
+        text-align:;
+        color: white;
+        padding: 10px 19px 10px 0px;
+        font-weight:100;
+        font-size: 0.9em}
+    .logo {
+        display: inline-block;
+        text-align:left;
+        color: white;
+        padding: 10px 0px 7px 19px;
+    }
+    a.logo:link{
+        text-decoration:none;
+        color:#ffffff;
+    }
+    a.logo:hover{
+        text-decoration:none;
+        color:#e9e9e9;
+    }
+    a.logo:active{
+        text-decoration:none;
+        color:#e0e0e0;
+    }
+    a.logo:visited{
+        text-decoration:none;
+        color:#ffffff;
+    }
+    p {
+        font-size: 0.6em;
+    }
 
 
-        button {
-            background:none!important;
-            border:none;
-            padding:0!important;
-            /*border is optional*/
-            cursor: pointer;
-            font-size: 1em;
-            color: white;
-        }
-        #table1
-        {
-            border:solid 1px;
-            border-collapse:collapse;
-        }
+    #wrapper {
+        width: 100%;
+        overflow: hidden; /* will contain if #first is longer than #second */
+    }
+    #first {
+        width: 65%;
+        float:left; /* add this */
 
-        #table1 th
-        {
-            border:solid 1px;
-            border-collapse:collapse;
-        }
+    }
+    #second {
+        overflow: hidden; /* if you don't want #second to wrap below #first */
+        background: #d6f000;
+    }
+    .left {
+        text-align: left;
+        padding:0px 20px 0 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.6em;
+        color: #888888;
 
-        #table1 td
-        {
-            border:solid 1px;
-            vertical-align:middle;
-        }
+    }
+    .right {
+        text-align: left;
+        padding:0px 20px 0 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.6em;
+        color: #888888;
 
+    }
+    #shareembedemail {
+        display: inline-block;
+        text-align: center;
+    }
+
+
+    button {
+        background:none!important;
+        border:none;
+        padding:0!important;
+        /*border is optional*/
+        cursor: pointer;
+        font-size: 1em;
+        color: white;
+    }
+    #table1
+    {
+        border:solid 1px;
+        border-collapse:collapse;
+    }
+
+    #table1 th
+    {
+        border:solid 1px;
+        border-collapse:collapse;
+    }
+
+    #table1 td
+    {
+        border:solid 1px;
+        vertical-align:middle;
+    }
 
 
 
-    </style>
+
+</style>
+
+
 
 
 
@@ -164,17 +165,8 @@
         <div class="left">
             <p style="font-size: 1em ">Username's Somename Calendar</p>
         </div>
-        <form name="tableForm">
 
-            <div id="placetable"></div>
-        </form>
     </div>
-
-
-
-
-
-
 
 
     <div id="second">
@@ -261,52 +253,43 @@
             </select> </p>
             <div>
 
-                <!-- <div id="shareembedemail"><p>Share this calendar</p></div>
-                 <div id="shareembedemail"><a href="https://plus.google.com/share?url=http://myavailabletime.com" onclick="javascript:window.open(this.href,
+                <div id="shareembedemail"><p>Share this calendar</p></div>
+                <div id="shareembedemail"><a href="https://plus.google.com/share?url=http://myavailabletime.com" onclick="javascript:window.open(this.href,
    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                     <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a></div>
-                 <div id="shareembedemail">
-                     <a href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.14:8181/Booksclient" onclick="javascript:window.open(this.href,
+                    <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a></div>
+                <div id="shareembedemail">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.14:8181/Booksclient" onclick="javascript:window.open(this.href,
    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                         <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="16" height="16">
-                     </a>
-                 </div>
-             </div>
+                        <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="16" height="16">
+                    </a>
+                </div>
+            </div>
 
-             <form style="font-size: 0.5em">
-                 <input type="checkbox" id="checkbox1" name="passreqstatus" value="value" onclick="if(this.checked){
+            <form style="font-size: 0.5em">
+                <input type="checkbox" id="checkbox1" name="passreqstatus" value="value" onclick="if(this.checked){
  document.getElementById('textarea1').removeAttribute('disabled');document.getElementById('textarea1').focus()}
  else {
  document.getElementById('textarea1').setAttribute('disabled');
  }"/>
 
-                 This calendar requires a password<br>
-             </form>
-             <form >
-                 <input type="text" id="textarea1" name="firstname" size="40" disabled ><br>
-             </form>-->
-                <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                    <form action="createMatt">
-                        <button id="createMatt"  >Create</button>
-                    </form>
-                </div>
+                This calendar requires a password<br>
+            </form>
+            <form >
+                <input type="text" id="textarea1" name="firstname" size="40" disabled ><br>
+            </form>
+            <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
+                <form action="home">
+                    <button id="home"  >Home</button>
+                </form>
+            </div>
 
 
 
-
-                <p id="demo" style="text-align: right; font-size: 0.4em"></p>
-
+        </div  >
 
 
-            </div  >
-
-
-
-
-
-
-        </div >
     </div >
+</div >
 
 </body>
 </html>
