@@ -199,7 +199,7 @@ public class MatAppl {
 		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
 		newTablJSON=request.getParameter("newTabl");
-		newTabList=Matt.fromBrowser2Matt(newTablJSON);
+		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(oldMatt,newMatt,userName);
