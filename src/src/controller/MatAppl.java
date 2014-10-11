@@ -162,11 +162,11 @@ public class MatAppl {
 		String mattToJSON=null;
 		String name = request.getParameter("mattName");
 		String nDaysStr=request.getParameter("nDays");
-		int nDays = Integer.parseInt(request.getParameter(nDaysStr));//number of days
+		int nDays = Integer.parseInt(nDaysStr);//number of days
 		String dateStr = request.getParameter("startDate");
 		Date startDate = null;
 		try {
-			startDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+			startDate = new SimpleDateFormat("dd MMMM yyyy").parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -180,7 +180,7 @@ public class MatAppl {
 		String password = null;
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
-		oldMatt=ifesbes1.createMatt(data, userName);
+		oldMatt=ifesbes1.createMatt(data, userEmail);
 		mattToJSON = oldMatt.matt2browser();  
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
