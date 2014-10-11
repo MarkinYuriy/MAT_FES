@@ -80,7 +80,7 @@ public class test implements IFesBes1, IBackConnector {
 
 	@Override
 	public List<Boolean> getSlots(String username, String[] snNames,
-			MattData interval) throws IOException {
+			MattData interval) {
 		// TODO Auto-generated method stub
 		return null;
 	}
