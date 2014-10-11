@@ -74,8 +74,6 @@
         p {
             font-size: 0.6em;
         }
-
-
         #wrapper {
             width: 100%;
             overflow: hidden; /* will contain if #first is longer than #second */
@@ -83,7 +81,6 @@
         #first {
             width: 65%;
             float:left; /* add this */
-
         }
         #second {
             overflow: hidden; /* if you don't want #second to wrap below #first */
@@ -95,7 +92,6 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.6em;
             color: #888888;
-
         }
         .right {
             text-align: left;
@@ -103,15 +99,12 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 1.6em;
             color: #888888;
-
         }
         #shareembedemail {
             display: inline-block;
             text-align: center;
         }
-
-
-        button {
+       button {
             background:none!important;
             border:none;
             padding:0!important;
