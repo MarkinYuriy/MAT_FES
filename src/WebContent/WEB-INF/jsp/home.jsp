@@ -192,7 +192,7 @@ function whichElement() {
 <div id="wrapper">
     <div id="first">
         <div class="left">
-            <p style="font-size: 1em ">${userName} Distribution Calendars</p>
+            <p style="font-size: 1em ">${name}'s Distribution Calendars</p>
         </div>
         <form  id="form2" >
          <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>

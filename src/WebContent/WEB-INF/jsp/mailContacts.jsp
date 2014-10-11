@@ -143,8 +143,12 @@
 		for (i = 0; i < si.options.length; i++) {
 			si.options[i].selected = true;
 		}
-		document.getElementById("sendEmails").submit();
-		document.getElementById("sendE").submit();
+//		Model model;
+//		model.addAttribute("1",si);
+//		var data = "emailnames="+si;
+//		$.post('seti', { data: data });
+//		document.getElementById("sendEmails").submit();
+//		document.getElementById("sendE").submit();
 	}
 </script>
 <style type="text/css">
@@ -182,7 +186,7 @@
 		<input type="button" class="btn" value="Remove All" onclick="removeAll();" /> 
 		<!-- <input type="button" class="btn" value="Move Up" onclick="moveUp();" /> 
 		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
-		<input type="submit" class="btn" value="Submit" onclick="frmSubmit();" />
+		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
 	</form>
 	<div style="float: left; width: 270;">
