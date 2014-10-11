@@ -222,8 +222,7 @@
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
                 	<button id="createMatt" type="submit"  >Create</button>
             	</div>
-               	<!--  <p id="demo" style="text-align: right; font-size: 0.4em"></p> -->
-        	</div>
+         	</div>
 		</form>
     	</div>
 	</div>

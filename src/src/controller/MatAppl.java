@@ -58,7 +58,7 @@ public class MatAppl {
 	}
 //-----------------Account settings
 	@RequestMapping({"/accountsettings"})
-	public String accountsettings (Model model) {
+	public String accountSettings (Model model) {
 		 String[] dataGoogle = new String[0];
 		 String[] authorizedSN = null;
 		 String[] choosedSN = null;
@@ -95,7 +95,7 @@ public class MatAppl {
 	    	 authSN.put(authorizedSN[i], true);	    	 
 	     }
 	     for(int j=0; j<choosedSN.length; j++)
-	    	 if(authSN.get(choosedSN[j]))
+	    	 if(authSN.get(choosedSN[j])!=null && authSN.get(choosedSN[j]))
 	    		 model.addAttribute(choosedSN[j]+"Ch", "checked");
 	//Add Person attributes
 	     model.addAttribute("username", userName);
@@ -115,7 +115,7 @@ public class MatAppl {
 				return "error_form";
 			}
 		}
-		return accountsettings(model);
+		return accountSettings(model);
 	}
 	
 	@RequestMapping({"/savesettings"})
