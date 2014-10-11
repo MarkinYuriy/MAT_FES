@@ -48,12 +48,26 @@
     }
     </script> -->
     <script>
+function whichElement() {
+    var targ;
+    var e = window.event;
+    if (e.target) {
+        targ=e.target;
+    }    
+	return targ.id;
+	}
+	</script>
+    <script>
     $(document).ready(function() {
     	$('#socialseti').click(
 		function show(){
-			var google=document.getElementById("Google").checked;
+			var id=whichElement();
+			var google=document.getElementById(id).checked;
 			var data ="Google="+encodeURIComponent(google);
-			var x=document.getElementById("Google");
+			var x=document.getElementById(id);
+		//	var google=document.getElementById("Google").checked;
+		//	var data ="Google="+encodeURIComponent(google);
+		//	var x=document.getElementById("Google");
 			$.ajax({
 				url : "socialseti",
 				data : data,
