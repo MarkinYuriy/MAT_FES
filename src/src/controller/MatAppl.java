@@ -1,9 +1,13 @@
 package controller;
 
 import java.text.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import mat.IFesBes1;
 import mat.IFrontConnector;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping({"/"})
@@ -26,8 +31,9 @@ public class MatAppl {
 	String m_name;
 	String userName;
 	String userEmail;
-//--------------------------------------------SZS
-	mat.MattData data;
+	
+//--------------------------------------------SZB
+	//mat.MattData data;// should be or not?
 	String mattName=null;
 	String newTablJSON=null;
 	Matt oldMatt=null;
@@ -150,7 +156,7 @@ public class MatAppl {
 		return "createMatt";
 	}
 //--------------------------------------------SZS
-/*	@RequestMapping({"/createMatt"})
+	@RequestMapping({"/createMatt"})
 	public String createMattData(HttpServletRequest request, Model model){
 	//----for creating MATT from the very beginning----
 		String mattToJSON=null;
@@ -175,7 +181,7 @@ public class MatAppl {
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
 		oldMatt=ifesbes1.createMatt(data, userName);
-		mattToJSON = oldMatt.mattToJson();  
+		mattToJSON = oldMatt.matt2browser();  
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
 	}
@@ -190,10 +196,9 @@ public class MatAppl {
 		String endHourStr=request.getParameter("endHour");
 		String timeSlotStr=request.getParameter("timeSlot");
 	 
-		//----for saving new MATT to DataBase after user correction----
+		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
 		newTablJSON=request.getParameter("newTabl");
-		//newTablJSON.replaceAll("[]{}",",");//needs in special cases
 		newTabList=Matt.fromBrowser2Matt(newTablJSON);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
@@ -202,7 +207,7 @@ public class MatAppl {
 		return "savedMatt";
     }
 	   
-	 //----for viewing sharing MATT from URL----
+	//----for viewing sharing MATT from URL----
 	@RequestMapping({"/viewMatt"})
 	public String viewMatt(HttpServletRequest request,Model model){
 		String userName4Matt=request.getParameter("username");
@@ -225,7 +230,7 @@ public class MatAppl {
 		model.addAttribute("startHour",startHourStr);
 		model.addAttribute("endHour",endHourStr);
 		model.addAttribute("timeSlot",timeSlotStr);
-	}*/
+	}
 //--------------------------------------------SZE
 
 	@RequestMapping({"/person"})
