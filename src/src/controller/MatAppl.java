@@ -321,9 +321,10 @@ public class MatAppl {
 		return homereturn(model);
 	}
 	@RequestMapping(value = "socialseti", method = RequestMethod.GET)
-	public @ResponseBody String processAJAXRequest(@RequestParam(value = "Google", required = false) String google){
-		System.out.println(google);
-		String response=google;
+	public @ResponseBody String processAJAXRequest(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
+		System.out.println(seti);
+		System.out.println(value);
+		String response=value;
 		return response;
 	}
 			

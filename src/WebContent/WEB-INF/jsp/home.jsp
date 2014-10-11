@@ -17,36 +17,6 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
    
-    
-<!--     <script>
-    function getXmlHttp(){
-    	  var xmlhttp;
-    	  try {
-    	    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-    	  } catch (e) {
-    	    try {
-    	      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    	    } catch (E) {
-    	      xmlhttp = false;
-    	    }
-    	  }
-    	  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
-    	    xmlhttp = new XMLHttpRequest();
-    	  }
-    	  return xmlhttp;
-    	}
-    </script>
-    <script>
-    function vote() {
-    	StringBuffer send1;
-    	var x=document.getElementById("Google").name;
-    	var y=document.getElementById("Google").checked;
-    	var req = getXmlHttp();
-    	req.open("GET", "socialseti"+'?'+x+'='+y, true);
-    	req.send(null);
-    	return true;
-    }
-    </script> -->
     <script>
 function whichElement() {
     var targ;
@@ -63,7 +33,7 @@ function whichElement() {
 		function show(){
 			var id=whichElement();
 			var google=document.getElementById(id).checked;
-			var data ="Google="+encodeURIComponent(google);
+			var data ="seti="+encodeURIComponent(id)+"&value="+encodeURIComponent(google);
 			var x=document.getElementById(id);
 		//	var google=document.getElementById("Google").checked;
 		//	var data ="Google="+encodeURIComponent(google);
@@ -72,7 +42,7 @@ function whichElement() {
 				url : "socialseti",
 				data : data,
 				type : "GET",
-				complete: function(jXHR, status) {
+				success : function(jXHR, status) {
 					x.checked=response;
 				}
 			});
@@ -231,7 +201,7 @@ function whichElement() {
          </div>
        
         </form>
-        <form id="tableForm" name="tableForm">
+        <form id="tableForm" name="tableForm" action='mail'>
 
             <div id="placetable">
                      
@@ -247,7 +217,7 @@ function whichElement() {
    <tr>
 		<td><img src='<d:url value='/resurs/glas.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
-		<td><img class="close" src='<d:url value='/resurs/soed.jpg'/>' onclick="tableForm.action='mail'" width='30' height='30' ></td>
+		<td><img type="submit" class="close" src='<d:url value='/resurs/soed.jpg'/>' width='30' height='30' ></td>
 		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>
@@ -273,10 +243,10 @@ function whichElement() {
           		<p style="font-size:1em">Synched accounts:</p>
                      
 				<p style="font-size:1em">Google <input type="checkbox" id="Google" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple" disabled style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled  style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled  style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Twitter <input type="checkbox" id="Twitter" disabled  style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple" style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Twitter <input type="checkbox" id="Twitter" style="border: none; float: right; width: 50px; "></p>
 								
             	<p id="demo" style="text-align: right; font-size: 0.4em"></p>
           	</form>
