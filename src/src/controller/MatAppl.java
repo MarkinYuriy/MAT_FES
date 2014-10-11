@@ -199,7 +199,7 @@ public class MatAppl {
 		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
 		newTablJSON=request.getParameter("newTabl");
-		newTabList=Matt.fromBrowser2Matt(newTablJSON);
+		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(oldMatt,newMatt,userName);
@@ -321,9 +321,10 @@ public class MatAppl {
 		return homereturn(model);
 	}
 	@RequestMapping(value = "socialseti", method = RequestMethod.GET)
-	public @ResponseBody String processAJAXRequest(@RequestParam(value = "Google", required = false) String google){
-		System.out.println(google);
-		String response=google;
+	public @ResponseBody String processAJAXRequest(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
+		System.out.println(seti);
+		System.out.println(value);
+		String response=value;
 		return response;
 	}
 			
