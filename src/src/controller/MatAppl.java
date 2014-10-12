@@ -225,7 +225,7 @@ public class MatAppl {
 		model.addAttribute("JSON", mattToJSON);
 		model.addAttribute("mattName",name);
 		model.addAttribute("nDays",nDaysStr);
-		model.addAttribute("startDate",nDaysStr);
+		model.addAttribute("startDate",dateStr);
 		model.addAttribute("endDate",dateEnd);
 		model.addAttribute("startHour",startHourStr);
 		model.addAttribute("endHour",endHourStr);
