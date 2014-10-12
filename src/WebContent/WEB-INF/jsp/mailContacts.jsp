@@ -140,15 +140,20 @@
 
 	function frmSubmit() {
 		var si = document.getElementById("sendEmails");
-		for (i = 0; i < si.options.length; i++) {
-			si.options[i].selected = true;
-		}
-//		Model model;
-//		model.addAttribute("1",si);
-//		var data = "emailnames="+si;
-//		$.post('seti', { data: data });
+//		for (i = 0; i < si.options.length; i++) {
+//			si.options[i].selected = true;
+//		}
+		
 //		document.getElementById("sendEmails").submit();
 //		document.getElementById("sendE").submit();
+	//	var si = document.getElementById("sendEmails");
+	    var txt = "";
+	    var i;
+	    for (i = 0; i < si.length; i++) {
+	        txt = txt + si.options[i].text+';';
+	    }
+	    document.getElementById("hiddenemail").value = txt;
+	    return true;
 	}
 </script>
 <style type="text/css">
@@ -188,6 +193,7 @@
 		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
 		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
+	<input id="hiddenemail" type="hidden" name="hiddenemail" />
 	</form>
 	<div style="float: left; width: 270;">
 		<p>Emails to send</p>

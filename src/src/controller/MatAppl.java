@@ -309,14 +309,14 @@ public class MatAppl {
 	}
 	
 	@RequestMapping({"/send"})
-	public String sendEmail(HttpServletRequest request, Model model,List<String> emailnames){
-	//	String sendEmails = request.getParameter("sendEmails");
-	//	sendEmails[0] =	request.getParameter("sendEmails");
-	//	System.out.println(sendEmails);
-		System.out.println(emailnames.toString());
-		System.out.println(model.containsAttribute("1"));
-		//if(connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE))
-		//	System.out.println("yes");
+	public String sendEmail(@RequestParam ("hiddenemail") String hiddenemail,Model model){
+	String[] sendEmails = hiddenemail.split(";");
+//		for (int i=0;i<sendEmails.length;i++){
+//			System.out.println(i);
+//			System.out.println(sendEmails[i]);
+//		}
+		if(connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE))
+			System.out.println("yes");
 		return homereturn(model);
 	}
 	@RequestMapping(value = "socialseti", method = RequestMethod.GET)
