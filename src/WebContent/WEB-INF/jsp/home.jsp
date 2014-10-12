@@ -192,7 +192,7 @@ function whichElement() {
 <div id="wrapper">
     <div id="first">
         <div class="left">
-            <p style="font-size: 1em ">${userName} Distribution Calendars</p>
+            <p style="font-size: 1em ">${name}'s Distribution Calendars</p>
         </div>
         <form  id="form2" >
          <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
@@ -201,7 +201,7 @@ function whichElement() {
          </div>
        
         </form>
-        <form id="tableForm" name="tableForm" action='mail'>
+        <form id="tableForm" name="tableForm" >
 
             <div id="placetable">
                      
@@ -215,9 +215,9 @@ function whichElement() {
    <td colspan='8'><a href="http://localhost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}</a></td>
    </tr>
    <tr>
-		<td><img src='<d:url value='/resurs/glas.jpg'/>' width='30' height='30'></td>
+		<td><input type="image" src='<d:url value='/resurs/glas.jpg'/>' onclick="tableForm.action='buf'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
-		<td><img type="submit" class="close" src='<d:url value='/resurs/soed.jpg'/>' width='30' height='30' ></td>
+		<td><input type="image" src='<d:url value='/resurs/soed.jpg'/>' onclick="tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>

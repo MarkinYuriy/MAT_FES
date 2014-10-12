@@ -1,9 +1,6 @@
 package controller;
 
 import java.text.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -270,7 +267,7 @@ public class MatAppl {
 		userName=pers.getEmail();
 		userEmail=pers.getEmail();
 		m_name=pers.getName();
-		model.addAttribute("name",name);
+		model.addAttribute("name",m_name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		model.addAttribute("matt",ifesbes1.getMattNames(userName));
@@ -312,10 +309,12 @@ public class MatAppl {
 	}
 	
 	@RequestMapping({"/send"})
-	public String sendEmail(HttpServletRequest request, Model model){
-		String[] sendEmails = new String[1];
-		sendEmails[0] =	request.getParameter("sendEmails");
-		System.out.println(sendEmails[0]);
+	public String sendEmail(@RequestParam ("hiddenemail") String hiddenemail,Model model){
+	String[] sendEmails = hiddenemail.split(";");
+//		for (int i=0;i<sendEmails.length;i++){
+//			System.out.println(i);
+//			System.out.println(sendEmails[i]);
+//		}
 		if(connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE))
 			System.out.println("yes");
 		return homereturn(model);
