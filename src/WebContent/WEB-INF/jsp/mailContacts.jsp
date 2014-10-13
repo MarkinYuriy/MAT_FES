@@ -193,8 +193,8 @@
 		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
 		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
-	<input id="hiddenemail" type="hidden" name="hiddenemail" />
-	</form>
+	<input type="hidden" id="hiddenemail" name="hiddenemail" />
+    <input type="hidden" id="table" name="table" value="${table}">	</form>
 	<div style="float: left; width: 270;">
 		<p>Emails to send</p>
 		<select name="sendEmails" id="sendEmails" style="width: 250; height: 200;"
