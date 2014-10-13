@@ -177,7 +177,7 @@ public class MatAppl {
 		String password = null;
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
-		oldMatt=ifesbes1.createMatt(data, userEmail);
+		oldMatt=ifesbes1.createMatt(data, userEmail);//!!!for now using userEmail,but in the specification userName!!!
 		mattToJSON = oldMatt.matt2browser();  
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
@@ -199,7 +199,7 @@ public class MatAppl {
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(oldMatt,newMatt,userEmail);
+		ifesbes1.saveMatt(oldMatt,newMatt,userEmail);//!!!for now using userEmail,but in the specification userName!!!
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
 		return "savedMatt";
     }
