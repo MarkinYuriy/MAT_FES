@@ -60,8 +60,8 @@ function myLoad() {
    }
    var chek=${SNchek};
  //var chek = new Array("Apple", "Facebook", "Twitter", "Windows");
-    for (i=0;i<disab.length;i++){
-    var y = document.getElementById(disab[i]);
+    for (i=0;i<chek.length;i++){
+    var y = document.getElementById(chek[i]);
     y.checked= true;
     }
 }
@@ -212,37 +212,34 @@ function myLoad() {
         <form  id="form2" >
          <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
          <p style="font-size:1em">Existing calendars</p>
-         <p> ${SNdisabl} </p>
-         <p id="demo"></p>
+         
         <button type="submit" onclick="form2.action='mail'">mail</button>
          </div>
        
         </form>
         <form id="tableForm" name="tableForm" >
-
+	<input type="hidden" id="tablename" name="tablename">
             <div id="placetable">
                      
    <d:forEach items="${matt}" var="item" >
    <table width='80%' border='1'>
-
    <tr>
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a href="http://localhost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}, username=${userName}</a></td>
+   <td colspan='8'><a href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
    </tr>
    <tr>
-		<td><input type="image" src='<d:url value='/resurs/glas.jpg'/>' onclick="tableForm.action='buf'" width='30' height='30'></td>
+		<td><input id="${item}" type="image" src='<d:url value='/resurs/glas.jpg'/>' onclick="tablename.value=this.id, tableForm.action='buf'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input type="image" src='<d:url value='/resurs/soed.jpg'/>' onclick="tableForm.action='mail'" width='30' height='30' ></td>
+		<td><input id="${item}" type="image" src='<d:url value='/resurs/soed.jpg'/>' onclick="tablename.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/chel.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/mus.jpg'/>' width='30' height='30'></td>
    </tr>
- 
-  </table>
+   </table>
   </d:forEach>
             </div>
             

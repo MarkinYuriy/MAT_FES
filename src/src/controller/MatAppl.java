@@ -50,7 +50,8 @@ public class MatAppl {
 		return "login";
 	}
 	@RequestMapping({"/buf"})
-	public String buf() {
+	public String buf(@RequestParam ("tablename") String firstName,Model model) {
+		  model.addAttribute("buf", firstName);
 		return "buf";
 	}
 //-----------------Account settings
@@ -277,7 +278,7 @@ public class MatAppl {
 		return "home";
 	}
 	
-	private Object getSocial() {
+	private String getSocial() {
 		String []mas=user.getSnNames();
 //		String[] mas={"Apple","Facebook","Twitter","Windows"};
 		StringBuffer txt = new StringBuffer();
@@ -319,26 +320,22 @@ public class MatAppl {
 	   return "login";
 	 }
 	@RequestMapping({"/mail"})
-	public String mail(Model model){
-		String [] buf1 = {connector.GOOGLE};
-/*		Person p = ifesbes1.getProfile(userName);
-		System.out.println(p.toString());
-		String [] buf1= p.getSnNames();*/
-		String [] buf = connector.getContacts(userName, buf1);
-/*		for (int i=0;i<buf.length;i++)
-			System.out.println(buf[i]);
-*/		model.addAttribute("getmail",buf);
+	public String mail(@RequestParam ("tablename") String tablename,Model model){
+		String [] buf = connector.getContacts(userName, user.getSnNames());
+		model.addAttribute("getmail",buf);
+		model.addAttribute("tablename",tablename);
 		return "mailContacts";
 	}
 	
 	@RequestMapping({"/send"})
-	public String sendEmail(@RequestParam ("hiddenemail") String hiddenemail,Model model){
+	public String sendEmail(@RequestParam ("tablename") String tablename,@RequestParam ("hiddenemail") String hiddenemail,Model model){
 	String[] sendEmails = hiddenemail.split(";");
 //		for (int i=0;i<sendEmails.length;i++){
 //			System.out.println(i);
 //			System.out.println(sendEmails[i]);
 //		}
-		connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE);
+	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+tablename+"&username="+userName;
+	connector.shareByMail(send, sendEmails, userName, connector.GOOGLE);
 		
 		return homereturn(model);
 	}
