@@ -199,7 +199,7 @@ public class MatAppl {
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(oldMatt,newMatt,userName);
+		ifesbes1.saveMatt(oldMatt,newMatt,userEmail);
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
 		return "savedMatt";
     }
