@@ -1,9 +1,6 @@
 package controller;
 
 import java.text.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +50,8 @@ public class MatAppl {
 		return "login";
 	}
 	@RequestMapping({"/buf"})
-	public String buf() {
+	public String buf(@RequestParam ("tablename") String firstName,Model model) {
+		  model.addAttribute("buf", firstName);
 		return "buf";
 	}
 //-----------------Account settings
@@ -214,7 +212,7 @@ System.out.println(newTablJSON);
 		newMatt = new Matt();
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(oldMatt,newMatt,userName);
+		ifesbes1.saveMatt(oldMatt,newMatt,userEmail);//!!!for now using userEmail,but in the specification userName!!!
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
 		return "savedMatt";
     }
@@ -264,7 +262,8 @@ System.out.println(newTablJSON);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		model.addAttribute("matt",ifesbes1.getMattNames(userName));
-		//model.addAttribute("google",getMatt());
+		model.addAttribute("SNdisabl",getAuthorizedSocial());
+		model.addAttribute("SNchek",getSocial());
 		return "home";	
 	}
 	@RequestMapping({"/home"})
@@ -280,26 +279,48 @@ System.out.println(newTablJSON);
 			return "login";
 		}
 	//	m_name=pers.getFirstName()+" "+pers.getLastName();
-		Person pers=ifesbes1.getProfile(name);
-		userName=pers.getEmail();
-		userEmail=pers.getEmail();
-		m_name=pers.getName();
-		model.addAttribute("name",name);
+		user=ifesbes1.getProfile(name);
+		userName=user.getEmail();
+		userEmail=user.getEmail();
+		m_name=user.getName();
+		model.addAttribute("name",m_name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		model.addAttribute("matt",ifesbes1.getMattNames(userName));
-		//model.addAttribute("google",getMatt());
+		model.addAttribute("SNdisabl",getAuthorizedSocial());
+		model.addAttribute("SNchek",getSocial());
 		return "home";
 	}
 	
-	private String getMatt() {
-	//	String[] mas=ifesbes1.getMattNames(userName);
-		String[] mas=connector.getAuthorizedSocialNames(userName);
-		ArrayList<String> list = new ArrayList<String>();
-		for (int i=0;i<mas.length;i++)
-			list.add(mas[i]);
-		
-		return "false";
+	private String getSocial() {
+		String []mas=user.getSnNames();
+//		String[] mas={"Apple","Facebook","Twitter","Windows"};
+		StringBuffer txt = new StringBuffer();
+		txt.append('[');
+		for (int i = 0; i < mas.length; i++) {
+			txt.append('"');
+			txt.append(mas[i]);
+			txt.append('"');
+	        if (i!=mas.length-1) txt.append(',');
+	    }
+		txt.append(']');
+			
+		return txt.toString();
+	}
+	private String  getAuthorizedSocial() {
+		String []mas=connector.getAuthorizedSocialNames(userName);
+//		String[] mas={"Apple","Facebook","Twitter","Windows"};
+		StringBuffer txt = new StringBuffer();
+		txt.append('[');
+		for (int i = 0; i < mas.length; i++) {
+			txt.append('"');
+			txt.append(mas[i]);
+			txt.append('"');
+	        if (i!=mas.length-1) txt.append(',');
+	    }
+		txt.append(']');
+			
+		return txt.toString();
 	}
 	@RequestMapping({"/registry"})
 	public String registry(){
@@ -313,31 +334,49 @@ System.out.println(newTablJSON);
 	   return "login";
 	 }
 	@RequestMapping({"/mail"})
-	public String mail(Model model){
-		String [] buf1 = {connector.GOOGLE};
-/*		Person p = ifesbes1.getProfile(userName);
-		System.out.println(p.toString());
-		String [] buf1= p.getSnNames();*/
-		String [] buf = connector.getContacts(userName, buf1);
-/*		for (int i=0;i<buf.length;i++)
-			System.out.println(buf[i]);
-*/		model.addAttribute("getmail",buf);
+	public String mail(@RequestParam ("tablename") String tablename,Model model){
+		String [] buf = connector.getContacts(userName, user.getSnNames());
+		model.addAttribute("getmail",buf);
+		model.addAttribute("tablename",tablename);
 		return "mailContacts";
 	}
 	
 	@RequestMapping({"/send"})
-	public String sendEmail(HttpServletRequest request, Model model){
-		String[] sendEmails = new String[1];
-		sendEmails[0] =	request.getParameter("sendEmails");
-		System.out.println(sendEmails[0]);
-		if(connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE))
-			System.out.println("yes");
+	public String sendEmail(@RequestParam ("tablename") String tablename,@RequestParam ("hiddenemail") String hiddenemail,Model model){
+	String[] sendEmails = hiddenemail.split(";");
+//		for (int i=0;i<sendEmails.length;i++){
+//			System.out.println(i);
+//			System.out.println(sendEmails[i]);
+//		}
+	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+tablename+"&username="+userName;
+	connector.shareByMail(send, sendEmails, userName, connector.GOOGLE);
+		
 		return homereturn(model);
 	}
 	@RequestMapping(value = "socialseti", method = RequestMethod.GET)
 	public @ResponseBody String processAJAXRequest(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
-		System.out.println(seti);
-		System.out.println(value);
+		String [] buf=user.getSnNames();
+		if (value.equals("true")){
+			String [] buf1=new String [buf.length+1];
+			for (int i=0;i<buf.length;i++){
+				buf1[i]=buf[i];
+			}
+			buf1[buf.length]=seti;
+			user.setSnNames(buf1);
+		}
+		if (value.equals("false")){
+			String [] buf2=new String [buf.length-1];
+			int l=0;
+			for (int i=0;i<buf.length;i++){
+				if (!buf[i].equals(seti)){
+					buf2[l++]=buf[i];
+				}
+			}
+			user.setSnNames(buf2);
+		}
+		ifesbes1.updateProfile(user);
+//		System.out.println(seti);
+//		System.out.println(value);
 		String response=value;
 		return response;
 	}
