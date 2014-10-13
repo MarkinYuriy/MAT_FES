@@ -222,7 +222,6 @@ System.out.println(newTablJSON);
 	public String viewMatt(HttpServletRequest request,Model model){
 		String userName4Matt=request.getParameter("username");
 		String mattName=request.getParameter("table");
-	  
 		Matt matt4Sharing=ifesbes1.getMatt(mattName, userName4Matt);
 		String mattToJson4URL = matt4Sharing.matt2browser();
 		model.addAttribute("JSON", mattToJson4URL);
@@ -334,21 +333,21 @@ System.out.println(newTablJSON);
 	   return "login";
 	 }
 	@RequestMapping({"/mail"})
-	public String mail(@RequestParam ("tablename") String tablename,Model model){
+	public String mail(@RequestParam ("table") String table,Model model){
 		String [] buf = connector.getContacts(userName, user.getSnNames());
 		model.addAttribute("getmail",buf);
-		model.addAttribute("tablename",tablename);
+		model.addAttribute("table",table);
 		return "mailContacts";
 	}
 	
 	@RequestMapping({"/send"})
-	public String sendEmail(@RequestParam ("tablename") String tablename,@RequestParam ("hiddenemail") String hiddenemail,Model model){
+	public String sendEmail(@RequestParam ("table") String table,@RequestParam ("hiddenemail") String hiddenemail,Model model){
 	String[] sendEmails = hiddenemail.split(";");
 //		for (int i=0;i<sendEmails.length;i++){
 //			System.out.println(i);
 //			System.out.println(sendEmails[i]);
 //		}
-	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+tablename+"&username="+userName;
+	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
 	connector.shareByMail(send, sendEmails, userName, connector.GOOGLE);
 		
 		return homereturn(model);

@@ -218,7 +218,8 @@ function myLoad() {
        
         </form>
         <form id="tableForm" name="tableForm" >
-	<input type="hidden" id="tablename" name="tablename">
+	<input type="hidden" id="table" name="table">
+	<input type="hidden" name="username" value="${userName}">
             <div id="placetable">
                      
    <d:forEach items="${matt}" var="item" >
@@ -230,9 +231,9 @@ function myLoad() {
    <td colspan='8'><a href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
    </tr>
    <tr>
-		<td><input id="${item}" type="image" src='<d:url value='/resurs/glas.jpg'/>' onclick="tablename.value=this.id, tableForm.action='buf'" width='30' height='30'></td>
+		<td><input id="${item}" type="image" src='<d:url value='/resurs/glas.jpg'/>' onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input id="${item}" type="image" src='<d:url value='/resurs/soed.jpg'/>' onclick="tablename.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
+		<td><input id="${item}" type="image" src='<d:url value='/resurs/soed.jpg'/>' onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>
