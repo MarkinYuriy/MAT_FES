@@ -50,7 +50,22 @@ function whichElement() {
 		});
     });
 		</script>
-		
+<script type="text/javascript">
+function myLoad() {
+ var disab=${SNdisabl};
+//var disab = new Array("Apple", "Facebook", "Twitter", "Windows");
+   for (i=0;i<disab.length;i++){
+   var x = document.getElementById(disab[i]);
+   x.disabled= false;
+   }
+   var chek=${SNchek};
+ //var chek = new Array("Apple", "Facebook", "Twitter", "Windows");
+    for (i=0;i<disab.length;i++){
+    var y = document.getElementById(disab[i]);
+    y.checked= true;
+    }
+}
+</script>
     <style>
         head {
             width: auto;
@@ -177,7 +192,7 @@ function whichElement() {
  
 
 </head>
-<body>
+<body onload="myLoad()">
 
 
 <div class="header">
@@ -197,6 +212,8 @@ function whichElement() {
         <form  id="form2" >
          <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
          <p style="font-size:1em">Existing calendars</p>
+         <p> ${SNdisabl} </p>
+         <p id="demo"></p>
         <button type="submit" onclick="form2.action='mail'">mail</button>
          </div>
        
@@ -242,11 +259,11 @@ function whichElement() {
             
           		<p style="font-size:1em">Synched accounts:</p>
                      
-				<p style="font-size:1em">Google <input type="checkbox" id="Google" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Twitter <input type="checkbox" id="Twitter" style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Google <input type="checkbox" id="Google" disabled style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple"  disabled style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Twitter <input type="checkbox" id="Twitter" disabled style="border: none; float: right; width: 50px; "></p>
 								
             	<p id="demo" style="text-align: right; font-size: 0.4em"></p>
           	</form>
@@ -257,5 +274,5 @@ function whichElement() {
     </div >
 </div >
 
-</body>
+</body onload="myLoad()">
 </html>
