@@ -224,7 +224,7 @@ System.out.println(newTablJSON);
 		String mattName=request.getParameter("table");
 		Matt matt4Sharing=ifesbes1.getMatt(mattName, userName4Matt);
 		String mattToJson4URL = matt4Sharing.matt2browser();
-		model.addAttribute("JSON", mattToJson4URL);
+		model.addAttribute("matJSON", mattToJson4URL);
 		return "viewMatt";//name of JSP viewing file
 	}
 	 
