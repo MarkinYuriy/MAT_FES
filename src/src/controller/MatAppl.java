@@ -153,6 +153,7 @@ public class MatAppl {
 	@RequestMapping({"/dom"})
 	public String dom (Model model) {
 		model.addAttribute("userName",userName);
+		model.addAttribute("name",m_name);
 		return "createMatt";
 	}
 //--------------------------------------------SZS
@@ -162,11 +163,11 @@ public class MatAppl {
 		String mattToJSON=null;
 		String name = request.getParameter("mattName");
 		String nDaysStr=request.getParameter("nDays");
-		int nDays = Integer.parseInt(request.getParameter(nDaysStr));//number of days
+		int nDays = Integer.parseInt(nDaysStr);//number of days
 		String dateStr = request.getParameter("startDate");
 		Date startDate = null;
 		try {
-			startDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+			startDate = new SimpleDateFormat("d.M.y").parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -177,11 +178,20 @@ public class MatAppl {
 		int endHour = Integer.parseInt(endHourStr);
 		String timeSlotStr=request.getParameter("timeSlot");
 		int timeSlot = Integer.parseInt(timeSlotStr); //in minutes
+System.out.println(name);
+System.out.println(startDate);
+System.out.println(dateEnd);
+System.out.println(nDays);
+System.out.println(startHour);
+System.out.println(endHour);
+System.out.println(timeSlot);
 		String password = null;
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
 		oldMatt=ifesbes1.createMatt(data, userName);
+System.out.println(oldMatt.getSlots().toString());
 		mattToJSON = oldMatt.matt2browser();  
+System.out.println(mattToJSON);
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
 	}
@@ -198,8 +208,10 @@ public class MatAppl {
 	 
 		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
-		newTablJSON=request.getParameter("newTabl");
+		newTablJSON=request.getParameter("mattToJSON");
+System.out.println(newTablJSON);
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
+		newMatt = new Matt();
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(oldMatt,newMatt,userName);
@@ -222,14 +234,16 @@ public class MatAppl {
 	private void addingAtributes(Model model,String name,String nDaysStr, 
 			String dateStr,String dateEnd,String startHourStr,String endHourStr,
 			String timeSlotStr,String mattToJSON){
-		model.addAttribute("JSON", mattToJSON);
+		model.addAttribute("name", m_name);
+		model.addAttribute("userName", userName);
+		model.addAttribute("matJSON", mattToJSON);
 		model.addAttribute("mattName",name);
-		model.addAttribute("nDays",nDaysStr);
-		model.addAttribute("startDate",nDaysStr);
+		model.addAttribute("nd"+nDaysStr, "selected");
+		model.addAttribute("startDate",dateStr);
 		model.addAttribute("endDate",dateEnd);
-		model.addAttribute("startHour",startHourStr);
-		model.addAttribute("endHour",endHourStr);
-		model.addAttribute("timeSlot",timeSlotStr);
+		model.addAttribute("sh"+startHourStr, "selected");
+		model.addAttribute("eh"+endHourStr, "selected");
+		model.addAttribute("ts"+timeSlotStr, "selected");
 	}
 //--------------------------------------------SZE
 

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Krasnov
-  Date: 10/11/14
-  Time: 00:39
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -142,86 +135,139 @@
 <div id="wrapper">
     <div id="first">
         <div class="left">
-            <p style="font-size: 1em ">${name} Calendar</p>
+            <p style="font-size: 1em ">${name}'s Calendar</p>
+        </div>
+        <div>
+			<input id="par1" name="mattToJSON" value='${matJSON}' type=hidden style="display:none"/>
+            <table id="mattTable">
+            </table>
+            <script>
+                var arr = $('#par1').attr('value');
+
+                /* '[["petya"],["h1","h2","h3","h4","h5"],["9:00","10:00","11:00","12:00"],[[0,1,0,0,1],[0,1,0,1,0],[0,0,1,0,1],[1,1,0,1,0]]]' */
+                /*instead "arr" we pass string with matt data whatever its name is
+                 file  named "json" is changing its value due to color selection
+                 and should be passed to controller on @RequestMapping*/
+
+                var json = JSON.parse(arr);
+		//		alert(json);
+                /*generating a table according to our data*/
+
+                var oldTable = document.getElementById('mattTable'),
+                        newTable = oldTable.cloneNode();
+                var tr = document.createElement('tr');
+                tr.id = "dayValue";
+                for(var i = 0; i < json[2].length; i++){
+                    var th = document.createElement('th');
+                    th.appendChild(document.createTextNode(json[2][i]));
+                    tr.appendChild(th);
+                }
+                newTable.appendChild(tr);
+                
+                var tr1 = document.createElement('tr');
+		        for(var i = 0; i < json[1].length; i++){
+		            var th1 = document.createElement('td');
+		            th1.appendChild(document.createTextNode(json[1][i]));
+		            tr1.appendChild(th1);
+		        }
+ 		       newTable.appendChild(tr1);
+               
+                
+                for(var i = 0; i < json[3].length; i++){
+                    var tr = document.createElement('tr');
+                    for(var j = 0; j < json[2].length; j++){
+                        var td = document.createElement('td');
+                        var id = "td" + i + j
+                        td.id = id;
+                        td.appendChild(document.createTextNode(json[3][i]));
+                        if(!json[4][i][j]) {
+                            td.style.backgroundColor = "green";
+                        } 
+                        tr.appendChild(td);
+                    }
+                    newTable.appendChild(tr);
+                }
+                oldTable.parentNode.replaceChild(newTable, oldTable);
+            </script>
         </div>
     </div>
     <div id="second">
         <div class="right">
-		<form action="homereturn">
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-                Name:<input id="mattName" name="mattName" type="text" style="width: 70%; float: right;"  ><br>
+                Name:<input id="mattName" name="mattName" type="text" value='${mattName}' style="width: 70%; float: right;"  ><br>
             </div>
-            <p>Number of days	<select id="nDays" name="nDays" style="margin-left: 20px; float: right;">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+            <p>Number of days	<select id="nDays" name="nDays"  style="margin-left: 20px; float: right;">
+                <option value="1" ${nd1}>1</option>
+                <option value="2" ${nd2}>2</option>
+                <option value="3" ${nd3}>3</option>
+                <option value="4" ${nd4}>4</option>
+                <option value="5" ${nd5}>5</option>
+                <option value="6" ${nd6}>6</option>
+                <option value="7" ${nd7}>7</option>
             </select></p>
-           	<p>Starting date <input type="text" class="datepicker" id="startDate" name="startDate" value="select date"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
-            <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value="select date" style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
-            <p>Starting hour 	<select id="starthour" name="startHour" style="margin-left: 20px; float:right; vertical-align baseline; width: 75px;">
-                <option value="0">00:00</option>
-                <option value="1">01:00</option>
-                <option value="2">02:00</option>
-                <option value="3">03:00</option>
-                <option value="4">04:00</option>
-                <option value="5">05:00</option>
-                <option value="6">06:00</option>
-                <option value="7">07:00</option>
-                <option value="8">08:00</option>
-                <option value="9">09:00</option>
-                <option value="10">10:00</option>
-                <option value="11">11:00</option>
-                <option value="12">12:00</option>
-                <option value="13">13:00</option>
-                <option value="14">14:00</option>
-                <option value="15">15:00</option>
-                <option value="16">16:00</option>
-                <option value="17">17:00</option>
-                <option value="18">18:00</option>
-                <option value="19">19:00</option>
-                <option value="20">20:00</option>
-                <option value="21">21:00</option>
-                <option value="22">22:00</option>
-                <option value="23">23:00</option>
-                <option value="24">24:00</option>
-            </select> </p>
-            <p>Ending hour 	<select id="endhour" name="endHour" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px;">
-                <option value="0">00:00</option>
-                <option value="1">01:00</option>
-                <option value="2">02:00</option>
-                <option value="3">03:00</option>
-                <option value="4">04:00</option>
-                <option value="5">05:00</option>
-                <option value="6">06:00</option>
-                <option value="7">07:00</option>
-                <option value="8">08:00</option>
-                <option value="9">09:00</option>
-                <option value="10">10:00</option>
-                <option value="11">11:00</option>
-                <option value="12">12:00</option>
-                <option value="13">13:00</option>
-                <option value="14">14:00</option>
-                <option value="15">15:00</option>
-                <option value="16">16:00</option>
-                <option value="17">17:00</option>
-                <option value="18">18:00</option>
-                <option value="19">19:00</option>
-                <option value="20">20:00</option>
-                <option value="21">21:00</option>
-                <option value="22">22:00</option>
-                <option value="23">23:00</option>
-                <option value="24">24:00</option>
+           	<p>Starting date <input type="text" class="datepicker" id="startDate" name="startDate" value='${startDate}'  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
+            <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value='${endDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
+            <p>Starting hour <select id="starthour" name="startHour" style="margin-left: 20px; float:right; vertical-align baseline; width: 75px;">
+                <option value='${startHour}' selected>${startHour}:00</option>
+                <option value="0" ${sh0}>00:00</option>
+                <option value="1" ${sh1}>01:00</option>
+                <option value="2" ${sh2}>02:00</option>
+                <option value="3" ${sh3}>03:00</option>
+                <option value="4" ${sh4}>04:00</option>
+                <option value="5" ${sh5}>05:00</option>
+                <option value="6" ${sh6}>06:00</option>
+                <option value="7" ${sh7}>07:00</option>
+                <option value="8" ${sh8}>08:00</option>
+                <option value="9" ${sh9}>09:00</option>
+                <option value="10" ${sh10}>10:00</option>
+                <option value="11" ${sh11}>11:00</option>
+                <option value="12" ${sh12}>12:00</option>
+                <option value="13" ${sh13}>13:00</option>
+                <option value="14" ${sh14}>14:00</option>
+                <option value="15" ${sh15}>15:00</option>
+                <option value="16" ${sh16}>16:00</option>
+                <option value="17" ${sh17}>17:00</option>
+                <option value="18" ${sh18}>18:00</option>
+                <option value="19" ${sh19}>19:00</option>
+                <option value="20" ${sh20}>20:00</option>
+                <option value="21" ${sh21}>21:00</option>
+                <option value="22" ${sh22}>22:00</option>
+                <option value="23" ${sh23}>23:00</option>
+            </select></p>
+            <p>Ending hour <select id="endhour" name="endHour" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px;">
+                <option value='${endHour}' selected>${endHour}:00</option>
+                <option value="1" ${eh1}>01:00</option>
+                <option value="2" ${eh2}>02:00</option>
+                <option value="3" ${eh3}>03:00</option>
+                <option value="4" ${eh4}>04:00</option>
+                <option value="5" ${eh5}>05:00</option>
+                <option value="6" ${eh6}>06:00</option>
+                <option value="7" ${eh7}>07:00</option>
+                <option value="8" ${eh8}>08:00</option>
+                <option value="9" ${eh9}>09:00</option>
+                <option value="10" ${eh10}>10:00</option>
+                <option value="11" ${eh11}>11:00</option>
+                <option value="12" ${eh12}>12:00</option>
+                <option value="13" ${eh13}>13:00</option>
+                <option value="14" ${eh14}>14:00</option>
+                <option value="15" ${eh15}>15:00</option>
+                <option value="16" ${eh16}>16:00</option>
+                <option value="17" ${eh17}>17:00</option>
+                <option value="18" ${eh18}>18:00</option>
+                <option value="19" ${eh19}>19:00</option>
+                <option value="20" ${eh20}>20:00</option>
+                <option value="21" ${eh21}>21:00</option>
+                <option value="22" ${eh22}>22:00</option>
+                <option value="23" ${eh23}>23:00</option>
+                <option value="24" ${eh24}>24:00</option>
             </select> </p>
             <p>Time slot 	<select id="timeSlot" name="timeSlot" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
-                <option value="15">15 min</option>
-                <option value="30">30 min</option>
-                <option value="60">1 hour</option>
+           <%--      <option value='${timeSlot}' selected>${timeSlot} min</option> --%>
+                <option value="15" ${ts15}>15 min</option>
+                <option value="30" ${ts30}>30 min</option>
+                <option value="60" ${ts60}>1 hour</option>
             </select> </p>
 
             <div>
@@ -246,12 +292,11 @@
 
                 This calendar requires a password<br>
             </form> -->
-            <div>
+			<form action="homereturn">
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
                 	<button id="home" type="submit"  >HOME</button>
             	</div>
-        	</div>
-		</form>
+        	</form >
 		</div>
     </div>
 </div>
