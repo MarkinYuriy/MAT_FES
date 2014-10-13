@@ -223,24 +223,37 @@ function myLoad() {
             <div id="placetable">
                      
    <d:forEach items="${matt}" var="item" >
+          <script type="text/javascript">
+   var x=${item};
+   var y=${userName};
+   var uri = "http://localhost:8080/myavailabletime/viewMatt?table="+x+"&username="+y;
+   var res = encodeURI(uri);
+   document.getElementById(x).href = res;
+   document.getElementById(x).innerHTML = res;
+   </script>
    <table width='80%' border='1'>
    <tr>
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
-   </tr>
+ <%--  <td colspan='8'><a id="${item}" href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
+ --%>   
+   <td colspan='8'><a id="${item}"></a></td>
+ 
+ </tr>
+   
    <tr>
-		<td><input id="${item}" type="image" src='<d:url value='/resurs/glas.jpg'/>' onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
-		<td><img src='<d:url value='/resurs/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input id="${item}" type="image" src='<d:url value='/resurs/soed.jpg'/>' onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
-		<td><img src='<d:url value='/resurs/grafik.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resurs/strelka.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resurs/kalendar.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resurs/chel.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resurs/mus.jpg'/>' width='30' height='30'></td>
+		<td><input id="${item}" type="image" src='<d:url value='/resources/glas.jpg'/>' onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
+		<td><input id="${item}" type="image" src='<d:url value='/resources/soed.jpg'/>' onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
+		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/chel.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/mus.jpg'/>' width='30' height='30'></td>
    </tr>
    </table>
+
   </d:forEach>
             </div>
             
