@@ -245,12 +245,12 @@ function myLoad() {
    <tr>
 		<td><input id="${item}" type="image" src='<d:url value='/resources/glas.jpg'/>' onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input id="${item}" type="image" src='<d:url value='/resources/soed.jpg'/>' onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
+		<td><input id="${item}" type="image" src="resources/soed.jpg" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/chel.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/mus.jpg'/>' width='30' height='30'></td>
+		<td><img src="resources/mus.jpg" width='30' height='30'></td>
    </tr>
    </table>
 

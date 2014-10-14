@@ -49,7 +49,7 @@ public class MatAppl {
 	
 	@RequestMapping({"/"})
 	public String login() {
-		return "login";
+		return "loginon";
 	}
 	@RequestMapping({"/buf"})
 	public String buf(@RequestParam ("tablename") String firstName,Model model) {
