@@ -31,8 +31,8 @@
 	<input class="fig" type="text"  name="email" size=50 />
 	<a id="p1">${email}</a><br>
 	<p>password</p>
-	<input class="fig" type="text" name="password" size=10 /><br><br>
-	<input class="fig" type="text" name="password1" size=10 /><br><br>
+	<input class="fig" type="password" name="password" size=10 /><br><br>
+	<input class="fig" type="password" name="password1" size=10 /><br><br>
 	<input type="submit" value="registry" onclick="form1.action='person'"/><br>
 </form>
 </body>

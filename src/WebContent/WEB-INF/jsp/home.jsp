@@ -70,7 +70,7 @@ function myLoad() {
   function url(){
  	var x=${item};
    	var y=${userName};
-   	var uri = "http://localhost:8080/myavailabletime/viewMatt?table="+x+"&username="+y;
+   	String uri = "http://localhost:8080/myavailabletime/viewMatt?table="+x+"&username="+y;
    	var res = encodeURI(uri);
    	return res;
    	}
@@ -222,7 +222,7 @@ function myLoad() {
          <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
          <p style="font-size:1em">Existing calendars</p>
          
-        <button type="submit" onclick="form2.action='mail'">mail</button>
+ 
          </div>
        
         </form>
@@ -238,10 +238,11 @@ function myLoad() {
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a id="${item}" href="url()">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
+   <td colspan='8'><a id="${item}" href="javascript: (function(){var x =this.id; var y=${userName};
+    String uri = 'http://localhost:8080/myavailabletime/viewMatt?table='+x+'&username='+y; 
+    var res = encodeURI(uri);
+   	return res;})()">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
    
-  
- 
  </tr>
    
    <tr>
