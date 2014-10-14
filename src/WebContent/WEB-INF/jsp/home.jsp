@@ -66,6 +66,15 @@ function myLoad() {
     }
 }
 </script>
+ <script type="text/javascript">
+  function url(){
+ 	var x=${item};
+   	var y=${userName};
+   	var uri = "http://localhost:8080/myavailabletime/viewMatt?table="+x+"&username="+y;
+   	var res = encodeURI(uri);
+   	return res;
+   	}
+   </script>
     <style>
         head {
             width: auto;
@@ -223,22 +232,15 @@ function myLoad() {
             <div id="placetable">
                      
    <d:forEach items="${matt}" var="item" >
-          <script type="text/javascript">
-   var x=${item};
-   var y=${userName};
-   var uri = "http://localhost:8080/myavailabletime/viewMatt?table="+x+"&username="+y;
-   var res = encodeURI(uri);
-   document.getElementById(x).href = res;
-   document.getElementById(x).innerHTML = res;
-   </script>
+         
    <table width='80%' border='1'>
    <tr>
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
- <%--  <td colspan='8'><a id="${item}" href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
- --%>   
-   <td colspan='8'><a id="${item}"></a></td>
+   <td colspan='8'><a id="${item}" href="url()">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
+   
+  
  
  </tr>
    

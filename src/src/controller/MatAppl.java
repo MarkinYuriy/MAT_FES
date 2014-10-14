@@ -255,7 +255,7 @@ System.out.println(newTablJSON);
 		if (ifesbes1.setProfile(pers)==Response.IN_ACTIVE) {
 			model.addAttribute("email","EMAIL incorrect!");
 			return "registry";}
-		return "login";
+		return "loginon";
 	}
 	@RequestMapping({"/homereturn"})
 	public String homereturn (Model model){
@@ -271,13 +271,13 @@ System.out.println(newTablJSON);
 	public String home(@RequestParam ("name") String name,@RequestParam ("password") String password,Model model) {
 		if (ifesbes1.matLogin(name,password)==Response.NO_PASSWORD_MATCHING){
 			model.addAttribute("password","password incorrect!");
-			return "login";}
+			return "loginon";}
 		if (ifesbes1.matLogin(name,password)==Response.NO_REGISTRATION){
 			model.addAttribute("name","name or email incorrect!");
-			return "login";}
+			return "loginon";}
 		if (ifesbes1.matLogin(name,password)==Response.IN_ACTIVE){
 			model.addAttribute("aktiv","no aktiv!");
-			return "login";
+			return "loginon";
 		}
 	//	m_name=pers.getFirstName()+" "+pers.getLastName();
 		user=ifesbes1.getProfile(name);
@@ -332,7 +332,7 @@ System.out.println(newTablJSON);
 		String user=request.getParameter("user");
 		String hash=request.getParameter("hash");
 		  ifesbes1.setActive(user,hash);
-	   return "login";
+	   return "loginon";
 	 }
 	@RequestMapping({"/mail"})
 	public String mail(@RequestParam ("table") String table,Model model){
