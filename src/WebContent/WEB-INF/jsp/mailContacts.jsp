@@ -208,8 +208,9 @@
 		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
 	<input type="hidden" id="hiddenemail" name="hiddenemail" />
-    <input type="hidden" id="table" name="table" value="${table}">
-	</form>
+
+    <input type="hidden" id="table" name="table" value="${table}">	</form>
+
 	<div style="float: left; width: 270;">
 		<p> Enter e-mail address:</p> 
 		<input type="text" name="typedAddress" id="typedAddress" style="width: 250;" value="" onchange="addWritedAddress(this.value)">

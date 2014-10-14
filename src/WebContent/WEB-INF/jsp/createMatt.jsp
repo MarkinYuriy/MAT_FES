@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script type="text/javascript">
         $(function() {
-            $( ".datepicker" ).datepicker({ dateFormat: "dd MM yy"});
+            $( ".datepicker" ).datepicker({ dateFormat: "dd.mm.yy"});
         });
     </script>
     <style>
@@ -160,7 +160,7 @@
            	<p>Starting date <input type="text" class="datepicker" id="startDate" name="startDate" value="select date"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
             <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value="select date" style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
             <p>Starting hour 	<select id="starthour" name="startHour" style="margin-left: 20px; float:right; vertical-align baseline; width: 75px;">
-                <option value="0">00:00</option>
+                <option value="0" selected>00:00</option>
                 <option value="1">01:00</option>
                 <option value="2">02:00</option>
                 <option value="3">03:00</option>
@@ -184,10 +184,8 @@
                 <option value="21">21:00</option>
                 <option value="22">22:00</option>
                 <option value="23">23:00</option>
-                <option value="24">24:00</option>
             </select> </p>
             <p>Ending hour 	<select id="endhour" name="endHour" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px;">
-                <option value="0">00:00</option>
                 <option value="1">01:00</option>
                 <option value="2">02:00</option>
                 <option value="3">03:00</option>
@@ -211,11 +209,11 @@
                 <option value="21">21:00</option>
                 <option value="22">22:00</option>
                 <option value="23">23:00</option>
-                <option value="24">24:00</option>
+                <option value="24" selected>24:00</option>
             </select> </p>
             <p>Time slot 	<select id="timeSlot" name="timeSlot" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
                 <option value="15">15 min</option>
-                <option value="30">30 min</option>
+                <option value="30" selected>30 min</option>
                 <option value="60">1 hour</option>
             </select> </p>
             <div>

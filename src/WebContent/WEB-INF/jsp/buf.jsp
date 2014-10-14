@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>OK</p>
+
+<p>OK ${buf}</p>
 </body>
 </html>

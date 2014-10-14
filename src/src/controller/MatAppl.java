@@ -50,7 +50,8 @@ public class MatAppl {
 		return "login";
 	}
 	@RequestMapping({"/buf"})
-	public String buf() {
+	public String buf(@RequestParam ("tablename") String firstName,Model model) {
+		  model.addAttribute("buf", firstName);
 		return "buf";
 	}
 //-----------------Account settings
@@ -150,6 +151,7 @@ public class MatAppl {
 	@RequestMapping({"/dom"})
 	public String dom (Model model) {
 		model.addAttribute("userName",userName);
+		model.addAttribute("name",m_name);
 		return "createMatt";
 	}
 //--------------------------------------------SZS
@@ -163,7 +165,7 @@ public class MatAppl {
 		String dateStr = request.getParameter("startDate");
 		Date startDate = null;
 		try {
-			startDate = new SimpleDateFormat("dd MMMM yyyy").parse(dateStr);
+			startDate = new SimpleDateFormat("d.M.y").parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -174,11 +176,20 @@ public class MatAppl {
 		int endHour = Integer.parseInt(endHourStr);
 		String timeSlotStr=request.getParameter("timeSlot");
 		int timeSlot = Integer.parseInt(timeSlotStr); //in minutes
+System.out.println(name);
+System.out.println(startDate);
+System.out.println(dateEnd);
+System.out.println(nDays);
+System.out.println(startHour);
+System.out.println(endHour);
+System.out.println(timeSlot);
 		String password = null;
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
-		oldMatt=ifesbes1.createMatt(data, userEmail);
+		oldMatt=ifesbes1.createMatt(data, userName);
+System.out.println(oldMatt.getSlots().toString());
 		mattToJSON = oldMatt.matt2browser();  
+System.out.println(mattToJSON);
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
 	}
@@ -195,11 +206,13 @@ public class MatAppl {
 	 
 		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
-		newTablJSON=request.getParameter("newTabl");
+		newTablJSON=request.getParameter("mattToJSON");
+System.out.println(newTablJSON);
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
+		newMatt = new Matt();
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(oldMatt,newMatt,userName);
+		ifesbes1.saveMatt(oldMatt,newMatt,userEmail);//!!!for now using userEmail,but in the specification userName!!!
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
 		return "savedMatt";
     }
@@ -209,24 +222,25 @@ public class MatAppl {
 	public String viewMatt(HttpServletRequest request,Model model){
 		String userName4Matt=request.getParameter("username");
 		String mattName=request.getParameter("table");
-	  
 		Matt matt4Sharing=ifesbes1.getMatt(mattName, userName4Matt);
 		String mattToJson4URL = matt4Sharing.matt2browser();
-		model.addAttribute("JSON", mattToJson4URL);
+		model.addAttribute("matJSON", mattToJson4URL);
 		return "viewMatt";//name of JSP viewing file
 	}
 	 
 	private void addingAtributes(Model model,String name,String nDaysStr, 
 			String dateStr,String dateEnd,String startHourStr,String endHourStr,
 			String timeSlotStr,String mattToJSON){
-		model.addAttribute("JSON", mattToJSON);
+		model.addAttribute("name", m_name);
+		model.addAttribute("userName", userName);
+		model.addAttribute("matJSON", mattToJSON);
 		model.addAttribute("mattName",name);
-		model.addAttribute("nDays",nDaysStr);
+		model.addAttribute("nd"+nDaysStr, "selected");
 		model.addAttribute("startDate",dateStr);
 		model.addAttribute("endDate",dateEnd);
-		model.addAttribute("startHour",startHourStr);
-		model.addAttribute("endHour",endHourStr);
-		model.addAttribute("timeSlot",timeSlotStr);
+		model.addAttribute("sh"+startHourStr, "selected");
+		model.addAttribute("eh"+endHourStr, "selected");
+		model.addAttribute("ts"+timeSlotStr, "selected");
 	}
 //--------------------------------------------SZE
 
@@ -247,7 +261,8 @@ public class MatAppl {
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		model.addAttribute("matt",ifesbes1.getMattNames(userName));
-		//model.addAttribute("google",getMatt());
+		model.addAttribute("SNdisabl",getAuthorizedSocial());
+		model.addAttribute("SNchek",getSocial());
 		return "home";	
 	}
 	@RequestMapping({"/home"})
@@ -263,26 +278,48 @@ public class MatAppl {
 			return "login";
 		}
 	//	m_name=pers.getFirstName()+" "+pers.getLastName();
-		Person pers=ifesbes1.getProfile(name);
-		userName=pers.getEmail();
-		userEmail=pers.getEmail();
-		m_name=pers.getName();
+		user=ifesbes1.getProfile(name);
+		userName=user.getEmail();
+		userEmail=user.getEmail();
+		m_name=user.getName();
 		model.addAttribute("name",m_name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		model.addAttribute("matt",ifesbes1.getMattNames(userName));
-		//model.addAttribute("google",getMatt());
+		model.addAttribute("SNdisabl",getAuthorizedSocial());
+		model.addAttribute("SNchek",getSocial());
 		return "home";
 	}
 	
-	private String getMatt() {
-	//	String[] mas=ifesbes1.getMattNames(userName);
-		String[] mas=connector.getAuthorizedSocialNames(userName);
-		ArrayList<String> list = new ArrayList<String>();
-		for (int i=0;i<mas.length;i++)
-			list.add(mas[i]);
-		
-		return "false";
+	private String getSocial() {
+		String []mas=user.getSnNames();
+//		String[] mas={"Apple","Facebook","Twitter","Windows"};
+		StringBuffer txt = new StringBuffer();
+		txt.append('[');
+		for (int i = 0; i < mas.length; i++) {
+			txt.append('"');
+			txt.append(mas[i]);
+			txt.append('"');
+	        if (i!=mas.length-1) txt.append(',');
+	    }
+		txt.append(']');
+			
+		return txt.toString();
+	}
+	private String  getAuthorizedSocial() {
+		String []mas=connector.getAuthorizedSocialNames(userName);
+//		String[] mas={"Apple","Facebook","Twitter","Windows"};
+		StringBuffer txt = new StringBuffer();
+		txt.append('[');
+		for (int i = 0; i < mas.length; i++) {
+			txt.append('"');
+			txt.append(mas[i]);
+			txt.append('"');
+	        if (i!=mas.length-1) txt.append(',');
+	    }
+		txt.append(']');
+			
+		return txt.toString();
 	}
 	@RequestMapping({"/registry"})
 	public String registry(){
@@ -296,33 +333,49 @@ public class MatAppl {
 	   return "login";
 	 }
 	@RequestMapping({"/mail"})
-	public String mail(Model model){
-		String [] buf1 = {connector.GOOGLE};
-/*		Person p = ifesbes1.getProfile(userName);
-		System.out.println(p.toString());
-		String [] buf1= p.getSnNames();*/
-		String [] buf = connector.getContacts(userName, buf1);
-/*		for (int i=0;i<buf.length;i++)
-			System.out.println(buf[i]);
-*/		model.addAttribute("getmail",buf);
+	public String mail(@RequestParam ("table") String table,Model model){
+		String [] buf = connector.getContacts(userName, user.getSnNames());
+		model.addAttribute("getmail",buf);
+		model.addAttribute("table",table);
 		return "mailContacts";
 	}
 	
 	@RequestMapping({"/send"})
-	public String sendEmail(@RequestParam ("hiddenemail") String hiddenemail,Model model){
+	public String sendEmail(@RequestParam ("table") String table,@RequestParam ("hiddenemail") String hiddenemail,Model model){
 	String[] sendEmails = hiddenemail.split(";");
 //		for (int i=0;i<sendEmails.length;i++){
 //			System.out.println(i);
 //			System.out.println(sendEmails[i]);
 //		}
-		if(connector.shareByMail("urltest", sendEmails, userName, connector.GOOGLE))
-			System.out.println("yes");
+	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
+	connector.shareByMail(send, sendEmails, userName, connector.GOOGLE);
+		
 		return homereturn(model);
 	}
 	@RequestMapping(value = "socialseti", method = RequestMethod.GET)
 	public @ResponseBody String processAJAXRequest(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
-		System.out.println(seti);
-		System.out.println(value);
+		String [] buf=user.getSnNames();
+		if (value.equals("true")){
+			String [] buf1=new String [buf.length+1];
+			for (int i=0;i<buf.length;i++){
+				buf1[i]=buf[i];
+			}
+			buf1[buf.length]=seti;
+			user.setSnNames(buf1);
+		}
+		if (value.equals("false")){
+			String [] buf2=new String [buf.length-1];
+			int l=0;
+			for (int i=0;i<buf.length;i++){
+				if (!buf[i].equals(seti)){
+					buf2[l++]=buf[i];
+				}
+			}
+			user.setSnNames(buf2);
+		}
+		ifesbes1.updateProfile(user);
+//		System.out.println(seti);
+//		System.out.println(value);
 		String response=value;
 		return response;
 	}
