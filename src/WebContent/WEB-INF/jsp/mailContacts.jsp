@@ -155,6 +155,26 @@
 	    document.getElementById("hiddenemail").value = txt;
 	    return true;
 	}
+	
+    function isValidEmail (email, strict){
+       if ( !strict ) email = email.replace(/^\s+|\s+$/g, '');
+       return (/^([a-z0-9_\-]+\.)*[a-z0-9_\-]+@([a-z0-9][a-z0-9\-]*[a-z0-9]\.)+[a-z]{2,4}$/i).test(email);
+    }
+	
+	function addWritedAddress(val) {
+		var ai = document.getElementById("typedAddress").value;
+		var ai = ai.replace(",", " ");
+		var ai = ai.replace(";", " ");
+		var ai = ai.replace("  ", " ");
+		var delims = " ";
+		var arr = ai.split(delims);
+		var si = document.getElementById("sendEmails");
+		for (i = 0; i < arr.length; i++) {
+  		   if (!isValidEmail(arr[i], true))
+			  si.options[si.options.length] = new Option(arr[i]);
+		}
+	}
+	
 </script>
 <style type="text/css">
 .btn {
@@ -167,7 +187,7 @@
 	<div style="float: left; width: 270;">
 		<p>Available Emails</p>
 		<select name="availableEmails" id="availableEmails"
-			style="width: 250; height: 200;" multiple="multiple">
+			style="width: 250; height: 275;" multiple="multiple">
 			<c:set var="iteration" value="0"/>
 			<c:forEach items="${getmail}" var="current">
 				<c:set var="iteration" value="${iteration}+1"/>
@@ -178,13 +198,7 @@
 <form id="sendE" action="send" method="post" >	
 <div 
 	style="width: 100px; float: left;">
-	    <!-- <p type="lable" style="color: white;" _____ /> -->
-	    <span id="answer1" style="display: none;">
-	    <p>  _____ </p>
-	    
-	    </span>
-    
-	    <span id="answer1" style="display: initial;"></span>
+	    <p>  . </p>
 		<input type="button" class="btn" value="Add" onclick="addItems();" />
 		<input type="button" class="btn" value="Add All" onclick="addAll();" />
 		<input type="button" class="btn" value="Remove" onclick="removeItems();" /> 
@@ -193,9 +207,12 @@
 		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
 		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
-	<input id="hiddenemail" type="hidden" name="hiddenemail" />
+	<input type="hidden" id="hiddenemail" name="hiddenemail" />
+    <input type="hidden" id="table" name="table" value="${table}">
 	</form>
 	<div style="float: left; width: 270;">
+		<p> Enter e-mail address:</p> 
+		<input type="text" name="typedAddress" id="typedAddress" style="width: 250;" value="" onchange="addWritedAddress(this.value)">
 		<p>Emails to send</p>
 		<select name="sendEmails" id="sendEmails" style="width: 250; height: 200;"
 			multiple="multiple">
