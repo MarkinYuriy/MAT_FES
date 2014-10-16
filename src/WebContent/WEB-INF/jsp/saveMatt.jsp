@@ -233,7 +233,7 @@
                 Name:<input id="mattName" name="mattName" type="text" value='${mattName}' disabled style="width: 70%; float: right;"  ><br>
             </div>
             <p>Number of days	<select id="nDays" name="nDays" disabled  style="margin-left: 20px; float: right;">
-                <option value='${nDays}' selected>${nDays}</option>
+                <%--<option value='${nDays}' selected>${nDays}</option>--%>
                 <option value="1" ${nd1}>1</option>
                 <option value="2" ${nd2}>2</option>
                 <option value="3" ${nd3}>3</option>
@@ -245,7 +245,7 @@
            	<p>Starting date <input type="text" class="datepicker" id="startDate" name="startDate" value='${startDate}' disabled style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
             <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value='${endDate}' disabled style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
             <p>Starting hour <select id="starthour" name="startHour" disabled style="margin-left: 20px; float:right; vertical-align baseline; width: 75px;">
-                <option value='${startHour}' selected>${startHour}:00</option>
+                <%--<option value='${startHour}' selected>${startHour}:00</option>--%>
                 <option value="0" ${sh0}>00:00</option>
                 <option value="1" ${sh1}>01:00</option>
                 <option value="2" ${sh2}>02:00</option>
@@ -272,7 +272,7 @@
                 <option value="23" ${sh23}>23:00</option>
             </select></p>
             <p>Ending hour <select id="endhour" name="endHour" disabled style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px;">
-                <option value='${endHour}' selected>${endHour}:00</option>
+                <%--<option value='${endHour}' selected>${endHour}:00</option>--%>
                 <option value="1" ${eh1}>01:00</option>
                 <option value="2" ${eh2}>02:00</option>
                 <option value="3" ${eh3}>03:00</option>
