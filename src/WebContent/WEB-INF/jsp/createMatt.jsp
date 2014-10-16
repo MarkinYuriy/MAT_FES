@@ -22,7 +22,6 @@
                 minDate:  0,
                 onSelect: function(date){
                     var ndays=$('#nDays').val();
-                    alert(ndays);
                     var date2 = $('#startDate').datepicker('getDate');
                     date2.setDate(date2.getDate()+parseInt(ndays)-1);
                     $('#endDate').datepicker('setDate', date2);
