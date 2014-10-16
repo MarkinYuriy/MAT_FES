@@ -344,12 +344,8 @@ System.out.println(newTablJSON);
 	@RequestMapping({"/send"})
 	public String sendEmail(@RequestParam ("table") String table,@RequestParam ("hiddenemail") String hiddenemail,Model model){
 	String[] sendEmails = hiddenemail.split(";");
-//		for (int i=0;i<sendEmails.length;i++){
-//			System.out.println(i);
-//			System.out.println(sendEmails[i]);
-//		}
 	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
-	connector.shareByMail(send, sendEmails, userName, IFrontConnector.GOOGLE);
+	connector.shareByMail(send.replaceAll(" ", "%20"), sendEmails, userName, IFrontConnector.GOOGLE);
 		
 		return homereturn(model);
 	}
