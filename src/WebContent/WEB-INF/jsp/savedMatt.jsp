@@ -272,12 +272,33 @@
             </select> </p>
 
             <div>
+                <script type="text/javascript">
+                    function sharegoogle() {
+
+                        var a = "${username}";
+                        var b = "${name}";
+                        var c = encodeURIComponent(a);
+                        var d = encodeURIComponent(b);
+
+                        document.getElementById('googleshare').href = "https://plus.google.com/share?url=http://localhost:8080/myavailabletime/viewMatt?table=" + c + "&username=" + d;
+
+                    }
+                    function sharefb() {
+
+                        var g = "${username}";
+                        var h = "${name}";
+                        var e = encodeURIComponent(g);
+                        var f = encodeURIComponent(h);
+
+                        document.getElementById('fbshare').href = "https://www.facebook.com/sharer/sharer.php?u=http://localhost:8080/myavailabletime/viewMatt?table=" + e + "&username=" + f;
+                    }
+                </script>
                 <div id="shareembedemail"><p>Share this calendar</p></div>
-                <div id="shareembedemail"><a href="https://plus.google.com/share?url=http://myavailabletime.com" onclick="javascript:window.open(this.href,
+                <div id="shareembedemail"><a  id="googleshare" href="https://plus.google.com/share?url=http://myavailabletime.com" onclick=" sharegoogle(); javascript:window.open(this.href,
    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                     <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a></div>
                 <div id="shareembedemail">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.14:8181/Booksclient" onclick="javascript:window.open(this.href,
+                    <a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.14:8181/Booksclient" onclick=" sharefb(); javascript:window.open(this.href,
    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                         <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="16" height="16">
                     </a>
