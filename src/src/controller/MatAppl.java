@@ -4,8 +4,6 @@ import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import mat.IFesBes1;
 import mat.IFrontConnector;
 import mat.Matt;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Scope("session")
@@ -135,11 +132,11 @@ public class MatAppl {
 		if(email!=null && email.contains("@")) user.setEmail(email);
 		if(password!=null && !password.equals("*******") && password.equals(password1))
 			user.setPassword(password);*/
-		if(googleCheck!=null && googleCheck.equals("on")) sN.add(connector.GOOGLE);
-		if(appleCheck!=null && appleCheck.equals("on")) sN.add(connector.APPLE);
-		if(windowsCheck!=null && windowsCheck.equals("on")) sN.add(connector.WINDOWS);
-		if(facebookCheck!=null && facebookCheck.equals("on")) sN.add(connector.FACEBOOK);
-		if(twitterCheck!=null && twitterCheck.equals("on")) sN.add(connector.TWITTER);
+		if(googleCheck!=null && googleCheck.equals("on")) sN.add(IFrontConnector.GOOGLE);
+		if(appleCheck!=null && appleCheck.equals("on")) sN.add(IFrontConnector.APPLE);
+		if(windowsCheck!=null && windowsCheck.equals("on")) sN.add(IFrontConnector.WINDOWS);
+		if(facebookCheck!=null && facebookCheck.equals("on")) sN.add(IFrontConnector.FACEBOOK);
+		if(twitterCheck!=null && twitterCheck.equals("on")) sN.add(IFrontConnector.TWITTER);
 		user.setSnNames(sN.toArray(new String[sN.size()]));
 		try {
 			resultSave = ifesbes1.updateProfile(user);
@@ -350,7 +347,7 @@ System.out.println(newTablJSON);
 //			System.out.println(sendEmails[i]);
 //		}
 	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
-	connector.shareByMail(send, sendEmails, userName, connector.GOOGLE);
+	connector.shareByMail(send, sendEmails, userName, IFrontConnector.GOOGLE);
 		
 		return homereturn(model);
 	}
