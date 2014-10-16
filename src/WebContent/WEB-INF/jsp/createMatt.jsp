@@ -171,7 +171,7 @@
                     <option value="7">7</option>
                 </select></p>
                 <p>Starting date <input type="text" class="datepicker" id="startDate" name="startDate" value="select date"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
-                <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value="select date" disabled style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
+                <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value="select date" style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
                 <p>Starting hour 	<select id="starthour" name="startHour" style="margin-left: 20px; float:right; vertical-align baseline; width: 75px;">
                     <option value="0" selected>00:00</option>
                     <option value="1">01:00</option>
