@@ -143,16 +143,12 @@
             </table>
             <script>
                 var arr = $('#par1').attr('value');
-
-                /* '[["petya"],["h1","h2","h3","h4","h5"],["9:00","10:00","11:00","12:00"],[[0,1,0,0,1],[0,1,0,1,0],[0,0,1,0,1],[1,1,0,1,0]]]' */
                 /*instead "arr" we pass string with matt data whatever its name is
                  file  named "json" is changing its value due to color selection
                  and should be passed to controller on @RequestMapping*/
 
                 var json = JSON.parse(arr);
-		//		alert(json);
                 /*generating a table according to our data*/
-
                 var oldTable = document.getElementById('mattTable'),
                         newTable = oldTable.cloneNode();
                 var tr = document.createElement('tr');
@@ -163,7 +159,6 @@
                     tr.appendChild(th);
                 }
                 newTable.appendChild(tr);
-                
                 var tr1 = document.createElement('tr');
 		        for(var i = 0; i < json[1].length; i++){
 		            var th1 = document.createElement('td');
@@ -171,8 +166,6 @@
 		            tr1.appendChild(th1);
 		        }
  		       newTable.appendChild(tr1);
-               
-                
                 for(var i = 0; i < json[3].length; i++){
                     var tr = document.createElement('tr');
                     for(var j = 0; j < json[2].length; j++){
@@ -199,7 +192,6 @@
                 Name:<input id="mattName" name="mattName" type="text" value='${mattName}' disabled style="width: 70%; float: right;"  ><br>
             </div>
             <p>Number of days	<select id="nDays" name="nDays" disabled style="margin-left: 20px; float: right;">
-                <%--<option value='${nDays}' selected>${nDays}</option>--%>
                 <option value="1" ${nd1}>1</option>
                 <option value="2" ${nd2}>2</option>
                 <option value="3" ${nd3}>3</option>
@@ -211,7 +203,6 @@
            	<p>Starting date <input type="text" class="datepicker" id="startDate" name="startDate" value='${startDate}' disabled style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
             <p>Ending date<input type="text" class="datepicker" id="endDate" name="endDate" value='${endDate}' disabled style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
             <p>Starting hour <select id="starthour" name="startHour" disabled style="margin-left: 20px; float:right; vertical-align baseline; width: 75px;">
-                <%--<option value='${startHour}' selected>${startHour}:00</option>--%>
                 <option value="0" ${sh0}>00:00</option>
                 <option value="1" ${sh1}>01:00</option>
                 <option value="2" ${sh2}>02:00</option>
@@ -238,7 +229,6 @@
                 <option value="23" ${sh23}>23:00</option>
             </select></p>
             <p>Ending hour <select id="endhour" name="endHour" disabled style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px;">
-                <%--<option value='${endHour}' selected>${endHour}:00</option>--%>
                 <option value="1" ${eh1}>01:00</option>
                 <option value="2" ${eh2}>02:00</option>
                 <option value="3" ${eh3}>03:00</option>
@@ -265,35 +255,12 @@
                 <option value="24" ${eh24}>24:00</option>
             </select> </p>
             <p>Time slot 	<select id="timeSlot" name="timeSlot" disabled style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
-           <%--      <option value='${timeSlot}' selected>${timeSlot} min</option> --%>
                 <option value="15" ${ts15}>15 min</option>
                 <option value="30" ${ts30}>30 min</option>
                 <option value="60" ${ts60}>1 hour</option>
             </select> </p>
-
             <div>
-                <script type="text/javascript">
-                    function sharegoogle() {
-
-                        var a = "${username}";
-                        var b = "${name}";
-                        var c = encodeURIComponent(a);
-                        var d = encodeURIComponent(b);
-
-                        document.getElementById('googleshare').href = "https://plus.google.com/share?url=http://localhost:8080/myavailabletime/viewMatt?table=" + c + "&username=" + d;
-
-                    }
-                    function sharefb() {
-
-                        var g = "${username}";
-                        var h = "${name}";
-                        var e = encodeURIComponent(g);
-                        var f = encodeURIComponent(h);
-
-                        document.getElementById('fbshare').href = "https://www.facebook.com/sharer/sharer.php?u=http://localhost:8080/myavailabletime/viewMatt?table=" + e + "&username=" + f;
-                    }
-                </script>
-                <div id="shareembedemail"><p>Share this calendar</p></div>
+               <div id="shareembedemail"><p>Share this calendar</p></div>
                 <div id="shareembedemail"><a  id="googleshare" href="https://plus.google.com/share?url=http://myavailabletime.com" onclick=" sharegoogle(); javascript:window.open(this.href,
    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                     <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a></div>
