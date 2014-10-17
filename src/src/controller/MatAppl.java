@@ -246,8 +246,8 @@ System.out.println(newTablJSON);
 //--------------------------------------------SZE
 
 	@RequestMapping({"/person"})
-	public String person(@RequestParam ("firstName") String firstName,/*@RequestParam ("lastName") String lastName,*/
-			@RequestParam ("email") String email,@RequestParam ("password") String password,Model model) {
+	public String person(@RequestParam ("username_2") String firstName,/*@RequestParam ("lastName") String lastName,*/
+			@RequestParam ("email_2") String email,@RequestParam ("create_a_password_2") String password,Model model) {
 		String [] buf=new String[0];
 		Person pers = new Person(firstName,/*lastName,*/ buf , email, password);
 		
@@ -269,13 +269,21 @@ System.out.println(newTablJSON);
 	@RequestMapping({"/home"})
 	public String home(@RequestParam ("name") String name,@RequestParam ("password") String password,Model model) {
 		if (ifesbes1.matLogin(name,password)==Response.NO_PASSWORD_MATCHING){
-			model.addAttribute("password","password incorrect!");
+			model.addAttribute("name","5");
+			model.addAttribute("password","1");
+			model.addAttribute("aktiv","5");
+			model.addAttribute("logon",name);
 			return "loginon";}
 		if (ifesbes1.matLogin(name,password)==Response.NO_REGISTRATION){
-			model.addAttribute("name","name or email incorrect!");
+			model.addAttribute("name","2");
+			model.addAttribute("password","5");
+			model.addAttribute("aktiv","5");
 			return "loginon";}
 		if (ifesbes1.matLogin(name,password)==Response.IN_ACTIVE){
-			model.addAttribute("aktiv","no aktiv!");
+			model.addAttribute("name","5");
+			model.addAttribute("password","5");
+			model.addAttribute("aktiv","3");
+			model.addAttribute("logon",name);
 			return "loginon";
 		}
 	//	m_name=pers.getFirstName()+" "+pers.getLastName();
@@ -376,5 +384,5 @@ System.out.println(newTablJSON);
 		String response=value;
 		return response;
 	}
-			
+	
 }

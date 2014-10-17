@@ -66,15 +66,7 @@ function myLoad() {
     }
 }
 </script>
- <script type="text/javascript">
-  function url(){
- 	var x=${item};
-   	var y=${userName};
-   	String uri = "http://localhost:8080/myavailabletime/viewMatt?table="+x+"&username="+y;
-   	var res = encodeURI(uri);
-   	return res;
-   	}
-   </script>
+
     <style>
         head {
             width: auto;
@@ -84,6 +76,7 @@ function myLoad() {
             background:#f0f0f0;
             margin-left: auto;
             margin-right: auto;
+                    
         }
 
         .header {
@@ -95,6 +88,7 @@ function myLoad() {
             margin-right: auto;
             font-size: 1.2em;
             font-weight: bold;
+            
         }
         .topmenu {
             display: inline-block;
@@ -132,10 +126,12 @@ function myLoad() {
         #wrapper {
             width: 100%;
             overflow: hidden; /* will contain if #first is longer than #second */
+    
         }
         #first {
             width: 65%;
             float:left; /* add this */
+            
 
         }
         #second {
@@ -238,15 +234,12 @@ function myLoad() {
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a id="${item}" href="javascript: (function(){var x =this.id; var y=${userName};
-    String uri = 'http://localhost:8080/myavailabletime/viewMatt?table='+x+'&username='+y; 
-    var res = encodeURI(uri);
-   	return res;})()">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
+   <td colspan='8'><a id="${item}" href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
    
  </tr>
    
    <tr>
-		<td><input id="${item}" type="image" src='<d:url value='/resources/glas.jpg'/>' onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
+		<td><input id="${item}" type="image" src="resources/glas.jpg" onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
 		<td><input id="${item}" type="image" src="resources/soed.jpg" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>

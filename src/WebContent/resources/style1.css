@@ -29,7 +29,6 @@ footer, header, menu, nav, section, time {
 }
 body {
 	zoom: 85%;
-	size:85%;
 	line-height: 1;
 	color: black;
 	background: white;
@@ -91,7 +90,6 @@ embed,
 object,
 video {
 	max-width: 100%;
-	max-height: 100%;
 }
 
 .group:after {
@@ -103,11 +101,11 @@ video {
 }
 
 .global_container_ {
-	padding: 37px 0 59px;
-	background: url(images/centr.jpg) no-repeat;
-	min-height: 708px;
+	padding: 58px 0 69px;
+	background: url(images/centr1.png) no-repeat;
+	min-height: 677px;
 	width: 1054px;
-	min-height: 708px;
+	min-height: 677px;
 	margin: 0 auto;
 	float: none;
 	height: auto;
@@ -116,147 +114,132 @@ video {
 .logo {
 	display: block;
 	position: relative;
-	left: 11px;
+	right: 10px;
 	margin: 0 auto;
 }
 .blok {
-	width: 474px;
+	width: 546px;
 }
-.ikonki {
-	min-height: 49px;
-	width: 377px;
+.c_wrapper1 {
+	width: 469px;
+	float: left;
 	position: relative;
-	left: 9px;
-	margin: 0 auto;
 }
-.liniya {
-	position: absolute;
-	top: 35px;
-	left: 0;
-}
-.facebook {
-	height: 42px;
-	border: 0;
-	position: absolute;
-	top: 2px;
-	left: 28px;
-	width: 43px;
-}
-.twitter {
-	height: 42px;
-	border: 0;
-	position: absolute;
-	top: 2px;
-	left: 82px;
-	width: 42px;
-}
-.in {
-	height: 43px;
-	border: 0;
-	position: absolute;
-	top: 2px;
-	left: 136px;
-	width: 44px;
-}
-.google {
-	height: 42px;
-	border: 0;
-	position: absolute;
-	top: 2px;
-	left: 192px;
-	width: 43px;
-}
-.yhoo {
-	height: 42px;
-	border: 0;
-	position: absolute;
-	top: 2px;
-	left: 250px;
-	width: 41px;
-}
-.windows {
-	height: 44px;
-	border: 0;
-	position: absolute;
-	top: 0;
-	left: 306px;
-	width: 44px;
+.create_a_new_account {
+	text-decoration: none;
+	font-size: 43.22px;
+	color: #615e5e;
+	font-style: normal;
+	font-weight: bold;
+	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
+	margin: -2px auto -8px;
+	padding: 0 5px 0 32px;
+	text-align: left;
 }
 .polya {
 	position: relative;
-	margin: 134px 0 0;
+	margin: 53px 0 0;
+}
+.c_wrapper2 {
+	float: left;
+	margin: 10px 0 0;
+	position: relative;
 }
 .username {
-	position: relative;
-}
-.username_or_email {
-	text-align: left;
 	text-decoration: none;
-	font-size: 18.49px;
+	font-size: 17.39px;
 	color: #e8edbd;
 	font-style: italic;
 	font-weight: normal;
 	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
-	margin: 12px 0 -3px;
-	float: left;
-}
-.pole1 {
-	height: 29px;
-	padding: 2px;
-	border: 0;
-	background: url(images/pole1.png) no-repeat;
-	height: 29px;
-	width: 269px;
-	float: left;
-	margin: 0 0 0 15px;
-}
-.username_test {
-	float: right;
-	margin: 1px 0 0;
-}
-.password {
-	width: 448px;
-	position: relative;
-	left: 13px;
-	margin: 57px auto 0;
-}
-.password_2 {
+	margin: -2px auto -3px;
+	padding: 0 33px;
 	text-align: left;
+}
+.email {
 	text-decoration: none;
-	font-size: 18.49px;
+	font-size: 17.39px;
 	color: #e8edbd;
 	font-style: italic;
 	font-weight: normal;
 	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
-	margin: 13px 0 -3px;
-	float: left;
+	margin: 76px auto -3px;
+	padding: 0 44px;
+	text-align: left;
 }
-.pole {
-	height: 30px;
+.create_a_password {
+	text-decoration: none;
+	font-size: 17.39px;
+	color: #e8edbd;
+	font-style: italic;
+	font-weight: normal;
+	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
+	margin: 75px auto 0;
+	padding: 0 0 0 6px;
+	text-align: left;
+}
+.re-enter_password {
+	text-decoration: none;
+	font-size: 17.39px;
+	color: #e8edbd;
+	font-style: italic;
+	font-weight: normal;
+	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
+	margin: 75px auto 0;
+	text-align: left;
+}
+.c_wrapper3 {
+	width: 296px;
+	float: right;
+	position: relative;
+}
+.username_2 {
+	height: 28px;
 	padding: 2px;
 	border: 0;
-	background: url(images/pole.png) no-repeat;
-	height: 30px;
-	width: 269px;
-	float: left;
-	margin: 0 0 0 61px;
-}
-.knopka_avs {
-	float: right;
-	margin: 1px 0 0;
-	cursor: pointer;
-}
-.knopka_zvez{
-	float: right;
-	margin: 1px 0 0;
-	cursor: pointer;
-}
-.knopki {
-	width: 195px;
+	background: url(images/username.png) no-repeat;
+	height: 28px;
+	display: block;
+	width: 290px;
 	position: relative;
-	left: 3px;
-	margin: 60px auto 0;
+	right: 1px;
+	margin: 0 auto;
 }
+.email_2 {
+	height: 29px;
+	padding: 2px;
+	border: 0;
+	background: url(images/email.png) no-repeat;
+	height: 29px;
+	display: block;
+	width: 292px;
+	margin: 56px 0 0;
+}
+.create_a_password_2 {
+	height: 29px;
+	padding: 2px;
+	border: 0;
+	background: url(images/create_a_password.png) no-repeat;
+	height: 29px;
+	display: block;
+	width: 290px;
+	position: relative;
+	right: 1px;
+	margin: 56px auto 0;
+}
+.re-enter_password_2 {
+	height: 28px;
+	padding: 2px;
+	border: 0;
+	background: url(images/re-enter_password.png) no-repeat;
+	height: 28px;
+	display: block;
+	width: 290px;
+	position: relative;
+	right: 1px;
+	margin: 59px auto 0;
+}
+
 .mergedimage_2{
 	height: 50px;
 	text-align: left;
@@ -268,39 +251,44 @@ video {
 	font-style: normal;
 	font-weight: normal;
 	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
-	background: url(images/login.png) no-repeat;
+	background: url(images/registraion.png) no-repeat;
 	height: 50px;
+	cursor: pointer;
 	background-color: transparent;
 	display: block;
 	width: 195px;
-	cursor: pointer;
+	position: relative;
+	left: 11px;
+	margin: 52px auto 0;
 }
-.mergedimage_3{
-	height: 50px;
-	text-align: left;
-	text-indent: 0;
-	text-decoration: none;
-	font-size: 19.76px;
-	line-height: 23.71px;
-	color: #ffffff;
-	font-style: normal;
-	font-weight: normal;
-	font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial,sans-serif;
-	background: url(images/sign_up.png) no-repeat;
-	height: 50px;
-	background-color: transparent;
+.ikonki {
+	width: 41px;
+	float: right;
+	margin: 82px 0 0;
+	position: relative;
+}
+.galozhka {
 	display: block;
-	width: 195px;
-	margin: 16px 0 0;
-	cursor: pointer;
+	margin: 0 auto;
 }
-
+.galozhka_2 {
+	display: block;
+	margin: 52px auto 0;
+}
+.zvezdochka {
+	display: block;
+	margin: 51px auto 0;
+}
+.zvezdochka_1 {
+	display: block;
+	margin: 53px auto 0;
+}
 .blok-form {
 	position: relative;
-	margin: 60px auto 0;
+	margin: 26px auto 0;
 }
 .blok-form {
-	width: 474px;
+	width: 546px;
 	position: relative;
-	left: 1px;
+	left: 25px;
 }
