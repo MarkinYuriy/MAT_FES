@@ -170,7 +170,7 @@
 		var arr = ai.split(delims);
 		var si = document.getElementById("sendEmails");
 		for (i = 0; i < arr.length; i++) {
-  		   if (!isValidEmail(arr[i], true))
+  		   //if (!isValidEmail(arr[i], true))
 			  si.options[si.options.length] = new Option(arr[i]);
 		}
 	}
