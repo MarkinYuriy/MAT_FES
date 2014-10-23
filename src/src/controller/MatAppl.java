@@ -379,10 +379,11 @@ System.out.println(newTablJSON);
 			user.setSnNames(buf2);
 		}
 		ifesbes1.updateProfile(user);
-//		System.out.println(seti);
-//		System.out.println(value);
 		String response=value;
 		return response;
 	}
-	
+	@RequestMapping(value = "setsocialseti", method = RequestMethod.GET)
+	public @ResponseBody void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){
+			ifesbes1.updateMatCalendarInSN(userName, seti);
+	}
 }

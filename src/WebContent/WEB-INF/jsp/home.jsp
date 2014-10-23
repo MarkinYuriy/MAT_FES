@@ -32,21 +32,29 @@ function whichElement() {
     	$('#socialseti').click(
 		function show(){
 			var id=whichElement();
-			var google=document.getElementById(id).checked;
-			var data ="seti="+encodeURIComponent(id)+"&value="+encodeURIComponent(google);
-			var x=document.getElementById(id);
-		//	var google=document.getElementById("Google").checked;
-		//	var data ="Google="+encodeURIComponent(google);
-		//	var x=document.getElementById("Google");
-			$.ajax({
-				url : "socialseti",
-				data : data,
-				type : "GET",
-				success : function(jXHR, status) {
-					x.checked=response;
-				}
-			});
-		return true;
+			if(document.getElementById(id).type=="checkbox"){
+				var google=document.getElementById(id).checked;
+				var data ="seti="+encodeURIComponent(id)+"&value="+encodeURIComponent(google);
+				var x=document.getElementById(id);
+				$.ajax({
+					url : "socialseti",
+					data : data,
+					type : "GET",
+					success : function(jXHR, status) {
+						x.checked=response;
+					}
+				});
+			}
+			if(document.getElementById(id).type=="image"){
+				var data ="seti="+encodeURIComponent(document.getElementById(id).name);
+				$.ajax({
+					url : "setsocialseti",
+					data : data,
+					type : "GET",
+					
+				});
+			}
+			return false;
 		});
     });
 		</script>
@@ -266,7 +274,8 @@ function myLoad() {
             
           		<p style="font-size:1em">Synched accounts:</p>
                      
-				<p style="font-size:1em">Google <input type="checkbox" id="Google" disabled style="border: none; float: right; width: 50px; "></p>
+				<p style="font-size:1em">Google <input type="image" id="Googleset" name="Google" alt="google#in_image" src="resources/images/google.png" style=" float:right" width='20' height='20'>
+												<input type="checkbox" id="Google" disabled style="border: none; float: right; width: 50px; "> </p>
 				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple"  disabled style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled style="border: none; float: right; width: 50px; "></p>
