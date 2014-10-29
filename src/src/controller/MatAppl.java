@@ -143,7 +143,7 @@ public class MatAppl {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		System.out.println(resultSave);
+//		System.out.println(resultSave);
 		return homereturn (model);
 	}
 //-------------------Create Matt
@@ -175,20 +175,20 @@ public class MatAppl {
 		int endHour = Integer.parseInt(endHourStr);
 		String timeSlotStr=request.getParameter("timeSlot");
 		int timeSlot = Integer.parseInt(timeSlotStr); //in minutes
-System.out.println(name);
+/*System.out.println(name);
 System.out.println(startDate);
 System.out.println(dateEnd);
 System.out.println(nDays);
 System.out.println(startHour);
 System.out.println(endHour);
-System.out.println(timeSlot);
+System.out.println(timeSlot);*/
 		String password = null;
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
 		oldMatt=ifesbes1.createMatt(data, userName);
-System.out.println(oldMatt.getSlots().toString());
+//System.out.println(oldMatt.getSlots().toString());
 		mattToJSON = oldMatt.matt2browser();  
-System.out.println(mattToJSON);
+//System.out.println(mattToJSON);
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
 	}
@@ -206,7 +206,7 @@ System.out.println(mattToJSON);
 		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
 		newTablJSON=request.getParameter("mattToJSON");
-System.out.println(newTablJSON);
+//System.out.println(newTablJSON);
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
 		newMatt.setData(oldMatt.getData());
