@@ -247,14 +247,15 @@ function myLoad() {
  </tr>
    
    <tr>
-		<td><input id="${item}" type="image" src="resources/glas.jpg" onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
+		<td><input id="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input id="${item}" type="image" src="resources/soed.jpg" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
+		<td><input id="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/chel.jpg'/>' width='30' height='30'></td>
-		<td><img src="resources/mus.jpg" width='30' height='30'></td>
+		<td><img src="resources/chel.jpg" width='30' height='30'></td>
+		<td><input id="${item}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.id, tableForm.action='removematt'" width='30' height='30'></td>
+		
    </tr>
    </table>
 
@@ -274,7 +275,7 @@ function myLoad() {
             
           		<p style="font-size:1em">Synched accounts:</p>
                      
-				<p style="font-size:1em">Google <input type="image" id="Googleset" name="Google" alt="google#in_image" src="resources/images/google.png" style=" float:right" width='20' height='20'>
+				<p style="font-size:1em">Google <input type="image" id="Googleset" name="Google" alt="google#in_image" src="resources/kalendar.jpg" title="Create MyAvailableTime Calendar in Google" style=" float:right" width='20' height='20'>
 												<input type="checkbox" id="Google" disabled style="border: none; float: right; width: 50px; "> </p>
 				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple"  disabled style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled style="border: none; float: right; width: 50px; "></p>
@@ -290,5 +291,5 @@ function myLoad() {
     </div >
 </div >
 
-</body onload="myLoad()">
+</body>
 </html>

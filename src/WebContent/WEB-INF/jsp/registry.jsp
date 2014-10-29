@@ -7,7 +7,8 @@
   <meta name="keywords" content="Generated at http://psd2htmlconverter.com - Your site's keywords should be here" />
   <meta name="generator" content="http://psd2htmlconverter.com" />
   <link rel="stylesheet" type="text/css" href="resources/style1.css" /> 
- 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 	function namepol() {
 	var x = document.getElementById("namepole").value;
@@ -17,7 +18,19 @@
 <script type="text/javascript">
 	function emailpol() {
 	var x = document.getElementById("emailpole").value;
-    if (x.indexOf("@")>0) document.getElementById("emailikon").src="resources/images/galozhka.png";else document.getElementById("emailikon").src="resources/images/zvezdochka.png";
+   if (x.indexOf("@")>0) {
+	
+	var data ="email="+encodeURIComponent(x);
+	$.ajax({
+		url : "email",
+		data : data,
+		type : "GET",
+		success : function(response) {
+			if (response=="3") document.getElementById("emailikon").src="resources/images/galozhka.png";
+			else if (response=="0") document.getElementById("emailikon").src="resources/images/zvezdochka.png"; else document.getElementById("emailikon").src="resources/images/zvezdochka.png";
+		}
+	});
+   }else document.getElementById("emailikon").src="resources/images/zvezdochka.png";
 }
 </script>
 <script type="text/javascript">
@@ -38,7 +51,7 @@
 	function subm() {
 		var x =	document.getElementById("passwikon1").src
 		
-		return true;
+		return false;
 }
 </script>
  </head>
@@ -57,10 +70,10 @@
         <p class="re-enter_password">Re -enter password</p>
        </div>
        <div class="c_wrapper3">
-        <input id="namepole" class="username_2" type="text" name="username_2"  onblur="namepol()" />
-        <input id="emailpole" class="email_2" type="text" name="email_2" onblur="emailpol()" />
-        <input id="passwpole" class="create_a_password_2" type="password" name="create_a_password_2" onblur="passwpol()" />
-        <input id="passwpole1" class="re-enter_password_2" type="password" name="re-enter_password_2" onblur="passwpol1()" />
+        <input id="namepole" class="username_2" type="text" name="username_2" value="" onblur="namepol()" />
+        <input id="emailpole" class="email_2" type="text" name="email_2" value="" onblur="emailpol()" />
+        <input id="passwpole" class="create_a_password_2" type="password" name="create_a_password_2" value="" onblur="passwpol()" />
+        <input id="passwpole1" class="re-enter_password_2" type="password" name="re-enter_password_2" value="" onblur="passwpol1()" />
        </div>
       </div>
       <input class="mergedimage_2" type="submit" name="mergedimage_2" alt="REGISTRATION" value="" onclick="subm()"/>

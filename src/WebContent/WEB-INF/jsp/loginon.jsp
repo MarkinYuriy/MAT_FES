@@ -7,23 +7,8 @@
   <meta name="keywords" content="Generated at http://psd2htmlconverter.com - Your site's keywords should be here" />
   <meta name="generator" content="http://psd2htmlconverter.com" />
   <link rel="stylesheet" type="text/css" href="resources/style.css" /> 
-  <!--[if IE 6]>
-	<style type="text/css">
-		* html .group {
-			height: 1%;
-		}
-	</style>
-  <![endif]--> 
-  <!--[if IE 7]>
-	<style type="text/css">
-		*:first-child+html .group {
-			min-height: 1px;
-		}
-	</style>
-  <![endif]--> 
-  <!--[if lt IE 9]> 
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
-  <![endif]--> 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script type="text/javascript">
 	 function submit1(e) {
 		if (e==1)document.getElementById("blok-form").action= 'home';
@@ -56,11 +41,27 @@
 		if(pas) {x.src="resources/images/username_open.png";}
 		if(nam) {x.src="resources/images/username_test.png";}
 		if(akt) {x.src="resources/images/username_aktiv.png";}
-		
-		
-		
+			
 	}
 </script>
+<script type="text/javascript">
+	function emailpol() {
+	var x = document.getElementById("polelogin").value;
+ 
+	var data ="email="+encodeURIComponent(x);
+	$.ajax({
+		url : "email",
+		data : data,
+		type : "GET",
+		success : function(response) {
+			if (response=="3") document.getElementById("ok").src="resources/images/username_test.png";
+			else if (response=="0") document.getElementById("ok").src="resources/images/username_aktiv.png"; else document.getElementById("ok").src="resources/images/username_open.png";
+		}
+	});
+  
+}
+</script>
+
  </head>
  <body onload="error()">
   <div class="global_container_">
@@ -79,7 +80,7 @@
      <div class="polya">
       <div class="username group">
        <p class="username_or_email">Username or Email</p>
-       <input id="polelogin" class="pole1" type="text" name="name" value="${logon}" />
+       <input id="polelogin" class="pole1" type="text" name="name" value="${logon}" value="" onblur="emailpol()"/>
        <img id="ok" class="username_test" src="resources/images/username_test.png" alt="" width="32" height="31" />
       </div>
       <div class="password group">

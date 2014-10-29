@@ -302,7 +302,6 @@ System.out.println(timeSlot);*/
 	
 	private String getSocial() {
 		String []mas=user.getSnNames();
-//		String[] mas={"Apple","Facebook","Twitter","Windows"};
 		StringBuffer txt = new StringBuffer();
 		txt.append('[');
 		for (int i = 0; i < mas.length; i++) {
@@ -317,7 +316,6 @@ System.out.println(timeSlot);*/
 	}
 	private String  getAuthorizedSocial() {
 		String []mas=connector.getAuthorizedSocialNames(userName);
-//		String[] mas={"Apple","Facebook","Twitter","Windows"};
 		StringBuffer txt = new StringBuffer();
 		txt.append('[');
 		for (int i = 0; i < mas.length; i++) {
@@ -385,5 +383,17 @@ System.out.println(timeSlot);*/
 	@RequestMapping(value = "setsocialseti", method = RequestMethod.GET)
 	public @ResponseBody void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){
 			ifesbes1.updateMatCalendarInSN(userName, seti);
+	}
+	@RequestMapping(value = "email", method = RequestMethod.GET)
+	public @ResponseBody String setEmail(@RequestParam(value = "email", required = false) String email){
+		StringBuffer buf= new StringBuffer();
+		buf.append(ifesbes1.ifEmailExistsInDB(email));
+		return buf.toString();	
+	}
+	@RequestMapping({"/removematt"})
+	public String removeMATT(HttpServletRequest request,Model model){
+		String mattName=request.getParameter("table");
+		ifesbes1.removeMatt(mattName, userName);
+		return homereturn(model);
 	}
 }
