@@ -1,11 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<title>Share</title>
+<title>MyAvailableTime</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -261,11 +257,13 @@
             </select> </p>
             <div>
                <div id="shareembedemail"><p>Share this calendar</p></div>
-                <div id="shareembedemail"><a  id="googleshare" href="https://plus.google.com/share?url=http://myavailabletime.com" onclick=" sharegoogle(); javascript:window.open(this.href,
-   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <div id="shareembedemail">
+                	<a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${mattName}%26username%3D${userName}" 
+                			onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                     <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/></a></div>
                 <div id="shareembedemail">
-                    <a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.14:8181/Booksclient" onclick=" sharefb(); javascript:window.open(this.href,
+                    <a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${mattName}%26username%3D${userName}" 
+                    		onclick=" sharefb(); javascript:window.open(this.href,
    '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                         <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="16" height="16">
                     </a>
