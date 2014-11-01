@@ -223,7 +223,7 @@ function myLoad() {
             <p style="font-size: 1em ">${name}'s Distribution Calendars</p>
         </div>
         <form  id="form2" >
-         <div>	<button  onclick="form2.action='dom'">Create a new Avaliable calendar</button>
+         <div>	<button  onclick="form2.action='dom'">Create a new Available calendar</button>
          <p style="font-size:1em">Existing calendars</p>
          
  
@@ -237,7 +237,7 @@ function myLoad() {
                      
    <d:forEach items="${matt}" var="item" >
          
-   <table width='80%' border='1'>
+   <table width='80%' >  <!-- border='1' --> 
    <tr>
    <td colspan='8'>${item}</td>
    </tr>
@@ -250,15 +250,21 @@ function myLoad() {
 		<td><input id="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
 		<td><input id="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
-		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
+        <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
+                onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+" width='30' height='30'/></a></td>
+        <td><a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
+                onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="30" height="30"></a></td>
+<%-- 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
+ --%>		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
 		<td><img src="resources/chel.jpg" width='30' height='30'></td>
 		<td><input id="${item}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.id, tableForm.action='removematt'" width='30' height='30'></td>
 		
    </tr>
    </table>
-
+<br>
   </d:forEach>
             </div>
             
