@@ -242,7 +242,7 @@ function myLoad() {
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a id="${item}" href="http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://localhost:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
+   <td colspan='8'><a id="${item}" href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
    
  </tr>
    
@@ -252,10 +252,10 @@ function myLoad() {
 		<td><input id="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
         <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
                 onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+" width='30' height='30'/></a></td>
+                <img src="https://www.gstatic.com/images/icons/gplus-32.png" title="Share on Google+" width='30' height='30'/></a></td>
         <td><a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
                 onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" alt="Share on Facebook" width="30" height="30"></a></td>
+                <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" title="Share on Facebook" width="30" height="30"></a></td>
 <%-- 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
  --%>		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
