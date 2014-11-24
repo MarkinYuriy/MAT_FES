@@ -53,6 +53,11 @@ public class MatAppl {
 		  model.addAttribute("buf", firstName);
 		return "buf";
 	}
+	@RequestMapping({"/invitations"})
+	public String Invitations (Model model) {
+		
+		return "buf";
+	}
 //-----------------Account settings
 	@RequestMapping({"/accountsettings"})
 	public String accountSettings (Model model) {
@@ -396,4 +401,6 @@ System.out.println(timeSlot);*/
 		ifesbes1.removeMatt(mattName, userName);
 		return homereturn(model);
 	}
+	
+	
 }
