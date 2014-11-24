@@ -16,6 +16,16 @@
   return true;
  }
 </script>
+ <script>
+ function myEnter(e) {
+	 if (typeof e == 'undefined' && window.event) {
+		e = window.event;}
+	 if (e.which == 13){
+	  	document.getElementById("blok-form").action= 'home';
+	 	document.forms["blok-form"].submit();}
+	 }
+ 
+</script>
 <script type="text/javascript">
 	function view(){
 		var pas=document.getElementById("password");
@@ -55,7 +65,7 @@
 		type : "GET",
 		success : function(response) {
 			if (response=="3") document.getElementById("ok").src="resources/images/username_test.png";
-			else if (response=="0") document.getElementById("ok").src="resources/images/username_aktiv.png"; else document.getElementById("ok").src="resources/images/username_open.png";
+			else if (response=="0"){ document.getElementById("ok").src="resources/images/username_aktiv.png"; alert("Your account as not activated");}else document.getElementById("ok").src="resources/images/username_open.png";
 		}
 	});
   
@@ -85,7 +95,7 @@
       </div>
       <div class="password group">
       <p class="password_2">Password</p>
-       <input id="password" class="pole" type="password" name="password" placeholder="" />
+       <input id="password" class="pole" type="password" name="password" placeholder="" onkeypress="myEnter(event)"/>
        <img id="codortex" class="knopka_avs" src="resources/images/knopka_avs.png" alt="" width="32" height="32" onclick="view()"/>
       </div>
      </div>

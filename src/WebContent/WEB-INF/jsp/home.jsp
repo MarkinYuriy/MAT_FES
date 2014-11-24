@@ -242,14 +242,14 @@ function myLoad() {
    <td colspan='8'>${item}</td>
    </tr>
    <tr>
-   <td colspan='8'><a id="${item}" href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
+   <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item}&username=${userName}</a></td>
    
  </tr>
    
    <tr>
-		<td><input id="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.id, tableForm.action='viewMatt'" width='30' height='30'></td>
+		<td><input name="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input id="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.id, tableForm.action='mail'" width='30' height='30' ></td>
+		<td><input name="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
         <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
                 onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                 <img src="https://www.gstatic.com/images/icons/gplus-32.png" title="Share on Google+" width='30' height='30'/></a></td>
@@ -260,7 +260,7 @@ function myLoad() {
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
  --%>		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
 		<td><img src="resources/chel.jpg" width='30' height='30'></td>
-		<td><input id="${item}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.id, tableForm.action='removematt'" width='30' height='30'></td>
+		<td><input name="${item}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
 		
    </tr>
    </table>
