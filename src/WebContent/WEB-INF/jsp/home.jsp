@@ -59,6 +59,14 @@ var disab=${SNdisabl};
     y.checked= true;
     }
 }
+function toggle(element) {
+	
+	 if( document.getElementById(element.name).style.display=='none' ){
+	   document.getElementById(element.name).style.display = '';
+	 }else{
+	   document.getElementById(element.name).style.display = 'none';
+	 }
+	}
 </script>
 
     <style>
@@ -115,6 +123,9 @@ var disab=${SNdisabl};
         }
         p {
             font-size: 0.6em;
+        }
+        td {
+        	width:100px;
         }
 		
         #wrapper {
@@ -225,7 +236,7 @@ var disab=${SNdisabl};
                      
    <d:forEach items="${matt}" var="item" >
          
-   <table width='80%' >  <!-- border='1' --> 
+   <table style="width:80%; margin-left:10%">  <!-- border='1' --> 
    <tr>
    <td colspan='8'>${item}</td>
    </tr>
@@ -236,14 +247,14 @@ var disab=${SNdisabl};
    
    <tr>
 		<td><input name="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
-		<td><input name="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
-        <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
-                onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                <img src="https://www.gstatic.com/images/icons/gplus-32.png" title="Share on Google+" width='30' height='30'/></a></td>
-        <td><a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
-                onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" title="Share on Facebook" width="30" height="30"></a></td>
+		<td><img title="Edit" src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
+		<td><a name="${item}" href=#  onclick="toggle(this)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
+<%--         <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}"  --%>
+<!--                 onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"> -->
+<!--                 <img src="https://www.gstatic.com/images/icons/gplus-32.png" title="Share on Google+" width='30' height='30'/></a></td> -->
+<%--         <td><a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}"  --%>
+<!--                 onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"> -->
+<!--                 <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" title="Share on Facebook" width="30" height="30"></a></td> -->
 <%-- 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
  --%>		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
@@ -251,6 +262,17 @@ var disab=${SNdisabl};
 		<td><input name="${item}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
 		
    </tr>
+   <tr id="${item}" style="display:none; height:50px">
+   		<td> </td>
+   		<td><input name="${item}" type="image" src="resources/mail_icon.png" title="Share" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
+        <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
+                onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="https://www.gstatic.com/images/icons/gplus-32.png" title="Share on Google+" width='30' height='30'/></a></td>
+        <td><a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
+                onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" title="Share on Facebook" width="30" height="30"></a></td>
+   </tr>
+   		
    </table>
 <br>
   </d:forEach>
