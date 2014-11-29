@@ -58,6 +58,11 @@ public class MatAppl {
 		
 		return "buf";
 	}
+	@RequestMapping({"/action_edit"})
+	public String action_edit (@RequestParam ("tablename") String firstName,Model model) {
+		return "savedMatt";
+	}
+	
 //-----------------Account settings
 	@RequestMapping({"/accountsettings"})
 	public String accountSettings (Model model) {
@@ -360,8 +365,8 @@ System.out.println(timeSlot);*/
 		
 		return homereturn(model);
 	}
-	@RequestMapping(value = "socialseti", method = RequestMethod.GET)
-	public @ResponseBody String processAJAXRequest(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
+	@RequestMapping({"/socialseti"})
+	public String setSocialseti(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
 		String [] buf=user.getSnNames();
 		if (value.equals("true")){
 			String [] buf1=new String [buf.length+1];
@@ -385,9 +390,9 @@ System.out.println(timeSlot);*/
 		String response=value;
 		return response;
 	}
-	@RequestMapping(value = "setsocialseti", method = RequestMethod.GET)
-	public @ResponseBody void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){
-			ifesbes1.updateMatCalendarInSN(userName, seti);
+	@RequestMapping({"/setsocialset"})
+	public void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){
+			ifesbes1.updateMatCalendarInSN(userName, seti);	
 	}
 	@RequestMapping(value = "email", method = RequestMethod.GET)
 	public @ResponseBody String setEmail(@RequestParam(value = "email", required = false) String email){
