@@ -247,10 +247,10 @@ function toggle(element) {
    
    <tr>
 		<td><input name="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
-		
-
-		<td><img title="Edit" src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
+		<td><input name="${item}" type="image" src="resources/karandash.jpg" title="View" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
 		<td><a name="${item}" href=#  onclick="toggle(this)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
+		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
 		<td><img src="resources/chel.jpg" width='30' height='30'></td>
 		<td><input name="${item}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
@@ -279,14 +279,14 @@ function toggle(element) {
         <div class="right">
             <p style="font-size: 1em ">Account Settings</p>
             <p style="font-size:0.6em">General information:</p>
-            <form id="socialseti" action="socialseti" style="font-size: 0.6em">
+            <form id="socialseti" style="font-size: 0.6em">
                 <p style="font-size:1em">Name:<input type="text" name="firstname" value="${name}" disabled style="width: 70%; float: right;"  ></p>
                 <p style="font-size:1em">Email:<input type="text" name="Email" value="${email}" disabled  style="width: 70%; float: right;"  ></p>
             
           		<p style="font-size:1em">Synched accounts:</p>
                      
 				<p style="font-size:1em">Google <input type="image" id="Googleset" name="Google" alt="google#in_image" src="resources/kalendar.jpg" title="Create MyAvailableTime Calendar in Google" onclick="setsocialseti(this.id)" style=" float:right" width='20' height='20'>
-												<input type="checkbox" id="Google" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "> </p>
+												<input type="checkbox" id="Google" disabled onclick="socialseti(this.id)" style="float: right;"> </p>
 				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple"  disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
