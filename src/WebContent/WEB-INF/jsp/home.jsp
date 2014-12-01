@@ -26,7 +26,6 @@
 			url : "socialseti",
 			data : data,
 			type : "GET",
-			cache: false,
 			success : function(jXHR, status) {
 				x.checked=response;
 			}
@@ -34,13 +33,12 @@
 	}
 	</script>
 	<script type="text/javascript">
-	function setsocialset(name){
-	var data ="seti="+encodeURIComponent(name);
+	function setsocialseti(id){
+	var data ="seti="+encodeURIComponent(document.getElementById(id).name);
 	$.ajax({
-		url : "setsocialset",
+		url : "setsocialseti",
 		data : data,
-		cache: false,
-		type : "GET"
+		type : "GET",
 		
 	});
 	}
@@ -249,7 +247,7 @@ function toggle(element) {
    
    <tr>
 		<td><input name="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
-		<td><input name="${item}" type="image" src="resources/karandash.jpg" title="View" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/karandash.jpg'/>' width='30' height='30'></td>
 		<td><input name="${item}" type="image" src="resources/soed.jpg" title="Share by Email" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
         <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item}%26username%3D${userName}" 
                 onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
@@ -303,8 +301,8 @@ function toggle(element) {
             
           		<p style="font-size:1em">Synched accounts:</p>
                      
-				<p style="font-size:1em">Google <input type="image" id="GoogleSet" name="Google" alt="google#in_image" src="resources/kalendar.jpg" title="Create MyAvailableTime Calendar in Google" onclick="setsocialset(this.name)" style=" float:right" width='20' height='20'>
-												<input type="checkbox" id="Google" disabled onclick="socialseti(this.id)" style="float: right; "> </p>
+				<p style="font-size:1em">Google <input type="image" id="Googleset" name="Google" alt="google#in_image" src="resources/kalendar.jpg" title="Create MyAvailableTime Calendar in Google" onclick="setsocialseti(this.id)" style=" float:right" width='20' height='20'>
+												<input type="checkbox" id="Google" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "> </p>
 				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple"  disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
 				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
