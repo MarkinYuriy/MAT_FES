@@ -65,7 +65,7 @@
 		type : "GET",
 		success : function(response) {
 			if (response=="3") document.getElementById("ok").src="resources/images/username_test.png";
-			else if (response=="0"){ document.getElementById("ok").src="resources/images/username_aktiv.png"; alert("Your account as not activated");}else document.getElementById("ok").src="resources/images/username_open.png";
+			else if (response=="0"){ document.getElementById("ok").src="resources/images/username_aktiv.png"; alert("Your account isn't activated. Please, check your email for activation.");}else document.getElementById("ok").src="resources/images/username_open.png";
 		}
 	});
   

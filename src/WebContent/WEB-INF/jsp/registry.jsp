@@ -53,7 +53,8 @@
 		var y = document.getElementById("passwpole1").value;
 		var x2 = document.getElementById("nameikon").alt;
 		var x3 = document.getElementById("emailikon").alt;
-		if (x==y && x2=="ok" && x3=="ok") {alert ("Email ") ;document.forms["myform"].submit();}
+		if (x==y && x2=="ok" && x3=="ok") {alert ("Thank you for registering, Please check your email to confirm.");
+		document.forms["myform"].submit();}
 }
 </script>
  </head>
