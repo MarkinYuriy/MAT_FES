@@ -4,6 +4,7 @@ import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+
 import mat.IFesBes1;
 import mat.IFrontConnector;
 import mat.Matt;
@@ -156,9 +157,78 @@ public class MatAppl {
 	public String dom (Model model) {
 		model.addAttribute("userName",userName);
 		model.addAttribute("name",m_name);
-		return "createMatt";
+	return createMatt2(model);
 	}
-//--------------------------------------------SZS
+	@RequestMapping({"/createMatt2"})
+	public String createMatt2( Model model){
+	//----for creating MATT from the very beginning----
+		String mattToJSON=null;
+		String name = "";
+		String dateStr =startDate();
+		Date startDate = null;
+		try {
+			startDate = new SimpleDateFormat("d.M.y").parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String dateEnd = endDate();
+		int startHour = 0;
+		int endHour = 24;
+		int timeSlot =60;
+		
+		String password = null;
+		mat.MattData data = new MattData(name,7,startDate,startHour,endHour,timeSlot,password);
+		mattName=name;//----???----for creating URL
+		oldMatt=ifesbes1.createMatt(data, userName);
+		mattToJSON = oldMatt.matt2browser();  
+		addingAtributes(model,name,null,dateStr,dateEnd,Integer.toString(startHour),Integer.toString(endHour),Integer.toString(timeSlot),mattToJSON);
+		return "createMatt2";
+	}
+	public static Calendar getFirstWeekDayTime(Calendar calendar){
+		int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+	    switch(weekDay) {
+	    case 1:
+	        weekDay = -6;
+	        break;
+	    case 2:
+	        weekDay = 0;
+	        break;
+	    case 3:
+	        weekDay = -1;
+	        break;
+	    case 4:
+	        weekDay = -2;
+	        break;
+	    case 5:
+	        weekDay = -3;
+	        break;
+	    case 6:
+	        weekDay = -4;
+	        break;
+	    case 7:
+	        weekDay = -5;
+	        break;
+	    }
+	    calendar.add(Calendar.DAY_OF_MONTH, weekDay);
+		return calendar;	
+	}
+private String startDate() {
+	Date date= new Date();
+	DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
+	Calendar calendar= new GregorianCalendar();
+	calendar.setTime(date);	
+	return df.format(getFirstWeekDayTime(calendar).getTime());
+	}
+private String endDate() {
+	Date date= new Date();
+	DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
+	Calendar calendar= new GregorianCalendar();
+	calendar.setTime(date);	
+	calendar = getFirstWeekDayTime(calendar);
+    calendar.add(Calendar.DAY_OF_MONTH, 6);
+	return df.format(calendar.getTime());
+	}
+	//--------------------------------------------SZS
 	@RequestMapping({"/createMatt"})
 	public String createMattData(HttpServletRequest request, Model model){
 	//----for creating MATT from the very beginning----
@@ -274,21 +344,21 @@ System.out.println(timeSlot);*/
 	@RequestMapping({"/home"})
 	public String home(@RequestParam ("name") String name,@RequestParam ("password") String password,Model model) {
 		if (ifesbes1.matLogin(name,password)==Response.NO_PASSWORD_MATCHING){
-			model.addAttribute("name","5");
+			/*model.addAttribute("name","5");
 			model.addAttribute("password","1");
 			model.addAttribute("aktiv","5");
-			model.addAttribute("logon",name);
+			model.addAttribute("logon",name);*/
 			return "loginon";}
 		if (ifesbes1.matLogin(name,password)==Response.NO_REGISTRATION){
-			model.addAttribute("name","2");
+		/*	model.addAttribute("name","2");
 			model.addAttribute("password","5");
-			model.addAttribute("aktiv","5");
+			model.addAttribute("aktiv","5");*/
 			return "loginon";}
 		if (ifesbes1.matLogin(name,password)==Response.IN_ACTIVE){
-			model.addAttribute("name","5");
+			/*model.addAttribute("name","5");
 			model.addAttribute("password","5");
 			model.addAttribute("aktiv","3");
-			model.addAttribute("logon",name);
+			model.addAttribute("logon",name);*/
 			return "loginon";
 		}
 	//	m_name=pers.getFirstName()+" "+pers.getLastName();
