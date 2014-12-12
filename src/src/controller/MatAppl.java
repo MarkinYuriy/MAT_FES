@@ -159,28 +159,38 @@ public class MatAppl {
 		model.addAttribute("name",m_name);
 	return createMatt2(model);
 	}
+	
 	@RequestMapping({"/createMatt2"})
 	public String createMatt2( Model model){
 	//----for creating MATT from the very beginning----
 		String mattToJSON=null;
-		String name = "";
-		String dateStr =startDate();
+		String name = " ";
+		String dateStr =startDate(null);
 		Date startDate = null;
 		try {
 			startDate = new SimpleDateFormat("d.M.y").parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		String dateEnd = endDate();
+		String dateEnd = endDate(null);
 		int startHour = 0;
 		int endHour = 24;
 		int timeSlot =60;
-		
 		String password = null;
 		mat.MattData data = new MattData(name,7,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
+		  ArrayList<Boolean> newTabList=new ArrayList<Boolean>();
+		  int slotsNumber=(60/timeSlot)*(endHour-startHour)*7;
+		  for(int i=0;i<slotsNumber;i++){
+		   newTabList.add(true);
+		  }
+		  oldMatt=new Matt();
+		  oldMatt.setData(data);
+		  oldMatt.setSlots(newTabList);
+		  mattToJSON = oldMatt.matt2browser();
+	/*	mattName=name;//----???----for creating URL
 		oldMatt=ifesbes1.createMatt(data, userName);
-		mattToJSON = oldMatt.matt2browser();  
+		mattToJSON = oldMatt.matt2browser();  */
 		addingAtributes(model,name,null,dateStr,dateEnd,Integer.toString(startHour),Integer.toString(endHour),Integer.toString(timeSlot),mattToJSON);
 		return "createMatt2";
 	}
@@ -212,15 +222,15 @@ public class MatAppl {
 	    calendar.add(Calendar.DAY_OF_MONTH, weekDay);
 		return calendar;	
 	}
-private String startDate() {
-	Date date= new Date();
+private String startDate(Date date) {
+	if (date==null)date= new Date();
 	DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
 	Calendar calendar= new GregorianCalendar();
 	calendar.setTime(date);	
 	return df.format(getFirstWeekDayTime(calendar).getTime());
 	}
-private String endDate() {
-	Date date= new Date();
+private String endDate(Date date) {
+	if (date==null)date= new Date();
 	DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
 	Calendar calendar= new GregorianCalendar();
 	calendar.setTime(date);	
@@ -229,7 +239,60 @@ private String endDate() {
 	return df.format(calendar.getTime());
 	}
 	//--------------------------------------------SZS
-	@RequestMapping({"/createMatt"})
+@RequestMapping(value = "nWek", method = RequestMethod.GET)
+public @ResponseBody  int nWek(@RequestParam(value = "dateStr", required = false) String dateStr,
+		@RequestParam(value = "dateEnd", required = false) String dateEnd){
+		int nWek = 0;
+		
+		return nWek;
+}
+@RequestMapping(value = "newJson", method = RequestMethod.GET)
+public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = false) String dateStr,
+		@RequestParam(value = "dateEnd", required = false) String dateEnd,
+		@RequestParam(value = "timeSlotStr", required = false) String timeSlotStr){
+		String mattToJSON=null;
+		String name = " ";
+		Date start = null;
+		Date end = null;
+		Date dateStr1 = null;
+		int nDays=7;
+		try {
+			start = new SimpleDateFormat("d.M.y").parse(dateStr);
+			end = new SimpleDateFormat("d.M.y").parse(dateEnd);
+			dateStr1=new SimpleDateFormat("d.M.y").parse(startDate(start));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
+		try {
+			long d1=formater.parse(endDate(end)).getTime();
+			long d2=formater.parse(startDate(start)).getTime();
+			nDays=(int) ((d1-d2)/(1000*60*60*24)+1);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int startHour = 0;
+		int endHour = 24;
+		int timeSlot =Integer.parseInt(timeSlotStr);
+		String password = null;
+		mat.MattData data = new MattData(name,nDays,dateStr1,startHour,endHour,timeSlot,password);
+		mattName=name;//----???----for creating URL
+		  ArrayList<Boolean> newTabList=new ArrayList<Boolean>();
+		  int slotsNumber=(60/timeSlot)*(endHour-startHour)*nDays;
+		  for(int i=0;i<slotsNumber;i++){
+		   newTabList.add(true);
+		  }
+		  oldMatt=new Matt();
+		  oldMatt.setData(data);
+		  oldMatt.setSlots(newTabList);
+		  mattToJSON = oldMatt.matt2browser();  
+	//	oldMatt=ifesbes1.createMatt(data, userName);
+	//	mattToJSON = oldMatt.matt2browser();
+	return mattToJSON;
+}
+@RequestMapping({"/createMatt"})
 	public String createMattData(HttpServletRequest request, Model model){
 	//----for creating MATT from the very beginning----
 		String mattToJSON=null;
@@ -475,5 +538,4 @@ System.out.println(timeSlot);*/
 	public String action_edit (@RequestParam ("tablename") String firstName,Model model) {
 		return "savedMatt";
 	}
-	
 }
