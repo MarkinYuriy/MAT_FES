@@ -33,15 +33,20 @@ function newJson1(){
 		url : "nWek",
 		data : data1,
 		type : "GET",
-		success : function(nWek) {
-			if (nWek>1){document.getElementById("bak").value=nwek;
-			document.getElementById("bak").disabled= false;}	
+		success : function(buf) {
+			var mbuf=buf;
+			if (mbuf>0){document.getElementById("txtnext").value=mbuf;	
+						document.getElementById("next").disabled= false;}
+			else {document.getElementById("next").disabled= true;}
+			document.getElementById("txtback").value=0;
+			document.getElementById("back").disabled= true;
 		}
 	});
 }
     </script> 
-    <script type="text/javascript">
-    function viewTab(s){
+    <script>
+    function viewTab(s1){
+    	var s=s1;
 		var arr = $('#par1').attr('value');
 
         var json = JSON.parse(arr);
@@ -50,7 +55,7 @@ function newJson1(){
                 newTable = oldTable.cloneNode();
         var tr = document.createElement('tr');
         tr.id = "dayValue";
-        for(var i = 0+s; i < json[2].length && i<s+7; i++){
+        for(var i = s; i < json[2].length && i<s+7; i++){
             var th = document.createElement('th');
             th.appendChild(document.createTextNode(json[2][i]));
             tr.appendChild(th);
@@ -58,7 +63,7 @@ function newJson1(){
         newTable.appendChild(tr);
       
         var tr1 = document.createElement('tr');
-        for(var i = 0+s; i < json[1].length && i<s+7; i++){
+        for(var i = s; i < json[1].length && i<s+7; i++){
             var th1 = document.createElement('td');
             var id = "th" + i;
             th1.id = id;
@@ -73,9 +78,9 @@ function newJson1(){
 	      var oldTable = document.getElementById('mattTable1'),
     	 newTable = oldTable.cloneNode();
 	      
-        for(var i = 0+s; i < json[3].length; i++){
+        for(var i = s; i < json[3].length; i++){
             var tr = document.createElement('tr');
-            for(var j = 0+s; j < json[2].length && j<s+7; j++){
+            for(var j = s; j < json[2].length && j<s+7; j++){
                 var td = document.createElement('td');
                 var id = "td" + i + j
                 td.id = id;
@@ -93,15 +98,32 @@ function newJson1(){
         oldTable.parentNode.replaceChild(newTable, oldTable);
     }
     </script>
-    <script type="text/javascript">
-var nWek=0;
-    function end(){
-    	
-    }
-  function bak(){
-	  viewTab(0);
+    <script>
+    function mback(){
+	  var x=document.getElementById("txtnext").value;
+  	  var y=document.getElementById("txtback").value;
+  	  x++;
+  	  y--;
+  	  document.getElementById("txtnext").value=x;
+  	  document.getElementById("txtback").value=y;
+  	  viewTab(y*7);
+  	  if(x>0)document.getElementById("next").disabled=false;
+  	  if(y==0)document.getElementById("back").disabled=true;
     }
     </script>
+    <script>
+  function mnext(){
+	  var x=document.getElementById("txtnext").value;
+	  var y=document.getElementById("txtback").value;
+	  x--;
+	  y++;
+	  document.getElementById("txtnext").value=x;
+	  document.getElementById("txtback").value=y;
+	  viewTab(y*7);	  
+	  if(x==0)document.getElementById("next").disabled=true;
+	  if(y>0)document.getElementById("back").disabled=false;
+    }
+  </script>
     <style>
         head {
             width: auto;
@@ -184,14 +206,7 @@ var nWek=0;
             display: inline-block;
             text-align: center;
         }
-       button {
-            background:none!important;
-            border:none;
-            padding:0!important;
-            /*border is optional*/
-            font-size: 1em;
-            color: white;
-        }
+      
         #table1
         {
             border:solid 1px;
@@ -217,15 +232,17 @@ var nWek=0;
     <span class="topmenu" style="float:right;"> Logged in as:<span id="userName"> ${userName}</span></span>
 </div>
 <div id="wrapper">
-	<form action="saveMatt">
+	<form>
     <div id="first">
         <div class="left">
             <p style="font-size: 1em ">${name}'s Calendar</p>
-            <button id="end" type="button" disabled onclick="end()">end</button>
-            <button id="bak" type="button" disabled onclick="bak()">bak</button>
+            <button id="back" type="button" disabled onclick="mback()">back</button>
+            <button id="next" type="button" disabled onclick="mnext()">next</button>
         </div>
         <div  >
  			  <input id="par1" name="mattToJSON" value='${matJSON}' type=hidden style="display:none"/>
+              <input id="txtback" name="txtback" value=0 />
+ 			  <input id="txtnext" name="txtnext" value=0 />
  			<div>
             <table id="mattTable" border="1" width="100%" >
             </table>

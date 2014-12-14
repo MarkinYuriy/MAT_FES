@@ -240,11 +240,27 @@ private String endDate(Date date) {
 	}
 	//--------------------------------------------SZS
 @RequestMapping(value = "nWek", method = RequestMethod.GET)
-public @ResponseBody  int nWek(@RequestParam(value = "dateStr", required = false) String dateStr,
+public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = false) String dateStr,
 		@RequestParam(value = "dateEnd", required = false) String dateEnd){
 		int nWek = 0;
-		
-		return nWek;
+		Date start = null;
+		Date end = null;
+		try {
+			start = new SimpleDateFormat("d.M.y").parse(dateStr);
+			end = new SimpleDateFormat("d.M.y").parse(dateEnd);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
+		try {
+			long d1=formater.parse(endDate(end)).getTime();
+			long d2=formater.parse(startDate(start)).getTime();
+			nWek=(int) ((d1-d2)/((1000*60*60*24)+1)/7);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String buf=Integer.toString(nWek);
+		return buf;
 }
 @RequestMapping(value = "newJson", method = RequestMethod.GET)
 public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = false) String dateStr,
@@ -269,7 +285,6 @@ public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = 
 			long d2=formater.parse(startDate(start)).getTime();
 			nDays=(int) ((d1-d2)/(1000*60*60*24)+1);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
