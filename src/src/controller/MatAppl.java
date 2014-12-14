@@ -194,7 +194,7 @@ public class MatAppl {
 		addingAtributes(model,name,null,dateStr,dateEnd,Integer.toString(startHour),Integer.toString(endHour),Integer.toString(timeSlot),mattToJSON);
 		return "createMatt2";
 	}
-	public static Calendar getFirstWeekDayTime(Calendar calendar){
+	private static Calendar getFirstWeekDayTime(Calendar calendar){
 		int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
 	    switch(weekDay) {
 	    case 1:
@@ -252,11 +252,12 @@ public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = fa
 			e.printStackTrace();
 		}
 		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
+		
 		try {
 			long d1=formater.parse(endDate(end)).getTime();
 			long d2=formater.parse(startDate(start)).getTime();
 			nWek=(int) ((d1-d2)/((1000*60*60*24)+1)/7);
-		} catch (ParseException e) {
+		} catch (ParseException e){
 			e.printStackTrace();
 		}
 		String buf=Integer.toString(nWek);
@@ -348,13 +349,13 @@ System.out.println(timeSlot);*/
 	
 	@RequestMapping({"/saveMatt"})
 	public String saveMattData(HttpServletRequest request, Model model){
-		String name = request.getParameter("mattName");
-		String nDaysStr=request.getParameter("nDays");
-		String dateStr = request.getParameter("startDate");
-		String dateEnd = request.getParameter("endDate");
-		String startHourStr=request.getParameter("startHour");
-		String endHourStr=request.getParameter("endHour");
-		String timeSlotStr=request.getParameter("timeSlot");
+		String name = request.getParameter("mattName");;
+		String nDaysStr=" ";
+		String dateStr = " ";
+		String dateEnd = " ";
+		String startHourStr=" ";
+		String endHourStr=" ";
+		String timeSlotStr=" ";
 	 
 		//----for saving new MATT to DataBase after user's correction----
 		newTabList=new ArrayList<Boolean>();
@@ -364,7 +365,7 @@ System.out.println(timeSlot);*/
 		newMatt = new Matt();
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(oldMatt,newMatt,userEmail);//!!!for now using userEmail,but in the specification userName!!!
+		ifesbes1.saveMatt(newMatt,newMatt,userEmail);//!!!for now using userEmail,but in the specification userName!!!
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
 		return "savedMatt";
     }

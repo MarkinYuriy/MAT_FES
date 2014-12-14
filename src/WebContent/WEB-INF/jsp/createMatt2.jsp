@@ -13,6 +13,12 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
    
+    <script type="text/javascript">
+	 function submit1() {
+		document.getElementById("blok-form").action= 'saveMatt';
+  return true;
+ }
+</script>
 <script type="text/javascript">
 function newJson1(){
 	var dateStr=document.getElementById("startDate").value;
@@ -78,7 +84,7 @@ function newJson1(){
 	      var oldTable = document.getElementById('mattTable1'),
     	 newTable = oldTable.cloneNode();
 	      
-        for(var i = s; i < json[3].length; i++){
+        for(var i = 0; i < json[3].length; i++){
             var tr = document.createElement('tr');
             for(var j = s; j < json[2].length && j<s+7; j++){
                 var td = document.createElement('td');
@@ -232,7 +238,7 @@ function newJson1(){
     <span class="topmenu" style="float:right;"> Logged in as:<span id="userName"> ${userName}</span></span>
 </div>
 <div id="wrapper">
-	<form>
+	<form id="blok-form" name="blok-form">
     <div id="first">
         <div class="left">
             <p style="font-size: 1em ">${name}'s Calendar</p>
@@ -274,6 +280,7 @@ function newJson1(){
                 }
                 newTable.appendChild(tr);
               
+              
                 var tr1 = document.createElement('tr');
 		        for(var i = 0; i < json[1].length; i++){
 		            var th1 = document.createElement('td');
@@ -282,6 +289,7 @@ function newJson1(){
 		            th1.appendChild(document.createTextNode(json[1][i]));
 		            th1.style.cursor = "pointer";
 		            th1.setAttribute("onClick", "changeWek(id)");
+		            th1.style.cursor = "pointer";
 		            tr1.appendChild(th1);
 		        }
  		       newTable.appendChild(tr1);
@@ -317,7 +325,6 @@ function newJson1(){
                  function changeWek(arg){
                 	 var arr = $('#par1').attr('value');
                 	 var json = JSON.parse(arr);
-                     var i;
                      var j;
                      var id = arg.replace ( /[^\d.]/g, '' );
                      j = arg.slice(2,3);
@@ -327,7 +334,7 @@ function newJson1(){
                     	var cell = document.getElementById(id1);
                      	if(cell.style.backgroundColor == "yellow" || cell.style.backgroundColor == "green"){
                     		cell.style.backgroundColor = "#f0f0f0";
-                    		cell.style.cursor = "";
+                    		cell.style.cursor =" ";
                      		json[4][i][j]=0;
                      		$('#par1').attr('value', JSON.stringify(json));}
                      	else {
@@ -341,6 +348,8 @@ function newJson1(){
                  }
                 function changeColor(arg)
                 {
+                	var arr = $('#par1').attr('value');
+                	var json = JSON.parse(arr);
                     var i;
                     var j;
                     var id = arg.replace ( /[^\d.]/g, '' );
@@ -416,7 +425,7 @@ function newJson1(){
            
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="submit"  >SAVE</button>
+                	<button id="saveMatt" type="submit" onclick="submit1()" >SAVE</button>
             	</div>
         	</div>
 		</div>
