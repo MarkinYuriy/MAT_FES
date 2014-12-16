@@ -18,8 +18,6 @@
   	    s.parentNode.insertBefore(po, s);
     })();
     
-/*     (function (){
-    }) */
   </script>
     <style>
         head {
@@ -192,8 +190,8 @@
             <div style="font-size: 0.6em">
                 Name:<input type="text" name="firstname" value="${name}" style="float: right;"><br><br>
                 Email:<input type="text" name="email" value="${email}" style="float: right;"><br><br>
-                New password:<input type="text" name="password" value="*******" style="float: right;"><br><br>
-				Confirm password:<input type="text" name="password1" value="*******" style="float: right;"><br><br>
+                New password:<input type="password" name="password" value="" style="float: right;"><br><br>
+				Confirm password:<input type="password" name="password1" value="" style="float: right;"><br><br>
 				Time zone:<select id="timeZone" name="timeZone" style="float:right; width: 173px">
 					<option value="0" ${tz0}>(GMT-12:00) International Date Line West</option>
 					<option value="1" ${tz1}>(GMT-11:00) Midway Island, Samoa</option>

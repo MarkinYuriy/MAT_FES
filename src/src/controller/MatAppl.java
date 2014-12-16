@@ -51,7 +51,7 @@ public class MatAppl {
 	}
 	@RequestMapping({"/buf"})
 	public String buf(@RequestParam ("tablename") String firstName,Model model) {
-		  model.addAttribute("buf", firstName);
+		model.addAttribute("buf", firstName);
 		return "buf";
 	}
 	@RequestMapping({"/invitations"})
@@ -64,7 +64,6 @@ public class MatAppl {
 	public String accountSettings (Model model) {
 		 String[] dataGoogle = new String[0];
 		 String[] authorizedSN = null;
-		 String[] choosedSN = null;
 		 HashMap<String, Boolean> authSN = new HashMap<String, Boolean>();
 	//Add Authorize attributes
 	     try {
@@ -87,19 +86,16 @@ public class MatAppl {
 	     } catch (Exception e) {
 	    	 e.getMessage();
 	     }
-//	     choosedSN = user.getSnNames();  ?????
     	 model.addAttribute("GoogleAuth", "disabled");
     	 model.addAttribute("FacebookAuth", "disabled");
     	 model.addAttribute("AppleAuth", "disabled");
     	 model.addAttribute("TwitterAuth", "disabled");
     	 model.addAttribute("WindowsAuth", "disabled");
 	     for(int i=0; i<authorizedSN.length; i++){
-	    	 model.addAttribute(authorizedSN[i]+"Auth", "");
+//	    	 model.addAttribute(authorizedSN[i]+"Auth", "");
+	    	 model.addAttribute(authorizedSN[i]+"Ch", "checked");
 	    	 authSN.put(authorizedSN[i], true);	    	 
 	     }
-	     for(int j=0; j<choosedSN.length; j++)
-	    	 if(authSN.get(choosedSN[j])!=null && authSN.get(choosedSN[j]))
-	    		 model.addAttribute(choosedSN[j]+"Ch", "checked");
 	//Add Person attributes
 	     model.addAttribute("username", userName);
 	     model.addAttribute("name", m_name);
@@ -124,26 +120,19 @@ public class MatAppl {
 	@RequestMapping({"/savesettings"})
 	public String saveSettings(HttpServletRequest request, Model model) {
 		int resultSave = -1;
-/*		String name = request.getParameter("firstname");
+		String name = request.getParameter("firstname");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String password1 = request.getParameter("password1");
-*/		String googleCheck = request.getParameter("google_check");
-		String appleCheck = request.getParameter("apple_check");
-		String windowsCheck = request.getParameter("windows_check");
-		String facebookCheck = request.getParameter("facebook_check");
-		String twitterCheck = request.getParameter("twitter_check");
-		ArrayList<String> sN = new ArrayList<String>();
-/*		if(name!=null && !name.equals("")) user.setName(name);
+		String timeZoneStr = request.getParameter("timeZone");
+		if(name!=null) {
+			int timeZone = Integer.parseInt(timeZoneStr);
+			user.setTimeZone(timeZone);
+		}
+				if(name!=null && !name.equals("")) user.setName(name);
 		if(email!=null && email.contains("@")) user.setEmail(email);
-		if(password!=null && !password.equals("*******") && password.equals(password1))
-			user.setPassword(password);*/
-		if(googleCheck!=null && googleCheck.equals("on")) sN.add(IFrontConnector.GOOGLE);
-		if(appleCheck!=null && appleCheck.equals("on")) sN.add(IFrontConnector.APPLE);
-		if(windowsCheck!=null && windowsCheck.equals("on")) sN.add(IFrontConnector.WINDOWS);
-		if(facebookCheck!=null && facebookCheck.equals("on")) sN.add(IFrontConnector.FACEBOOK);
-		if(twitterCheck!=null && twitterCheck.equals("on")) sN.add(IFrontConnector.TWITTER);
-//		user.setSnNames(sN.toArray(new String[sN.size()]));
+		if(password!=null && !password.equals("") && password.equals(password1))
+			user.setPassword(password);
 		try {
 			resultSave = ifesbes1.updateProfile(user);
 		} catch (Exception e) {
