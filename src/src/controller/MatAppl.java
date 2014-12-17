@@ -227,7 +227,14 @@ private String endDate(Date date) {
     calendar.add(Calendar.DAY_OF_MONTH, 6);
 	return df.format(calendar.getTime());
 	}
-	//--------------------------------------------SZS
+@RequestMapping(value = "ajaxjson", method = RequestMethod.GET)
+public @ResponseBody  void ajaxjson(@RequestParam(value = "mattjson", required = false) String mattjson,
+		@RequestParam(value = "mattname", required = false) String mattname){
+		oldMatt.getData().setName(mattname);
+		mattName=mattname;//----???----for creating URL
+		newTablJSON=mattjson;
+		System.out.println(newTablJSON);
+}
 @RequestMapping(value = "nWek", method = RequestMethod.GET)
 public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = false) String dateStr,
 		@RequestParam(value = "dateEnd", required = false) String dateEnd){
@@ -255,9 +262,9 @@ public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = fa
 @RequestMapping(value = "newJson", method = RequestMethod.GET)
 public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = false) String dateStr,
 		@RequestParam(value = "dateEnd", required = false) String dateEnd,
-		@RequestParam(value = "timeSlotStr", required = false) String timeSlotStr){
+		@RequestParam(value = "timeSlotStr", required = false) String timeSlotStr,
+		@RequestParam(value = "mattname", required = false) String mattname){
 		String mattToJSON=null;
-		String name = " ";
 		Date start = null;
 		Date end = null;
 		Date dateStr1 = null;
@@ -282,8 +289,8 @@ public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = 
 		int endHour = 24;
 		int timeSlot =Integer.parseInt(timeSlotStr);
 		String password = null;
-		mat.MattData data = new MattData(name,nDays,dateStr1,startHour,endHour,timeSlot,password);
-		mattName=name;//----???----for creating URL
+		mat.MattData data = new MattData(mattname,nDays,dateStr1,startHour,endHour,timeSlot,password);
+		mattName=mattname;//----???----for creating URL
 		  ArrayList<Boolean> newTabList=new ArrayList<Boolean>();
 		  int slotsNumber=(60/timeSlot)*(endHour-startHour)*nDays;
 		  for(int i=0;i<slotsNumber;i++){
@@ -337,26 +344,18 @@ System.out.println(timeSlot);*/
 	}
 	
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(HttpServletRequest request, Model model){
-		String name = request.getParameter("mattName");;
-		String nDaysStr=" ";
-		String dateStr = " ";
-		String dateEnd = " ";
-		String startHourStr=" ";
-		String endHourStr=" ";
-		String timeSlotStr=" ";
-	 
-		//----for saving new MATT to DataBase after user's correction----
+	public String saveMattData(Model model){
 		newTabList=new ArrayList<Boolean>();
-		newTablJSON=request.getParameter("mattToJSON");
-//System.out.println(newTablJSON);
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(newMatt,userEmail);//!!!for now using userEmail,but in the specification userName!!!
-		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,newTablJSON);
-		return "savedMatt";
+		ifesbes1.saveMatt(newMatt,userEmail);
+		model.addAttribute("name", m_name);
+		model.addAttribute("userName", userName);
+		model.addAttribute("matJSON", newTablJSON);
+		model.addAttribute("mattName",mattName);		
+		return "savedMatt2";
     }
 	   
 	//----for viewing sharing MATT from URL----
@@ -412,24 +411,8 @@ System.out.println(timeSlot);*/
 	}
 	@RequestMapping({"/home"})
 	public String home(@RequestParam ("name") String name,@RequestParam ("password") String password,Model model) {
-		if (ifesbes1.matLogin(name,password)==Response.NO_PASSWORD_MATCHING){
-			/*model.addAttribute("name","5");
-			model.addAttribute("password","1");
-			model.addAttribute("aktiv","5");
-			model.addAttribute("logon",name);*/
+		if (ifesbes1.matLogin(name,password)==Response.NO_PASSWORD_MATCHING || ifesbes1.matLogin(name,password)==Response.NO_REGISTRATION || ifesbes1.matLogin(name,password)==Response.IN_ACTIVE){
 			return "loginon";}
-		if (ifesbes1.matLogin(name,password)==Response.NO_REGISTRATION){
-		/*	model.addAttribute("name","2");
-			model.addAttribute("password","5");
-			model.addAttribute("aktiv","5");*/
-			return "loginon";}
-		if (ifesbes1.matLogin(name,password)==Response.IN_ACTIVE){
-			/*model.addAttribute("name","5");
-			model.addAttribute("password","5");
-			model.addAttribute("aktiv","3");
-			model.addAttribute("logon",name);*/
-			return "loginon";
-		}
 	//	m_name=pers.getFirstName()+" "+pers.getLastName();
 		user=ifesbes1.getProfile(name);
 		userName=user.getEmail();
@@ -438,7 +421,7 @@ System.out.println(timeSlot);*/
 		model.addAttribute("name",m_name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
-		model.addAttribute("matt",ifesbes1.getMattNames(userName));
+//		model.addAttribute("matt",ifesbes1.getMattNames(userName));
 //		model.addAttribute("SNdisabl",getAuthorizedSocial());
 //		model.addAttribute("SNchek",getSocial());
 		return "home";
