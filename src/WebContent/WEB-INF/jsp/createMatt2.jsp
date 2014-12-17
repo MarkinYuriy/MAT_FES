@@ -15,9 +15,23 @@
    
     <script type="text/javascript">
 	 function submit1() {
+		ajaxjson();
 		document.getElementById("blok-form").action= 'saveMatt';
   return true;
  }
+</script>
+<script type="text/javascript">
+function ajaxjson(){
+	var json=document.getElementById("par1").value;
+	var mattname=document.getElementById("mattName").value;
+	var data ="mattjson="+json+"&mattname="+mattname;
+	$.ajax({
+		url : "ajaxjson",
+		data : data,
+		type : "POST",
+		
+	});
+	}
 </script>
 <script type="text/javascript">
 function newJson1(){
@@ -75,7 +89,7 @@ function newJson1(){
             th1.id = id;
             th1.appendChild(document.createTextNode(json[1][i]));
             th1.style.cursor = "pointer";
-            th1.setAttribute("onClick", "changeWek(id)");
+            th1.setAttribute("onClick", "changeWek(this.id)");
             tr1.appendChild(th1);
         }
 	       newTable.appendChild(tr1);
@@ -327,7 +341,8 @@ function newJson1(){
                 	 var json = JSON.parse(arr);
                      var j;
                      var id = arg.replace ( /[^\d.]/g, '' );
-                     j = arg.slice(2,3);
+                     if (id<100){ j = arg.slice(2,3);}
+                     else { j = arg.slice(2,4);}
                     // var cell = document.getElementById(arg);
                      for(var i = 0; i < json[3].length; i++){
                     	var id1 = "td" + i + j;

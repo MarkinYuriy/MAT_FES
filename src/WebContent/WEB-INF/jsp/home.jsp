@@ -16,58 +16,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-   
-	<script type="text/javascript">
-	function socialseti(id){
-		var google=document.getElementById(id).checked;
-		var data ="seti="+encodeURIComponent(id)+"&value="+encodeURIComponent(google);
-		var x=document.getElementById(id);
-		$.ajax({
-			url : "socialseti",
-			data : data,
-			type : "GET",
-			success : function(jXHR, status) {
-				x.checked=response;
-			}
-		});
-	}
-	</script>
-	<script type="text/javascript">
-	function setsocialseti(id){
-	var data ="seti="+encodeURIComponent(document.getElementById(id).name);
-	$.ajax({
-		url : "setsocialseti",
-		data : data,
-		type : "GET",
-		
-	});
-	}
-	</script>
- 
-<script type="text/javascript">
-function myLoad() {
-var disab=${SNdisabl};
-//var disab = new Array("Google","Apple", "Facebook", "Twitter", "Windows");
-   for (i=0;i<disab.length;i++){
-   var x = document.getElementById(disab[i]);
-   x.disabled= false;
-   }
-   var chek=${SNchek};
- //var chek = new Array("Apple", "Facebook", "Twitter", "Windows");
-    for (i=0;i<chek.length;i++){
-    var y = document.getElementById(chek[i]);
-    y.checked= true;
-    }
-}
-function toggle(element) {
-	
-	 if( document.getElementById(element.name).style.display=='none' ){
-	   document.getElementById(element.name).style.display = '';
-	 }else{
-	   document.getElementById(element.name).style.display = 'none';
-	 }
-	}
-</script>
 
     <style>
         head {
@@ -281,18 +229,8 @@ function toggle(element) {
             <p style="font-size:0.6em">General information:</p>
             <form id="socialseti" style="font-size: 0.6em">
                 <p style="font-size:1em">Name:<input type="text" name="firstname" value="${name}" disabled style="width: 70%; float: right;"  ></p>
-                <p style="font-size:1em">Email:<input type="text" name="Email" value="${email}" disabled  style="width: 70%; float: right;"  ></p>
-            
-          		<p style="font-size:1em">Synched accounts:</p>
-                     
-				<p style="font-size:1em">Google <input type="image" id="Googleset" name="Google" alt="google#in_image" src="resources/kalendar.jpg" title="Create MyAvailableTime Calendar in Google" onclick="setsocialseti(this.id)" style=" float:right" width='20' height='20'>
-												<input type="checkbox" id="Google" disabled onclick="socialseti(this.id)" style="float: right;"> </p>
-				<p style="font-size:1em">Apple (me) <input type="checkbox" id="Apple"  disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Windows (hotmail/Live) <input type="checkbox" id="Windows" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Facebook <input type="checkbox" id="Facebook" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
-				<p style="font-size:1em">Twitter <input type="checkbox" id="Twitter" disabled onclick="socialseti(this.id)" style="border: none; float: right; width: 50px; "></p>
-								
-            	<p id="demo" style="text-align: right; font-size: 0.4em"></p>
+                <p style="font-size:1em">Email:<input type="text" name="Email" value="${email}" disabled  style="width: 70%; float: right;"  ></p>							
+                
           	</form>
 
         </div  >
