@@ -39,6 +39,8 @@ public class MatAppl {
 //--------------------------------------------SZE
 	
 	private Person user;
+	static private int GMT_TIME_ZONE=41;
+	private double[] timeShifts = {-12,-11,-10,-9,-8,-8,-7,-7,-7,-6,-6,-6,-6,-5,-5,-5,-4,-4,-4,-4,-3.5,-3,-3,-3,-3,-2,-1,-1,0,0,1,1,1,1,1,2,2,2,2,2,2,2,2,2,3,3,3,3,3.5,4,4,4,4.5,5,5,5.5,5.5,5.75,6,6,6.5,7,7,8,8,8,8,8,9,9,9,9.5,9.5,10,10,10,10,10,11,12,12,13};
 	
 	@Autowired
 	IFesBes1 ifesbes1;
@@ -56,7 +58,6 @@ public class MatAppl {
 	}
 	@RequestMapping({"/invitations"})
 	public String Invitations (Model model) {
-		
 		return "buf";
 	}
 //-----------------Account settings
@@ -100,6 +101,7 @@ public class MatAppl {
 	     model.addAttribute("username", userName);
 	     model.addAttribute("name", m_name);
 	     model.addAttribute("email", userEmail);
+	     model.addAttribute("tz"+user.getTimeZone(), "selected");
 	     return "account_settings";
 	}
 	@RequestMapping({"/resauto"})
@@ -129,14 +131,14 @@ public class MatAppl {
 			int timeZone = Integer.parseInt(timeZoneStr);
 			user.setTimeZone(timeZone);
 		}
-				if(name!=null && !name.equals("")) user.setName(name);
+		if(name!=null && !name.equals("")) user.setName(name);
 		if(email!=null && email.contains("@")) user.setEmail(email);
 		if(password!=null && !password.equals("") && password.equals(password1))
 			user.setPassword(password);
 		try {
 			resultSave = ifesbes1.updateProfile(user);
 		} catch (Exception e) {
-			e.getMessage();
+			model.addAttribute("exception", "don't update profile");
 		}
 //		System.out.println(resultSave);
 		return homereturn (model);
@@ -150,18 +152,13 @@ public class MatAppl {
 	}
 	
 	@RequestMapping({"/createMatt2"})
-	public String createMatt2( Model model){
+	public String createMatt2(Model model){
 	//----for creating MATT from the very beginning----
 		String mattToJSON=null;
 		String name = " ";
-		String dateStr =startDate(null);
-		Date startDate = null;
-		try {
-			startDate = new SimpleDateFormat("d.M.y").parse(dateStr);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		String dateEnd = endDate(null);
+		Date startDate = startDate(null);
+		String dateStr =new SimpleDateFormat("d.M.y").format(startDate);
+		String dateEnd = new SimpleDateFormat("d.M.y").format(endDate(null));
 		int startHour = 0;
 		int endHour = 24;
 		int timeSlot =60;
@@ -211,21 +208,19 @@ public class MatAppl {
 	    calendar.add(Calendar.DAY_OF_MONTH, weekDay);
 		return calendar;	
 	}
-private String startDate(Date date) {
-	if (date==null)date= new Date();
-	DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
+private Date startDate(Date date) {
+	if (date==null) date = new Date();
 	Calendar calendar= new GregorianCalendar();
 	calendar.setTime(date);	
-	return df.format(getFirstWeekDayTime(calendar).getTime());
+	return getFirstWeekDayTime(calendar).getTime();
 	}
-private String endDate(Date date) {
+private Date endDate(Date date) {
 	if (date==null)date= new Date();
-	DateFormat df=new SimpleDateFormat("dd.MM.yyyy");
 	Calendar calendar= new GregorianCalendar();
 	calendar.setTime(date);	
 	calendar = getFirstWeekDayTime(calendar);
     calendar.add(Calendar.DAY_OF_MONTH, 6);
-	return df.format(calendar.getTime());
+	return calendar.getTime();
 	}
 @RequestMapping(value = "ajaxjson", method = RequestMethod.POST)
 public @ResponseBody  void ajaxjson(@RequestParam(value = "mattjson", required = false) String mattjson,
@@ -246,15 +241,9 @@ public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = fa
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
-		
-		try {
-			long d1=formater.parse(endDate(end)).getTime();
-			long d2=formater.parse(startDate(start)).getTime();
+			long d1=endDate(end).getTime();
+			long d2=startDate(start).getTime();
 			nWek=(int) ((d1-d2)/((1000*60*60*24)+1)/7);
-		} catch (ParseException e){
-			e.printStackTrace();
-		}
 		String buf=Integer.toString(nWek);
 		return buf;
 }
@@ -271,19 +260,13 @@ public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = 
 		try {
 			start = new SimpleDateFormat("d.M.y").parse(dateStr);
 			end = new SimpleDateFormat("d.M.y").parse(dateEnd);
-			dateStr1=new SimpleDateFormat("d.M.y").parse(startDate(start));
+			dateStr1=startDate(start);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
-		try {
-			long d1=formater.parse(endDate(end)).getTime();
-			long d2=formater.parse(startDate(start)).getTime();
+			long d1=endDate(end).getTime();
+			long d2=startDate(start).getTime();
 			nDays=(int) ((d1-d2)/(1000*60*60*24)+1);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
 		int startHour = 0;
 		int endHour = 24;
 		int timeSlot =Integer.parseInt(timeSlotStr);
@@ -387,7 +370,7 @@ System.out.println(timeSlot);*/
 	@RequestMapping({"/person"})
 	public String person(@RequestParam ("username_2") String firstName,/*@RequestParam ("lastName") String lastName,*/
 			@RequestParam ("email_2") String email,@RequestParam ("create_a_password_2") String password,Model model) {
-		Person pers = new Person(firstName, email, password,2);
+		Person pers = new Person(firstName, email, password, GMT_TIME_ZONE);
 		
 		if (ifesbes1.setProfile(pers)==Response.IN_ACTIVE) {
 			model.addAttribute("email","EMAIL incorrect!");
