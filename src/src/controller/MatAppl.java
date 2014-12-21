@@ -125,7 +125,7 @@ public class MatAppl {
 		String password = request.getParameter("password");
 		String password1 = request.getParameter("password1");
 		String timeZoneStr = request.getParameter("timeZone");
-		if(name!=null) {
+		if(timeZoneStr!=null) {
 			int timeZone = Integer.parseInt(timeZoneStr);
 			user.setTimeZone(timeZone);
 		}
