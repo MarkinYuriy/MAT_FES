@@ -16,7 +16,7 @@
     <script type="text/javascript">
 	 function submit1() {
 		ajaxjson();
-		document.getElementById("blok-form").action= 'saveMatt';
+		document.getElementById("blok-form").action='saveMatt';
   return true;
  }
 </script>
@@ -29,7 +29,9 @@ function ajaxjson(){
 		url : "ajaxjson",
 		data : data,
 		type : "POST",
-		
+		success : function(mattToJSON) {
+			document.getElementById("par1").value=" ";
+		}
 	});
 	}
 </script>

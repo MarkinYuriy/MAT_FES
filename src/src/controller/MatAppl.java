@@ -227,13 +227,12 @@ private String endDate(Date date) {
     calendar.add(Calendar.DAY_OF_MONTH, 6);
 	return df.format(calendar.getTime());
 	}
-@RequestMapping(value = "ajaxjson", method = RequestMethod.GET)
+@RequestMapping(value = "ajaxjson", method = RequestMethod.POST)
 public @ResponseBody  void ajaxjson(@RequestParam(value = "mattjson", required = false) String mattjson,
-		@RequestParam(value = "mattname", required = false) String mattname){
+		@RequestParam(value = "mattName", required = false) String mattname){
 		oldMatt.getData().setName(mattname);
-		mattName=mattname;//----???----for creating URL
+		mattName=mattname;
 		newTablJSON=mattjson;
-		System.out.println(newTablJSON);
 }
 @RequestMapping(value = "nWek", method = RequestMethod.GET)
 public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = false) String dateStr,
@@ -263,7 +262,7 @@ public @ResponseBody  String nWek(@RequestParam(value = "dateStr", required = fa
 public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = false) String dateStr,
 		@RequestParam(value = "dateEnd", required = false) String dateEnd,
 		@RequestParam(value = "timeSlotStr", required = false) String timeSlotStr,
-		@RequestParam(value = "mattname", required = false) String mattname){
+		@RequestParam(value = "mattName", required = false) String mattname){
 		String mattToJSON=null;
 		Date start = null;
 		Date end = null;
@@ -344,7 +343,43 @@ System.out.println(timeSlot);*/
 	}
 	
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(Model model){
+	public String saveMattData(HttpServletRequest request,Model model){
+		//-------------------
+		String mattname = request.getParameter("mattName");
+		String dateStr = request.getParameter("startDate");
+		String dateEnd = request.getParameter("endDate");
+		String timeSlotStr=request.getParameter("timeSlot");
+		String mattToJSON=null;
+		Date start = null;
+		Date end = null;
+		Date dateStr1 = null;
+		int nDays=7;
+		try {
+			start = new SimpleDateFormat("d.M.y").parse(dateStr);
+			end = new SimpleDateFormat("d.M.y").parse(dateEnd);
+			dateStr1=new SimpleDateFormat("d.M.y").parse(startDate(start));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
+		try {
+			long d1=formater.parse(endDate(end)).getTime();
+			long d2=formater.parse(startDate(start)).getTime();
+			nDays=(int) ((d1-d2)/(1000*60*60*24)+1);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		int startHour = 0;
+		int endHour = 24;
+		int timeSlot =Integer.parseInt(timeSlotStr);
+		String password = null;
+		mat.MattData data = new MattData(mattname,nDays,dateStr1,startHour,endHour,timeSlot,password);
+		mattName=mattname;
+		  oldMatt=new Matt();
+		  oldMatt.setData(data);
+
+		//-------------------
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
@@ -421,40 +456,10 @@ System.out.println(timeSlot);*/
 		model.addAttribute("name",m_name);
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
-//		model.addAttribute("matt",ifesbes1.getMattNames(userName));
-//		model.addAttribute("SNdisabl",getAuthorizedSocial());
-//		model.addAttribute("SNchek",getSocial());
+		model.addAttribute("matt",ifesbes1.getMattNames(userName));
 		return "home";
 	}
 	
-/*	private String getSocial() {
-		String []mas=user.getSnNames();
-		StringBuffer txt = new StringBuffer();
-		txt.append('[');
-		for (int i = 0; i < mas.length; i++) {
-			txt.append('"');
-			txt.append(mas[i]);
-			txt.append('"');
-	        if (i!=mas.length-1) txt.append(',');
-	    }
-		txt.append(']');
-			
-		return txt.toString();
-	}
-	private String  getAuthorizedSocial() {
-		String []mas=connector.getAuthorizedSocialNames(userName);
-		StringBuffer txt = new StringBuffer();
-		txt.append('[');
-		for (int i = 0; i < mas.length; i++) {
-			txt.append('"');
-			txt.append(mas[i]);
-			txt.append('"');
-	        if (i!=mas.length-1) txt.append(',');
-	    }
-		txt.append(']');
-			
-		return txt.toString();
-	}*/
 	@RequestMapping({"/registry"})
 	public String registry(){
 		return "registry";
@@ -478,35 +483,10 @@ System.out.println(timeSlot);*/
 	public String sendEmail(@RequestParam ("table") String table,@RequestParam ("hiddenemail") String hiddenemail,Model model){
 	String[] sendEmails = hiddenemail.split(";");
 	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
-	connector.shareByMail(send.replaceAll(" ", "%20"), sendEmails, userName, IFrontConnector.GOOGLE);
-		
+	connector.shareByMail(send.replaceAll(" ", "%20"), sendEmails, userName, IFrontConnector.GOOGLE);	
 		return homereturn(model);
 	}
-	/*@RequestMapping(value = "socialseti", method = RequestMethod.GET)
-	public @ResponseBody String processAJAXRequest(@RequestParam(value = "seti", required = false) String seti,@RequestParam(value = "value", required = false) String value){
-		String [] buf=user.getSnNames();
-		if (value.equals("true")){
-			String [] buf1=new String [buf.length+1];
-			for (int i=0;i<buf.length;i++){
-				buf1[i]=buf[i];
-			}
-			buf1[buf.length]=seti;
-			user.setSnNames(buf1);
-		}
-		if (value.equals("false")){
-			String [] buf2=new String [buf.length-1];
-			int l=0;
-			for (int i=0;i<buf.length;i++){
-				if (!buf[i].equals(seti)){
-					buf2[l++]=buf[i];
-				}
-			}
-			user.setSnNames(buf2);
-		}
-		ifesbes1.updateProfile(user);
-		String response=value;
-		return response;
-	}*/
+
 	@RequestMapping(value = "setsocialseti", method = RequestMethod.GET)
 	public @ResponseBody void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){
 			ifesbes1.updateMatCalendarInSN(userName, seti);
@@ -519,8 +499,8 @@ System.out.println(timeSlot);*/
 	}
 	@RequestMapping({"/removematt"})
 	public String removeMATT(HttpServletRequest request,Model model){
-		String mattIdStr=request.getParameter(null);
-		Integer mattId=Integer.getInteger(mattIdStr);
+		String mattIdStr=request.getParameter("table");
+		int mattId=Integer.parseInt(mattIdStr);
 		ifesbes1.removeMatt(mattId);
 		return homereturn(model);
 	}
