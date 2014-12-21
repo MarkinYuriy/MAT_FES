@@ -16,7 +16,7 @@
     <script type="text/javascript">
 	 function submit1() {
 		ajaxjson();
-		document.getElementById("blok-form").action='saveMatt';
+		//document.getElementById("blok-form").action='saveMatt';
   return true;
  }
 </script>
@@ -29,8 +29,9 @@ function ajaxjson(){
 		url : "ajaxjson",
 		data : data,
 		type : "POST",
-		success : function(mattToJSON) {
+		complete : function() {
 			document.getElementById("par1").value=" ";
+			alert("xaxa");
 		}
 	});
 	}
@@ -107,7 +108,7 @@ function newJson1(){
                 var id = "td" + i + j
                 td.id = id;
                 td.appendChild(document.createTextNode(json[3][i]));
-                if(!json[4][i][j]) {
+                if(json[4][i][j]==0) {
                     td.style.backgroundColor = "green";
                     td.style.cursor = "pointer";
                     td.setAttribute("onClick", "changeColor(id)");
@@ -321,7 +322,7 @@ function newJson1(){
                         var id = "td" + i + j
                         td.id = id;
                         td.appendChild(document.createTextNode(json[3][i]));
-                        if(!json[4][i][j]) {
+                        if(json[4][i][j]==0) {
                             td.style.backgroundColor = "green";
                             td.style.cursor = "pointer";
                             td.setAttribute("onClick", "changeColor(id)");
@@ -341,10 +342,7 @@ function newJson1(){
                  function changeWek(arg){
                 	 var arr = $('#par1').attr('value');
                 	 var json = JSON.parse(arr);
-                     var j;
-                     var id = arg.replace ( /[^\d.]/g, '' );
-                     if (id<100){ j = arg.slice(2,3);}
-                     else { j = arg.slice(2,4);}
+                     var j = arg.slice(2);
                     // var cell = document.getElementById(arg);
                      for(var i = 0; i < json[3].length; i++){
                     	var id1 = "td" + i + j;
@@ -358,7 +356,7 @@ function newJson1(){
                      		cell.style.backgroundColor = "yellow"
                      		cell.setAttribute("onClick", "changeColor(id)");
                      		cell.style.cursor = "pointer";
-                     		json[4][i][j]=1;
+                     		json[4][i][j]=2;
                      		$('#par1').attr('value', JSON.stringify(json));}
                      }
                 
@@ -372,10 +370,16 @@ function newJson1(){
                     var id = arg.replace ( /[^\d.]/g, '' );
                     if (id<100){
 	                    i = arg.slice(2,3);
-	                    j = arg.slice(3,4);}
+	                    j = arg.slice(3);}
                     else {
 	                    i = arg.slice(2,4);
-	                    j = arg.slice(4,5);}
+	                    j = arg.slice(4);}
+                    if (id>100 && id<1000){
+	                    i = arg.slice(2,3);
+	                    j = arg.slice(3);}
+                    else {
+	                    i = arg.slice(2,4);
+	                    j = arg.slice(4);}
 
                     var cell = document.getElementById(arg);
                     if(cell.style.backgroundColor == "green")
@@ -442,11 +446,15 @@ function newJson1(){
            
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="submit" onclick="submit1()" >SAVE</button>
+                	<button id="saveMatt" type="button" onclick="submit1()" >SAVE</button>
             	</div>
+            	
         	</div>
 		</div>
     </div>
+	</form>
+	<form action="saveMatt">
+	<button type="submit">XAXAXAXAXAXAX</button>
 	</form>
 </div>
 </body>

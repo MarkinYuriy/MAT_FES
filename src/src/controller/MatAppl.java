@@ -343,43 +343,7 @@ System.out.println(timeSlot);*/
 	}
 	
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(HttpServletRequest request,Model model){
-		//-------------------
-		String mattname = request.getParameter("mattName");
-		String dateStr = request.getParameter("startDate");
-		String dateEnd = request.getParameter("endDate");
-		String timeSlotStr=request.getParameter("timeSlot");
-		String mattToJSON=null;
-		Date start = null;
-		Date end = null;
-		Date dateStr1 = null;
-		int nDays=7;
-		try {
-			start = new SimpleDateFormat("d.M.y").parse(dateStr);
-			end = new SimpleDateFormat("d.M.y").parse(dateEnd);
-			dateStr1=new SimpleDateFormat("d.M.y").parse(startDate(start));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		SimpleDateFormat formater=new SimpleDateFormat("dd.mm.yy");
-		try {
-			long d1=formater.parse(endDate(end)).getTime();
-			long d2=formater.parse(startDate(start)).getTime();
-			nDays=(int) ((d1-d2)/(1000*60*60*24)+1);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		int startHour = 0;
-		int endHour = 24;
-		int timeSlot =Integer.parseInt(timeSlotStr);
-		String password = null;
-		mat.MattData data = new MattData(mattname,nDays,dateStr1,startHour,endHour,timeSlot,password);
-		mattName=mattname;
-		  oldMatt=new Matt();
-		  oldMatt.setData(data);
-
-		//-------------------
+	public String saveMattData(Model model){
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
@@ -393,21 +357,17 @@ System.out.println(timeSlot);*/
 		return "savedMatt2";
     }
 	   
-	//----for viewing sharing MATT from URL----
 	@RequestMapping({"/viewMatt"})
-	public String viewMatt(HttpServletRequest request,Model model){
-		String userName4Matt=request.getParameter("username");
-		String mattName=request.getParameter("table");
-		String mattIdStr=request.getParameter(null);
-		Integer mattId=Integer.getInteger(mattIdStr);
-		Matt matt4Sharing=ifesbes1.getMatt(mattId);
-		String mattToJson4URL = matt4Sharing.matt2browser();
-		model.addAttribute("matJSON", mattToJson4URL);
-        model.addAttribute("username", userName);
-        model.addAttribute("name", m_name);
-		return "viewMatt";//name of JSP viewing file
-	}
-	 
+	 public String viewMatt(HttpServletRequest request,Model model){
+	  String mattId4Matt=request.getParameter("table");
+	  int tableId=Integer.parseInt(mattId4Matt);
+	  Matt matt4Sharing=ifesbes1.getMatt(tableId);
+	  String mattToJson4URL = matt4Sharing.matt2browser();
+	  model.addAttribute("matJSON", mattToJson4URL);
+	        model.addAttribute("username", userName);
+	        model.addAttribute("name", mattName);
+	  return "viewMatt";//name of JSP viewing file
+	 }
 	private void addingAtributes(Model model,String name,String nDaysStr, 
 			String dateStr,String dateEnd,String startHourStr,String endHourStr,
 			String timeSlotStr,String mattToJSON){

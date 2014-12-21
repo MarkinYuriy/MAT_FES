@@ -16,6 +16,18 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    
+<script type="text/javascript">
+
+function toggle(element) {
+	
+	 if( document.getElementById(element.name).style.display=='none' ){
+	   document.getElementById(element.name).style.display = '';
+	 }else{
+	   document.getElementById(element.name).style.display = 'none';
+	 }
+	}
+</script>
 
     <style>
         head {
@@ -194,9 +206,9 @@
  </tr>
    
    <tr>
-		<td><input name="${item}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
+		<td><input name="${item.key}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><input name="${item}" type="image" src="resources/karandash.jpg" title="View" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
-		<td><a name="${item}" href=#  onclick="toggle(this)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
+		<td><a name="${item.key}" href=#  onclick="toggle(this)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
