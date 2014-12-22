@@ -326,10 +326,11 @@ System.out.println(timeSlot);*/
 	}
 	
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(Model model){
+	public String saveMattData(@RequestParam ("table") String mattname, Model model){
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
+		oldMatt.getData().setName(mattname);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(newMatt,userEmail);
@@ -346,10 +347,12 @@ System.out.println(timeSlot);*/
 	  int tableId=Integer.parseInt(mattId4Matt);
 	  Matt matt4Sharing=ifesbes1.getMatt(tableId);
 	  String mattToJson4URL = matt4Sharing.matt2browser();
+	  int m_nwek=(matt4Sharing.getData().getnDays())/7-1;
 	  model.addAttribute("matJSON", mattToJson4URL);
-	        model.addAttribute("username", userName);
-	        model.addAttribute("name", mattName);
-	  return "viewMatt";//name of JSP viewing file
+	  model.addAttribute("username", userName);
+	  model.addAttribute("name", mattName);
+	  model.addAttribute("nWek", m_nwek);
+	  return "viewMatt2";//name of JSP viewing file
 	 }
 	private void addingAtributes(Model model,String name,String nDaysStr, 
 			String dateStr,String dateEnd,String startHourStr,String endHourStr,

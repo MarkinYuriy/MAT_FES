@@ -16,7 +16,12 @@
     <script type="text/javascript">
 	 function submit1() {
 		ajaxjson();
-		//document.getElementById("blok-form").action='saveMatt';
+		var val = document.getElementById("table").value.trim();
+		if (!val) {
+			alert("no name");
+			return false;
+		}
+		document.forms["myform"].submit();
   return true;
  }
 </script>
@@ -31,7 +36,6 @@ function ajaxjson(){
 		type : "POST",
 		complete : function() {
 			document.getElementById("par1").value=" ";
-			alert("xaxa");
 		}
 	});
 	}
@@ -105,11 +109,17 @@ function newJson1(){
             var tr = document.createElement('tr');
             for(var j = s; j < json[2].length && j<s+7; j++){
                 var td = document.createElement('td');
-                var id = "td" + i + j
+                var id = "td" + i+"s" + j;
                 td.id = id;
                 td.appendChild(document.createTextNode(json[3][i]));
                 if(json[4][i][j]==0) {
                     td.style.backgroundColor = "green";
+                    td.style.cursor = "pointer";
+                    td.setAttribute("onClick", "changeColor(id)");
+                    td.style.cursor = "pointer";
+                }
+                if(json[4][i][j]==2) {
+                    td.style.backgroundColor = "yellow";
                     td.style.cursor = "pointer";
                     td.setAttribute("onClick", "changeColor(id)");
                     td.style.cursor = "pointer";
@@ -277,14 +287,7 @@ function newJson1(){
             <script>
                 var arr = $('#par1').attr('value');
 
-                /* '[["petya"],["h1","h2","h3","h4","h5"],["9:00","10:00","11:00","12:00"],[[0,1,0,0,1],[0,1,0,1,0],[0,0,1,0,1],[1,1,0,1,0]]]' */
-                /*instead "arr" we pass string with matt data whatever its name is
-                 file  named "json" is changing its value due to color selection
-                 and should be passed to controller on @RequestMapping*/
-
                 var json = JSON.parse(arr);
-		//		alert(json);
-                /*generating a table according to our data*/
 
                 var oldTable = document.getElementById('mattTable'),
                         newTable = oldTable.cloneNode();
@@ -319,7 +322,7 @@ function newJson1(){
                     var tr = document.createElement('tr');
                     for(var j = 0; j < json[2].length; j++){
                         var td = document.createElement('td');
-                        var id = "td" + i + j
+                        var id = "td" + i +"s"+ j;
                         td.id = id;
                         td.appendChild(document.createTextNode(json[3][i]));
                         if(json[4][i][j]==0) {
@@ -343,9 +346,8 @@ function newJson1(){
                 	 var arr = $('#par1').attr('value');
                 	 var json = JSON.parse(arr);
                      var j = arg.slice(2);
-                    // var cell = document.getElementById(arg);
                      for(var i = 0; i < json[3].length; i++){
-                    	var id1 = "td" + i + j;
+                    	var id1 = "td" + i + "s" + j;
                     	var cell = document.getElementById(id1);
                      	if(cell.style.backgroundColor == "yellow" || cell.style.backgroundColor == "green"){
                     		cell.style.backgroundColor = "#f0f0f0";
@@ -365,27 +367,15 @@ function newJson1(){
                 {
                 	var arr = $('#par1').attr('value');
                 	var json = JSON.parse(arr);
-                    var i;
-                    var j;
-                    var id = arg.replace ( /[^\d.]/g, '' );
-                    if (id<100){
-	                    i = arg.slice(2,3);
-	                    j = arg.slice(3);}
-                    else {
-	                    i = arg.slice(2,4);
-	                    j = arg.slice(4);}
-                    if (id>100 && id<1000){
-	                    i = arg.slice(2,3);
-	                    j = arg.slice(3);}
-                    else {
-	                    i = arg.slice(2,4);
-	                    j = arg.slice(4);}
-
+                    var i = arg.slice(2,4);
+                    i=i.replace ( /[^\d.]/g, '' );	
+                    var j = arg.slice(4);
+                    j=j.replace ( /[^\d.]/g, '' );	   	                
                     var cell = document.getElementById(arg);
                     if(cell.style.backgroundColor == "green")
                     {
                         cell.style.backgroundColor = "yellow";
-                        json[4][i][j]=1;
+                        json[4][i][j]=2;
                         $('#par1').attr('value', JSON.stringify(json));
                     }
                     else if
@@ -404,7 +394,7 @@ function newJson1(){
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name:<input id="mattName" name="mattName" type="text" style="width: 70%; float: right;"  ><br>
+   				Name:<input id="mattName" name="mattName" type="text" onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
             </div>
                 <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
                 <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
@@ -453,8 +443,8 @@ function newJson1(){
 		</div>
     </div>
 	</form>
-	<form action="saveMatt">
-	<button type="submit">XAXAXAXAXAXAX</button>
+	<form id=myform action="saveMatt">
+	<input type="hidden" id="table" name="table">
 	</form>
 </div>
 </body>
