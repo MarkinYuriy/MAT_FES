@@ -63,7 +63,8 @@ function newJson1(){
 		success : function(buf) {
 			var mbuf=buf;
 			if (mbuf>0){document.getElementById("txtnext").value=mbuf;	
-						document.getElementById("next").disabled= false;}
+						document.getElementById("next").disabled= false;
+						document.getElementById("mRepeat").disabled=false;}
 			else {document.getElementById("next").disabled= true;}
 			document.getElementById("txtback").value=0;
 			document.getElementById("back").disabled= true;
@@ -141,7 +142,8 @@ function newJson1(){
   	  document.getElementById("txtback").value=y;
   	  viewTab(y*7);
   	  if(x>0)document.getElementById("next").disabled=false;
-  	  if(y==0)document.getElementById("back").disabled=true;
+  	  if(y==0){document.getElementById("back").disabled=true;
+			document.getElementById("mRepeat").disabled=false;}
     }
     </script>
     <script>
@@ -154,7 +156,8 @@ function newJson1(){
 	  document.getElementById("txtback").value=y;
 	  viewTab(y*7);	  
 	  if(x==0)document.getElementById("next").disabled=true;
-	  if(y>0)document.getElementById("back").disabled=false;
+	  if(y>0){document.getElementById("back").disabled=false;
+			document.getElementById("mRepeat").disabled=true;}
     }
   </script>
     <style>
@@ -363,8 +366,7 @@ function newJson1(){
                      }
                 
                  }
-                function changeColor(arg)
-                {
+                function changeColor(arg) {
                 	var arr = $('#par1').attr('value');
                 	var json = JSON.parse(arr);
                     var i = arg.slice(2,4);
@@ -433,6 +435,7 @@ function newJson1(){
                 <option value="30" ${ts30}>30 min</option>
                 <option value="60" ${ts60}>1 hour</option>
             </select></p>
+                <p>repeat <input type="checkbox" id="mRepeat" disabled></p>
            
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">

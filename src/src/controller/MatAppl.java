@@ -342,8 +342,7 @@ System.out.println(timeSlot);*/
     }
 	   
 	@RequestMapping({"/viewMatt"})
-	 public String viewMatt(HttpServletRequest request,Model model){
-	  String mattId4Matt=request.getParameter("table");
+	 public String viewMatt(@RequestParam ("table") String mattId4Matt,Model model){
 	  int tableId=Integer.parseInt(mattId4Matt);
 	  Matt matt4Sharing=ifesbes1.getMatt(tableId);
 	  String mattToJson4URL = matt4Sharing.matt2browser();
@@ -352,7 +351,7 @@ System.out.println(timeSlot);*/
 	  model.addAttribute("username", userName);
 	  model.addAttribute("name", mattName);
 	  model.addAttribute("nWek", m_nwek);
-	  return "viewMatt2";//name of JSP viewing file
+	  return "viewMatt2";
 	 }
 	private void addingAtributes(Model model,String name,String nDaysStr, 
 			String dateStr,String dateEnd,String startHourStr,String endHourStr,
