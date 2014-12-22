@@ -211,7 +211,8 @@ function toggle(element) {
 		<td><a name="${item.key}" href=#  onclick="toggle(this)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td>
+		<td><input name="${item.key}" type="image" src="resources/kalendar.jpg" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td>
+		<%-- <td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td> --%>
 		<td><img src="resources/chel.jpg" width='30' height='30'></td>
 		<td><input name="${item.key}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
 		

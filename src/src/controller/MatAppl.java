@@ -451,4 +451,18 @@ System.out.println(timeSlot);*/
 	public String action_edit (@RequestParam ("tablename") String firstName,Model model) {
 		return "savedMatt";
 	}
+	@RequestMapping({"/upload_matt"})
+	public String upload_matt(HttpServletRequest request,Model model){
+		String mattIdStr=request.getParameter("table");
+		int mattId=Integer.parseInt(mattIdStr);
+System.out.println("mattId "+mattId);
+		Matt curentMatt = ifesbes1.getMatt(mattId);
+		List<String> uploadSN = new ArrayList<String>();
+		uploadSN.add("demoniskatel@gmail.com");
+		curentMatt.getData().setUploadCalendars(IFrontConnector.GOOGLE, uploadSN);
+System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IFrontConnector.GOOGLE));
+		connector.uploadMatt(userName, curentMatt);
+		return homereturn(model);
+	}
+
 }
