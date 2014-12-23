@@ -160,6 +160,94 @@ function newJson1(){
 			document.getElementById("mRepeat").disabled=true;}
     }
   </script>
+  <script type="text/javascript">
+  function repea(arg){
+	  if (arg){
+		  var arr = $('#par1').attr('value');
+		  var json = JSON.parse(arr);
+	      wekbuf=document.getElementById("txtnext").value;
+	      wekbuf++;
+          for(var i = 0; i < json[3].length; i++){//строка              
+              for(var j = 0; j < json[2].length && j<7; j++){//столбец
+                  for (var x1=1;x1<wekbuf;x1++){
+            			var j1=parseInt(j)+x1*7;
+            			if (json[4][i][j]==0)json[4][i][j1]=0;
+            			if (json[4][i][j]==1)json[4][i][j1]=1;
+            			if (json[4][i][j]==2)json[4][i][j1]=2;
+                		$('#par1').attr('value', JSON.stringify(json));}
+              }
+          }
+	  }
+  }
+  </script>
+  <script type="text/javascript">
+  function changeWek(arg){
+ 	 var arr = $('#par1').attr('value');
+ 	 var json = JSON.parse(arr);
+      var j = arg.slice(2);
+      var wekbuf=1;
+      if(document.getElementById("mRepeat").checked && !document.getElementById("mRepeat").disabled){
+     	 wekbuf=document.getElementById("txtnext").value;
+     	 wekbuf++;
+      }		
+      
+          for(var i = 0; i < json[3].length; i++){
+         	var id1 = "td" + i + "s" + j;
+         	var cell = document.getElementById(id1);
+          	if(cell.style.backgroundColor == "yellow" || cell.style.backgroundColor == "green"){
+         		cell.style.backgroundColor = "#f0f0f0";
+         		cell.style.cursor =" ";
+          		for (var x1=0;x1<wekbuf;x1++){
+          		var j1=parseInt(j)+x1*7;
+         		json[4][i][j1]=1;
+          		$('#par1').attr('value', JSON.stringify(json));}
+          		}
+          	else {
+          		cell.style.backgroundColor = "yellow"
+          		cell.setAttribute("onClick", "changeColor(id)");
+          		cell.style.cursor = "pointer";
+          		for(var x1=0;x1<wekbuf;x1++){
+          		var j1=parseInt(j)+x1*7;
+          		json[4][i][j1]=2;
+          		$('#par1').attr('value', JSON.stringify(json));}
+         		}
+          }
+	  
+  }
+  </script>
+  <script type="text/javascript">
+  function changeColor(arg) {
+  	var arr = $('#par1').attr('value');
+  	var json = JSON.parse(arr);
+      var i = arg.slice(2,4);
+      i=i.replace ( /[^\d.]/g, '' );	
+      var j = arg.slice(4);
+      j=j.replace ( /[^\d.]/g, '' );	   	                
+      var cell = document.getElementById(arg);
+      var wekbuf=1;
+      if(document.getElementById("mRepeat").checked && !document.getElementById("mRepeat").disabled){
+     	 wekbuf=document.getElementById("txtnext").value;
+     	 wekbuf++;
+      }		
+      if(cell.style.backgroundColor == "green")
+      {
+          cell.style.backgroundColor = "yellow";
+          for (var x1=0;x1<wekbuf;x1++){
+        		var j1=parseInt(j)+x1*7;
+          		json[4][i][j1]=2;
+         		$('#par1').attr('value', JSON.stringify(json));}
+      }
+      else if
+              (cell.style.backgroundColor == "yellow")
+      {
+          cell.style.backgroundColor = "green";
+          for (var x1=0;x1<wekbuf;x1++){
+      			var j1=parseInt(j)+x1*7;
+          		json[4][i][j1]=0;
+          		$('#par1').attr('value', JSON.stringify(json));}
+      }
+  }
+  </script>
     <style>
         head {
             width: auto;
@@ -289,9 +377,7 @@ function newJson1(){
             </div>
             <script>
                 var arr = $('#par1').attr('value');
-
                 var json = JSON.parse(arr);
-
                 var oldTable = document.getElementById('mattTable'),
                         newTable = oldTable.cloneNode();
                 var tr = document.createElement('tr');
@@ -302,8 +388,7 @@ function newJson1(){
                     tr.appendChild(th);
                 }
                 newTable.appendChild(tr);
-              
-              
+             
                 var tr1 = document.createElement('tr');
 		        for(var i = 0; i < json[1].length; i++){
 		            var th1 = document.createElement('td');
@@ -339,55 +424,7 @@ function newJson1(){
                     newTable.appendChild(tr);
                 }
                 oldTable.parentNode.replaceChild(newTable, oldTable);
-
-                /*this part is changing color of our calendar and affects to "json" data,
-                 this data should be passed to controller, don't know how:)
-                 mayby it should be stringified, have to check it out!
-                 */
             
-                 function changeWek(arg){
-                	 var arr = $('#par1').attr('value');
-                	 var json = JSON.parse(arr);
-                     var j = arg.slice(2);
-                     for(var i = 0; i < json[3].length; i++){
-                    	var id1 = "td" + i + "s" + j;
-                    	var cell = document.getElementById(id1);
-                     	if(cell.style.backgroundColor == "yellow" || cell.style.backgroundColor == "green"){
-                    		cell.style.backgroundColor = "#f0f0f0";
-                    		cell.style.cursor =" ";
-                     		json[4][i][j]=0;
-                     		$('#par1').attr('value', JSON.stringify(json));}
-                     	else {
-                     		cell.style.backgroundColor = "yellow"
-                     		cell.setAttribute("onClick", "changeColor(id)");
-                     		cell.style.cursor = "pointer";
-                     		json[4][i][j]=2;
-                     		$('#par1').attr('value', JSON.stringify(json));}
-                     }
-                
-                 }
-                function changeColor(arg) {
-                	var arr = $('#par1').attr('value');
-                	var json = JSON.parse(arr);
-                    var i = arg.slice(2,4);
-                    i=i.replace ( /[^\d.]/g, '' );	
-                    var j = arg.slice(4);
-                    j=j.replace ( /[^\d.]/g, '' );	   	                
-                    var cell = document.getElementById(arg);
-                    if(cell.style.backgroundColor == "green")
-                    {
-                        cell.style.backgroundColor = "yellow";
-                        json[4][i][j]=2;
-                        $('#par1').attr('value', JSON.stringify(json));
-                    }
-                    else if
-                            (cell.style.backgroundColor == "yellow")
-                    {
-                        cell.style.backgroundColor = "green";
-                        json[4][i][j]=0;
-                        $('#par1').attr('value', JSON.stringify(json));
-                    }
-                }
             </script>
         </div>
     </div>
@@ -435,7 +472,7 @@ function newJson1(){
                 <option value="30" ${ts30}>30 min</option>
                 <option value="60" ${ts60}>1 hour</option>
             </select></p>
-                <p>repeat <input type="checkbox" id="mRepeat" disabled></p>
+                <p>repeat <input type="checkbox" id="mRepeat" disabled onclick="repea(this.checked)"></p>
            
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
