@@ -326,11 +326,12 @@ System.out.println(timeSlot);*/
 	}
 	
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(@RequestParam ("table") String mattname, Model model){
+	public String saveMattData(@RequestParam ("table") String m_mattname, Model model){
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
-		oldMatt.getData().setName(mattname);
+		oldMatt.getData().setName(m_mattname);
+		mattName=m_mattname;
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(newMatt,userEmail);
