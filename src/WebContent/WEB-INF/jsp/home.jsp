@@ -18,13 +18,24 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     
 <script type="text/javascript">
-
 function toggle(element) {
-	
-	 if( document.getElementById(element.name).style.display=='none' ){
-	   document.getElementById(element.name).style.display = '';
+	var buf="collab"+element;
+	document.getElementById(buf).style.display='none';
+	 if( document.getElementById(element).style.display=='none' ){
+	   document.getElementById(element).style.display = '';
 	 }else{
-	   document.getElementById(element.name).style.display = 'none';
+	   document.getElementById(element).style.display = 'none';
+	 }
+	}
+</script>
+<script type="text/javascript">
+function collab(element) {
+	var buf="collab"+element;
+	document.getElementById(element).style.display='none';
+	 if( document.getElementById(buf).style.display=='none' ){
+	   document.getElementById(buf).style.display = '';
+	 }else{
+	   document.getElementById(buf).style.display = 'none';
 	 }
 	}
 </script>
@@ -160,10 +171,8 @@ function toggle(element) {
 
     </style>
  
-
 </head>
 <body>
-
 
 <div class="header">
 <form id="log" >
@@ -185,7 +194,6 @@ function toggle(element) {
          <div>	<button  onclick="form2.action='dom'">Create a new Available calendar</button>
          <p style="font-size:1em">Existing calendars</p>
          
- 
          </div>
        
         </form>
@@ -208,12 +216,12 @@ function toggle(element) {
    <tr>
 		<td><input name="${item.key}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
 		<td><input name="${item}" type="image" src="resources/karandash.jpg" title="View" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
-		<td><a name="${item.key}" href=#  onclick="toggle(this)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
+		<td><a name="${item.key}" href=#  onclick="toggle(this.name)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
 		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
 		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
 		<td><input name="${item.key}" type="image" src="resources/kalendar.jpg" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td>
 		<%-- <td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td> --%>
-		<td><img src="resources/chel.jpg" width='30' height='30'></td>
+		<td><a name="${item.key}" href=#  onclick="collab(this.name)"><img src="resources/chel.jpg" width='30' height='30'></a></td>
 		<td><input name="${item.key}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
 		
    </tr>
@@ -227,6 +235,12 @@ function toggle(element) {
                 onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                 <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" title="Share on Facebook" width="30" height="30"></a></td>
    </tr>
+   <tr id="collab${item.key}" style="display:none; height:50px">
+   		<td> </td><td> </td><td> </td><td> </td><td> </td>
+   		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Share" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
+    	<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Share" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
+ 
+    </tr>
    		
    </table>
 <br>
