@@ -209,20 +209,20 @@ function collab(element) {
    <td colspan='8'>${item.value} and ${item.key}</td>
    </tr>
    <tr>
-   <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item.key}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item.key}&username=${userName}</a></td>
+   <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}</a></td>
    
  </tr>
    
    <tr>
-		<td><input name="${item.key}" type="image" src="resources/glas.jpg" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
-		<td><input name="${item}" type="image" src="resources/karandash.jpg" title="View" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
-		<td><a name="${item.key}" href=#  onclick="toggle(this.name)"><img   src="resources/soed.jpg" title="Share" width='30' height='30' ></a></td>
-		<td><img src='<d:url value='/resources/grafik.jpg'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/strelka.jpg'/>' width='30' height='30'></td>
-		<td><input name="${item.key}" type="image" src="resources/kalendar.jpg" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td>
+		<td><input name="${item.key}" type="image" src="resources/glas.png" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
+		<td><input name="${item.key}" type="image" src="resources/karandash.png" title="Edit" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
+		<td><a name="${item.key}" href=#  onclick="toggle(this.name)"><img   src="resources/soed.png" title="Share" width='30' height='30' ></a></td>
+		<td><img src='<d:url value='/resources/grafik.png'/>' width='30' height='30'></td>
+		<td><img src='<d:url value='/resources/strelka.png'/>' width='30' height='30'></td>
+		<td><input name="${item.key}" type="image" src="resources/kalendar.png" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td>
 		<%-- <td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td> --%>
-		<td><a name="${item.key}" href=#  onclick="collab(this.name)"><img src="resources/chel.jpg" width='30' height='30'></a></td>
-		<td><input name="${item.key}" type="image" src="resources/mus.jpg" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
+		<td><a name="${item.key}" href=#  onclick="collab(this.name)"><img src="resources/chel.png" title="Collaboration" width='30' height='30'></a></td>
+		<td><input name="${item.key}" type="image" src="resources/mus.png" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
 		
    </tr>
    <tr id="${item.key}" style="display:none; height:50px">
@@ -237,8 +237,8 @@ function collab(element) {
    </tr>
    <tr id="collab${item.key}" style="display:none; height:50px">
    		<td> </td><td> </td><td> </td><td> </td><td> </td>
-   		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Share" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
-    	<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Share" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
+   		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Send invitation" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
+    	<td><input name="${item.key}" type="image" src="resources/chel.png" title="Set appointment" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
  
     </tr>
    		

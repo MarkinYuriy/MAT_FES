@@ -452,8 +452,29 @@ System.out.println(timeSlot);*/
 		return homereturn(model);
 	}
 	@RequestMapping({"/action_edit"})
-	public String action_edit (@RequestParam ("tablename") String firstName,Model model) {
-		return "savedMatt";
+	public String action_edit (@RequestParam ("table") String mattId4Matt,Model model) {
+		  int tableId=Integer.parseInt(mattId4Matt);
+		  oldMatt=ifesbes1.getMatt(tableId);
+		  String mattToJson4URL = oldMatt.matt2browser();
+		  int m_nwek=(oldMatt.getData().getnDays())/7-1;
+		  String m_nameMatt=oldMatt.getData().getName();
+		  int timeSlotStr=oldMatt.getData().getTimeSlot();
+		  String dateStr =new SimpleDateFormat("d.M.y").format(oldMatt.getData().getStartDate());		  
+		  String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(oldMatt.getData().getStartDate(), oldMatt.getData().getnDays()));
+		  model.addAttribute("matJSON", mattToJson4URL);
+		  model.addAttribute("userName", userName);
+		  model.addAttribute("name", m_nameMatt);
+		  model.addAttribute("nWek", m_nwek);
+		  model.addAttribute("ts"+timeSlotStr, "selected");
+		  model.addAttribute("startDate",dateStr);
+		  model.addAttribute("endDate",dateEnd);
+		return "editMatt2";
+	}
+	private static Date getDateAfter(Date date, int days) {
+		Calendar calendar= new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(GregorianCalendar.DAY_OF_YEAR, days-1);
+		return calendar.getTime();
 	}
 	@RequestMapping({"/upload_matt"})
 	public String upload_matt(HttpServletRequest request,Model model){

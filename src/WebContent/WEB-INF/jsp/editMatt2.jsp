@@ -35,7 +35,6 @@ function ajaxjson(){
 		data : data,
 		type : "POST",
 		complete : function() {
-			
 		}
 	});
 	}
@@ -248,6 +247,17 @@ function newJson1(){
       }
   }
   </script>
+  <script type="text/javascript">
+  function myLoad() {
+		var mbuf=document.getElementById("txtnext").value;
+		if (mbuf>0){document.getElementById("txtnext").value=mbuf;	
+					document.getElementById("next").disabled= false;
+					document.getElementById("mRepeat").disabled=false;
+					document.getElementById("mRepeat").checked=true;}
+		else {document.getElementById("next").disabled= true;}
+		document.getElementById("txtback").value=0;
+		document.getElementById("back").disabled= true;
+	}</script>
     <style>
         head {
             width: auto;
@@ -349,7 +359,7 @@ function newJson1(){
         #art::-webkit-scrollbar { width: 0 !important }
     </style>
 </head>
-<body>
+<body onload="myLoad()">
 <div class="header">
     <span><a class="logo" href="http://myavailabletime.com/">MyAvailableTime</a></span>
     <span class="topmenu" style="float:right;"> Logout</span>
@@ -366,7 +376,7 @@ function newJson1(){
         <div  >
  			  <input id="par1" name="mattToJSON" value='${matJSON}' type=hidden style="display:none"/>
               <input id="txtback" name="txtback" value=0 />
- 			  <input id="txtnext" name="txtnext" value=0 />
+ 			  <input id="txtnext" name="txtnext" value='${nWek}' />
  			<div>
             <table id="mattTable" border="1" width="100%" >
             </table>
@@ -376,55 +386,7 @@ function newJson1(){
             </table>
             </div>
             <script>
-                var arr = $('#par1').attr('value');
-                var json = JSON.parse(arr);
-                var oldTable = document.getElementById('mattTable'),
-                        newTable = oldTable.cloneNode();
-                var tr = document.createElement('tr');
-                tr.id = "dayValue";
-                for(var i = 0; i < json[2].length; i++){
-                    var th = document.createElement('th');
-                    th.appendChild(document.createTextNode(json[2][i]));
-                    tr.appendChild(th);
-                }
-                newTable.appendChild(tr);
-             
-                var tr1 = document.createElement('tr');
-		        for(var i = 0; i < json[1].length; i++){
-		            var th1 = document.createElement('td');
-		            var id = "th" + i;
-                    th1.id = id;
-		            th1.appendChild(document.createTextNode(json[1][i]));
-		            th1.style.cursor = "pointer";
-		            th1.setAttribute("onClick", "changeWek(id)");
-		            th1.style.cursor = "pointer";
-		            tr1.appendChild(th1);
-		        }
- 		       newTable.appendChild(tr1);
- 		      oldTable.parentNode.replaceChild(newTable, oldTable);
- 		      
- 		      var oldTable = document.getElementById('mattTable1'),
-            	 newTable = oldTable.cloneNode();
-
-                for(var i = 0; i < json[3].length; i++){
-                    var tr = document.createElement('tr');
-                    for(var j = 0; j < json[2].length; j++){
-                        var td = document.createElement('td');
-                        var id = "td" + i +"s"+ j;
-                        td.id = id;
-                        td.appendChild(document.createTextNode(json[3][i]));
-                        if(json[4][i][j]==0) {
-                            td.style.backgroundColor = "green";
-                            td.style.cursor = "pointer";
-                            td.setAttribute("onClick", "changeColor(id)");
-                            td.style.cursor = "pointer";
-                        }
-                        tr.appendChild(td);
-                    }
-                    newTable.appendChild(tr);
-                }
-                oldTable.parentNode.replaceChild(newTable, oldTable);
-            
+            viewTab(0);           
             </script>
         </div>
     </div>
@@ -433,7 +395,7 @@ function newJson1(){
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name:<input id="mattName" name="mattName" type="text" onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
+   				Name:<input id="mattName" name="mattName" type="text" value='${name}' onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
             </div>
                 <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
                 <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
@@ -484,7 +446,7 @@ function newJson1(){
     </div>
 	</form>
 	<form id=myform action="saveMatt">
-	<input type="hidden" id="table" name="table">
+	<input type="hidden" id="table" name="table" value='${name}'>
 	</form>
 </div>
 </body>
