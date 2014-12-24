@@ -349,7 +349,7 @@ System.out.println(timeSlot);*/
 	  String mattToJson4URL = matt4Sharing.matt2browser();
 	  int m_nwek=(matt4Sharing.getData().getnDays())/7-1;
 	  model.addAttribute("matJSON", mattToJson4URL);
-	  model.addAttribute("username", userName);
+	  model.addAttribute("userName", userName);
 	  model.addAttribute("name", mattName);
 	  model.addAttribute("nWek", m_nwek);
 	  return "viewMatt2";
