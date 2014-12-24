@@ -239,7 +239,7 @@
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name:<input id="mattName" name="mattName" type="text" value="${name}" disabled style="width: 70%; float: right;"  ><br>
+   				Name:<input id="mattName" name="mattName" type="text" value='${name}' disabled style="width: 70%; float: right;"  ><br>
             </div>            
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">

@@ -348,9 +348,10 @@ System.out.println(timeSlot);*/
 	  Matt matt4Sharing=ifesbes1.getMatt(tableId);
 	  String mattToJson4URL = matt4Sharing.matt2browser();
 	  int m_nwek=(matt4Sharing.getData().getnDays())/7-1;
+	  String m_nameMatt=matt4Sharing.getData().getName();
 	  model.addAttribute("matJSON", mattToJson4URL);
 	  model.addAttribute("userName", userName);
-	  model.addAttribute("name", mattName);
+	  model.addAttribute("name", m_nameMatt);
 	  model.addAttribute("nWek", m_nwek);
 	  return "viewMatt2";
 	 }
