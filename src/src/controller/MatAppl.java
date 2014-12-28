@@ -9,6 +9,7 @@ import mat.IFesBes1;
 import mat.IFrontConnector;
 import mat.Matt;
 import mat.MattData;
+import mat.Notification;
 import mat.Person;
 import mat.Response;
 
@@ -528,5 +529,39 @@ System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IF
 		connector.uploadMatt(userName, curentMatt);
 		return homereturn(model);
 	}
+		@SuppressWarnings("null")
+		@RequestMapping({"/notifications"})
+		public String showInvitations(HttpServletRequest request,Model model){
+			List<Notification> listNotifications=ifesbes1.getNotifications(userEmail);
+			List<String[]> listStrBuff=null;
+			String strMattId="";
+			String nameOfUser="";
+			String strMattName="";
+			Integer mattId;
+			for(Notification notifInfo:listNotifications){
+				String[] strBuf=new String[3];
+				
+				mattId=notifInfo.mattId;
+				if(mattId!=null){
+					strMattId=mattId.toString();
+				}
+				strBuf[0]=strMattId;
+				
+				nameOfUser=notifInfo.nameOfUser;
+				if(nameOfUser!=null){
+					strBuf[1]=nameOfUser;
+				} else{strBuf[1]="";}
+				
+				strMattName=notifInfo.mattName;
+				if(strMattName!=null){
+					strBuf[2]=strMattName;
+				} else{strBuf[2]="";}
+				
+				listStrBuff.add(strBuf);			
+			}
+			model.addAttribute("listNotifications", listStrBuff);
+			return "notifications";
+		}
+
 
 }
