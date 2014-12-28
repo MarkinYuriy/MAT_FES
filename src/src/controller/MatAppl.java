@@ -179,7 +179,7 @@ public class MatAppl {
 		oldMatt=ifesbes1.createMatt(data, userName);
 		mattToJSON = oldMatt.matt2browser();  */
 		addingAtributes(model,name,null,dateStr,dateEnd,Integer.toString(startHour),Integer.toString(endHour),Integer.toString(timeSlot),mattToJSON);
-		model.addAttribute("dounload",connector.getAvailableCalendars(userName));
+		model.addAttribute("download",connector.getAvailableCalendars(userName));
 		return "createMatt2";
 	}
 	private HashMap<String, List<String>> getAvailableCalendars(String userName2) {
@@ -346,11 +346,38 @@ System.out.println(timeSlot);*/
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
 	}
-	
+@RequestMapping({"/download"})
+public String download(HttpServletRequest request,@RequestParam ("table") String m_mattname, Model model){
+	HashMap<String, List<String>> hmOne=connector.getAvailableCalendars(userName);
+	Iterator<String>  it=hmOne.keySet().iterator();
+	while(it.hasNext()){
+		String element = it.next();
+		String languages[] = request.getParameterValues(element);
+	if (languages != null) {
+	    System.out.println("set:"+element);
+	    List<String>l1 = new ArrayList<String>();
+	    for (String lang : languages) {
+		    l1.add(lang);
+	    	System.out.println("\t" + lang);
+	    }
+		oldMatt.getData().setDownloadCalendars(element, l1);
+	}
+	}
+	newTabList=new ArrayList<Boolean>();
+	newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
+	newMatt = new Matt();
+	oldMatt.getData().setName(m_mattname);
+	mattName=m_mattname;
+	newMatt.setData(oldMatt.getData());
+	newMatt.setSlots(newTabList);
+	int id=ifesbes1.saveMatt(newMatt,userEmail);
+	String buf=Integer.toString(id);
+	return  action_edit(buf,model);
+}
+
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(HttpServletRequest request,@RequestParam ("table") String m_mattname, Model model){
-		HashMap<String, List<String>> hmOne=connector.getAvailableCalendars(userName);
-		HashMap<String, List<String>> buf=new HashMap<String, List<String>>();
+	public String saveMattData(/*HttpServletRequest request,*/@RequestParam ("table") String m_mattname, Model model){
+/*		HashMap<String, List<String>> hmOne=connector.getAvailableCalendars(userName);
 		Iterator<String>  it=hmOne.keySet().iterator();
 		while(it.hasNext()){
 			String element = it.next();
@@ -362,14 +389,13 @@ System.out.println(timeSlot);*/
 			    l1.add(lang);
 		    	System.out.println("\t" + lang);
 		    }
-		    buf.put(element, l1);		    
+			oldMatt.getData().setUploadCalendars(element, l1);
 		}
-		}
+		}*/
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
 		oldMatt.getData().setName(m_mattname);
-		
 		mattName=m_mattname;
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);

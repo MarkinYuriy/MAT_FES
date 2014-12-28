@@ -23,6 +23,7 @@
 			alert("no name");
 			return false;
 		}
+		document.getElementById("myform").action="saveMatt";
 		document.forms["myform"].submit();
   return true;
  }
@@ -253,7 +254,16 @@ function newJson1(){
 <script type="text/javascript">
 $(document).ready(function(){ PopUpHide(); });
 function PopUpShow(){ $("#window-popup").show(); } 
-function PopUpHide(){ $("#window-popup").hide(); }
+function PopUpHide(){ $("#window-popup").hide(); 
+
+}
+</script>
+<script type="text/javascript">
+function download(){
+	ajaxjson();
+	document.getElementById("myform").action="download";
+	document.forms["myform"].submit();;
+}
 </script>
 
     <style>
@@ -496,7 +506,7 @@ function PopUpHide(){ $("#window-popup").hide(); }
                 <option value="60" ${ts60}>1 hour</option>
             </select></p>
                 <p>repeat <input type="checkbox" id="mRepeat" disabled onclick="repea(this.checked)"></p>
-            	<a href="javascript:PopUpShow()"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.6em; width: 75px; text-align: right; ">dounload</a>
+            	<a href="javascript:PopUpShow()"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.6em; width: 75px; text-align: right; ">download</a>
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
                 	<button id="saveMatt" type="button" onclick="submit1()" >SAVE</button>
@@ -507,17 +517,18 @@ function PopUpHide(){ $("#window-popup").hide(); }
     </div>
 
 	</form>
-	<form id=myform action="saveMatt">
+	<form id=myform>
 	<input type="hidden" id="table" name="table">
 	    <div class="popup" id="window-popup">
     	<div class="popup-content">
-		<d:forEach items="${dounload}" var="item" >
+		<d:forEach items="${download}" var="item" >
 		<p>${item.key}</p>
 			<d:forEach items="${item.value}" var="itemM" >
 				<p> <input type="checkbox" name="${item.key}" value="${itemM}" />${itemM}</p>
 			</d:forEach>	
 		</d:forEach>
-    	<a href="javascript:PopUpHide()">close</a>
+<!-- 		<button  onclick="javascript:PopUpHide()">close</button> -->
+		<button  onclick="download()">download</button>
     	</div>
     </div>
 	</form>
