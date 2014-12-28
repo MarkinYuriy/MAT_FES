@@ -178,7 +178,28 @@ public class MatAppl {
 		oldMatt=ifesbes1.createMatt(data, userName);
 		mattToJSON = oldMatt.matt2browser();  */
 		addingAtributes(model,name,null,dateStr,dateEnd,Integer.toString(startHour),Integer.toString(endHour),Integer.toString(timeSlot),mattToJSON);
+		model.addAttribute("dounload",connector.getAvailableCalendars(userName));
 		return "createMatt2";
+	}
+	private HashMap<String, List<String>> getAvailableCalendars(String userName2) {
+	    HashMap<String, List<String>> hmOne = new HashMap<String, List<String>>();
+	    List<String>l1 = new ArrayList<String>();
+	    l1.add("one");
+	    l1.add("two");
+	    l1.add("three");
+	    l1.add("four");
+	    l1.add("five");
+	    hmOne.put("Google", l1);
+	    l1 = new ArrayList<String>();
+	    l1.add("home");
+	    l1.add("work");
+	    hmOne.put("Apple", l1);
+	    l1 = new ArrayList<String>();
+	    l1.add("home1");
+	    l1.add("work1");
+	    l1.add("work2");
+	    hmOne.put("Facebook", l1);    
+		return hmOne;
 	}
 	private static Calendar getFirstWeekDayTime(Calendar calendar){
 		int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
@@ -326,20 +347,38 @@ System.out.println(timeSlot);*/
 	}
 	
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(@RequestParam ("table") String m_mattname, Model model){
+	public String saveMattData(HttpServletRequest request,@RequestParam ("table") String m_mattname, Model model){
+		HashMap<String, List<String>> hmOne=connector.getAvailableCalendars(userName);
+		HashMap<String, List<String>> buf=new HashMap<String, List<String>>();
+		Iterator<String>  it=hmOne.keySet().iterator();
+		while(it.hasNext()){
+			String element = it.next();
+			String languages[] = request.getParameterValues(element);
+		if (languages != null) {
+		    System.out.println("set:"+element);
+		    List<String>l1 = new ArrayList<String>();
+		    for (String lang : languages) {
+			    l1.add(lang);
+		    	System.out.println("\t" + lang);
+		    }
+		    buf.put(element, l1);		    
+		}
+		}
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
 		oldMatt.getData().setName(m_mattname);
+		
 		mattName=m_mattname;
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(newMatt,userEmail);
-		model.addAttribute("name", m_name);
+/*		model.addAttribute("name", m_name);
 		model.addAttribute("userName", userName);
 		model.addAttribute("matJSON", newTablJSON);
-		model.addAttribute("mattName",mattName);		
-		return "savedMatt2";
+		model.addAttribute("mattName",mattName);	*/
+
+		return  homereturn (model);
     }
 	   
 	@RequestMapping({"/viewMatt"})

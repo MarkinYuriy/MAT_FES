@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    
    
     <script type="text/javascript">
 	 function submit1() {
@@ -248,6 +250,12 @@ function newJson1(){
       }
   }
   </script>
+<script type="text/javascript">
+$(document).ready(function(){ PopUpHide(); });
+function PopUpShow(){ $("#window-popup").show(); } 
+function PopUpHide(){ $("#window-popup").hide(); }
+</script>
+
     <style>
         head {
             width: auto;
@@ -347,6 +355,21 @@ function newJson1(){
             vertical-align:middle;
         }
         #art::-webkit-scrollbar { width: 0 !important }
+
+		.popup { width:100%;
+		  min-height:100%;
+		  background-color: rgba(0,0,0,0.5); 
+		  overflow:hidden; 
+		  position:fixed;
+		  top:0px; } 
+        .popup .popup-content { margin:40px auto 0px auto;
+         width:400px;
+         height: 400px; 
+         padding:10px; 
+         background-color: #c5c5c5; 
+         border-radius:5px; 
+         box-shadow: 0px 0px 10px #000; }
+
     </style>
 </head>
 <body>
@@ -473,7 +496,7 @@ function newJson1(){
                 <option value="60" ${ts60}>1 hour</option>
             </select></p>
                 <p>repeat <input type="checkbox" id="mRepeat" disabled onclick="repea(this.checked)"></p>
-           
+            	<a href="javascript:PopUpShow()"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.6em; width: 75px; text-align: right; ">dounload</a>
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
                 	<button id="saveMatt" type="button" onclick="submit1()" >SAVE</button>
@@ -482,9 +505,21 @@ function newJson1(){
         	</div>
 		</div>
     </div>
+
 	</form>
 	<form id=myform action="saveMatt">
 	<input type="hidden" id="table" name="table">
+	    <div class="popup" id="window-popup">
+    	<div class="popup-content">
+		<d:forEach items="${dounload}" var="item" >
+		<p>${item.key}</p>
+			<d:forEach items="${item.value}" var="itemM" >
+				<p> <input type="checkbox" name="${item.key}" value="${itemM}" />${itemM}</p>
+			</d:forEach>	
+		</d:forEach>
+    	<a href="javascript:PopUpHide()">close</a>
+    	</div>
+    </div>
 	</form>
 </div>
 </body>
