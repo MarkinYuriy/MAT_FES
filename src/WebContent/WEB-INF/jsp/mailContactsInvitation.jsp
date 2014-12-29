@@ -4,14 +4,9 @@
 
 <%
 	// Create an ArrayList with test data /* ${matt}; */
-	String emails = "001@yahoo.com 0003@gmail.com myavailabletime@gmail.com 0004@gmail.com 0005@gmail.com";
-	String delims = "[ ;,]+";
-	String[] email = emails.split(delims);
 
 	ArrayList list = new ArrayList();
 
-	for (int i = 0; i < email.length; i++)
-		list.add(email[i]);
 	pageContext.setAttribute("addresses", list);
 %>
 
@@ -195,7 +190,7 @@
 			</c:forEach>
 		</select>
 	</div>
-<form id="sendE" action="send" method="post" >	
+<form id="sendE" action="sendInvitation" method="post" >	
 <div 
 	style="width: 100px; float: left;">
 	    <p>  . </p>
@@ -203,22 +198,21 @@
 		<input type="button" class="btn" value="Add All" onclick="addAll();" />
 		<input type="button" class="btn" value="Remove" onclick="removeItems();" /> 
 		<input type="button" class="btn" value="Remove All" onclick="removeAll();" /> 
-		
 		<!-- <input type="button" class="btn" value="Move Up" onclick="moveUp();" /> 
 		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
-		
 		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
 	<input type="hidden" id="hiddenemail" name="hiddenemail" />
 
     <input type="hidden" id="table" name="table" value="${table}">	</form>
 
-	<div style="float: left; width: 270;">		
+	<div style="float: left; width: 270;">
 		<p>Emails to send</p>
 		<select name="sendEmails" id="sendEmails" style="width: 250; height: 200;"
 			multiple="multiple">
 		</select>
 		<p> Enter e-mail address:</p> 
-			<input type="text" name="typedAddress" id="typedAddress" style="width: 250;" value="" onchange="addWritedAddress(this.value)">	</div>
+		<input type="text" name="typedAddress" id="typedAddress" style="width: 250;" value="" onchange="addWritedAddress(this.value)">
+	</div>
 </body>
 </html>

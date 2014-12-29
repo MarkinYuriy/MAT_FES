@@ -484,6 +484,8 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		  ifesbes1.setActive(user,hash);
 	   return "loginon";
 	 }
+	
+
 	@RequestMapping({"/mail"})
 	public String mail(@RequestParam ("table") String table,Model model){
 		String [] buf = connector.getContacts(userName, connector.getAuthorizedSocialNames(userName));
@@ -494,12 +496,29 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 	
 	@RequestMapping({"/send"})
 	public String sendEmail(@RequestParam ("table") String table,@RequestParam ("hiddenemail") String hiddenemail,Model model){
-	String[] sendEmails = hiddenemail.split(";");
-	String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
-	connector.shareByMail(send.replaceAll(" ", "%20"), sendEmails, userName, IFrontConnector.GOOGLE);	
+	    String[] sendEmails = hiddenemail.split(";");
+	    String send= "http://localhost:8080/myavailabletime/viewMatt?table="+table+"&username="+userName;
+	    connector.shareByMail(send.replaceAll(" ", "%20"), sendEmails, userName, IFrontConnector.GOOGLE);	
 		return homereturn(model);
 	}
 
+	@RequestMapping({"/invitation"})
+	public String invitation(@RequestParam ("table") String table,Model model){
+		String [] buf = connector.getContacts(userName, connector.getAuthorizedSocialNames(userName));
+		model.addAttribute("getmail",buf);
+		model.addAttribute("table",table);
+		return "mailContactsInvitation";
+	}
+	
+	@RequestMapping({"/sendInvitation"})
+	public String sendInvitation(HttpServletRequest request, @RequestParam ("table") String table,@RequestParam ("hiddenemail") String hiddenemail,Model model){
+		String mattIdStr=request.getParameter("table");
+		int mattId=Integer.parseInt(mattIdStr);
+	    String[] sendEmails = hiddenemail.split(";");
+	    ifesbes1.setGuests(mattId, sendEmails);	
+		return homereturn(model);
+	}
+		
 	@RequestMapping(value = "setsocialseti", method = RequestMethod.GET)
 	public @ResponseBody void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){
 			ifesbes1.updateMatCalendarInSN(userName, seti);
