@@ -189,19 +189,23 @@ function newJson1(){
      	 wekbuf=document.getElementById("txtnext").value;
      	 wekbuf++;
       }		
-      
+      if (document.getElementById(arg).style.backgroundColor == "yellow"){
+    	  document.getElementById(arg).style.backgroundColor = "#f0f0f0"
+      }else{
+    	  document.getElementById(arg).style.backgroundColor = "yellow" 
+      }
           for(var i = 0; i < json[3].length; i++){
          	var id1 = "td" + i + "s" + j;
          	var cell = document.getElementById(id1);
-          	if(cell.style.backgroundColor == "yellow" || cell.style.backgroundColor == "green"){
+          	if(cell.style.backgroundColor == "yellow" && document.getElementById(arg).style.backgroundColor != "yellow"){
          		cell.style.backgroundColor = "#f0f0f0";
          		cell.style.cursor =" ";
           		for (var x1=0;x1<wekbuf;x1++){
           		var j1=parseInt(j)+x1*7;
          		json[4][i][j1]=1;
           		$('#par1').attr('value', JSON.stringify(json));}
-          		}
-          	else {
+          		}else{
+          	if(cell.style.backgroundColor != "green" && document.getElementById(arg).style.backgroundColor == "yellow"){
           		cell.style.backgroundColor = "yellow"
           		cell.setAttribute("onClick", "changeColor(id)");
           		cell.style.cursor = "pointer";
@@ -209,7 +213,16 @@ function newJson1(){
           		var j1=parseInt(j)+x1*7;
           		json[4][i][j1]=2;
           		$('#par1').attr('value', JSON.stringify(json));}
+         		}}
+          	if(cell.style.backgroundColor=="green" && document.getElementById(arg).style.backgroundColor != "yellow"){
+         		cell.style.backgroundColor = "#f0f0f0";
+         		cell.style.cursor =" ";
+          		for (var x1=0;x1<wekbuf;x1++){
+          		var j1=parseInt(j)+x1*7;
+         		json[4][i][j1]=1;
+          		$('#par1').attr('value', JSON.stringify(json));}
          		}
+          	
           }
 	  
   }
