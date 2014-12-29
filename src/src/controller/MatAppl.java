@@ -549,7 +549,7 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 System.out.println("mattId "+mattId);
 		Matt curentMatt = ifesbes1.getMatt(mattId);
 		List<String> uploadSN = new ArrayList<String>();
-		uploadSN.add("demoniskatel@gmail.com");
+		uploadSN.add(userName);
 		curentMatt.getData().setUploadCalendars(IFrontConnector.GOOGLE, uploadSN);
 System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IFrontConnector.GOOGLE));
 		connector.uploadMatt(userName, curentMatt);
