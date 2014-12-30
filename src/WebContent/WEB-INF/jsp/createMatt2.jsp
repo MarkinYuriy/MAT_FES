@@ -397,9 +397,9 @@ function download(){
             <button id="next" type="button" disabled onclick="mnext()">next</button>
         </div>
         <div  >
- 			  <input id="par1" name="mattToJSON" value='${matJSON}' type=hidden style="display:none"/>
-              <input id="txtback" name="txtback" value=0 />
- 			  <input id="txtnext" name="txtnext" value=0 />
+ 			  <input id="par1" name="mattToJSON" value='${matJSON}' type="hidden" style="display:none"/>
+              <input id="txtback" name="txtback" value=0 type="hidden"/>
+ 			  <input id="txtnext" name="txtnext" value=0 type="hidden"/>
  			<div>
             <table id="mattTable" border="1" width="100%" >
             </table>
