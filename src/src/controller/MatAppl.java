@@ -354,11 +354,9 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		String element = it.next();
 		String languages[] = request.getParameterValues(element);
 	if (languages != null) {
-	    System.out.println("set:"+element);
 	    List<String>l1 = new ArrayList<String>();
 	    for (String lang : languages) {
 		    l1.add(lang);
-	    	System.out.println("\t" + lang);
 	    }
 		oldMatt.getData().setDownloadCalendars(element, l1);
 	}
@@ -371,7 +369,8 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 	newMatt.setData(oldMatt.getData());
 	newMatt.setSlots(newTabList);
 	int id=ifesbes1.saveMatt(newMatt,userEmail);
-	String buf=Integer.toString(id);
+	ifesbes1.saveMatt(newMatt,userEmail);
+	String buf=Integer.toString(id);	
 	return  action_edit(buf,model);
 }
 
