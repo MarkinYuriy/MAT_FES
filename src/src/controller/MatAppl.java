@@ -140,7 +140,6 @@ public class MatAppl {
 	   model.addAttribute("name",m_name);
 	   model.addAttribute("userName",userName);
 	   model.addAttribute("email",userEmail);
-	   model.addAttribute("matt",ifesbes1.getMattNames(userName));
 	   return "invitations";
 	  }
 //-----------------Account settings
@@ -673,6 +672,29 @@ System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IF
 		connector.uploadMatt(userName, curentMatt);
 		return homereturn(model);
 	}
-		
+	@RequestMapping({"/getMatt4EditNotif"})
+	  public String getMatt4EditNotif(HttpServletRequest request, Model model){   
+	   String strMattId=request.getParameter("table");
+	   Integer mattId=Integer.parseInt(strMattId);
+	   Matt matt4EditNotif=ifesbes1.getMatt(mattId);
+	   int nWeeks=(matt4EditNotif.getData().getnDays())/7-1;
+	   int timeSlot=matt4EditNotif.getData().getTimeSlot();
+	   String dateStr =new SimpleDateFormat("d.M.y").format(matt4EditNotif.getData().getStartDate());
+	   String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(matt4EditNotif.getData().getStartDate(), matt4EditNotif.getData().getnDays()));
+	   Notification notif=null;
+	   String nameSozd=null;
+	   model.addAttribute("matJSON", matt4EditNotif.matt2browser());
+	   model.addAttribute("tableId", mattId);
+	   model.addAttribute("userName", userName);
+	   model.addAttribute("nameSozd", nameSozd);
+	   model.addAttribute("name", matt4EditNotif.getData().getName());
+	   model.addAttribute("nWek", nWeeks);
+	   model.addAttribute("ts"+timeSlot, "selected");
+	   model.addAttribute("startDate",dateStr);
+	   model.addAttribute("endDate",dateEnd);
+	   model.addAttribute("download",connector.getAvailableCalendars(userName));
+	   return "invitationMatt";
+	   
+	  }		
 
 }

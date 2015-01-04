@@ -197,63 +197,16 @@ function collab(element) {
          </div>
        
         </form> --%>
-        <form id="tableForm" name="tableForm" >
+        <form id="tableForm" name="tableForm" action="getMatt4EditNotif">
 	<input type="hidden" id="table" name="table">
 	<input type="hidden" name="username" value="${userName}">
             <div id="placetable">
                      
-   <d:forEach items="${matt}" var="item" >
-         
-   <table style="width:80%; margin-left:10%">  <!-- border='1' --> 
-   <tr>
-   <td colspan='8'>${item.value}  ${item.key}</td>
-   </tr>
-   <tr>
-   <form  id="form2" >
-         <%-- <div>	
-         <!-- <p style="font-size:1em">Existing calendars</p> -->
-         <button  onclick="form2.action='getMatt4Edit'">Invitation for:  ${item.key}  Initiator name:   ${userName}</button>
-        <!--   <p style="text-align: center"><button>Knopa</button> -->
-         
-         </div> --%>
-       
-        </form>
-       
-        <td colspan='1'><button  onclick="form2.action='getMatt4EditNotif'">Invitation for:  ${item.key}  Initiator name:   ${userName}</button></td>
-   <%-- <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}">Invitation for:  ${item.key}  Initiator name:   ${userName}</a></td> --%>
-   
- </tr>
-   
-   <tr>
-		<%-- <td><input name="${item.key}" type="image" src="resources/glas.png" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td> --%>
-		<%-- <td><input name="${item.key}" type="image" src="resources/karandash.png" title="Edit" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td> --%>
-		<%-- <td><a name="${item.key}" href=#  onclick="toggle(this.name)"><img   src="resources/soed.png" title="Share" width='30' height='30' ></a></td> --%>
-		<%-- <td><img src='<d:url value='/resources/grafik.png'/>' width='30' height='30'></td> --%>
-		<%-- <td><img src='<d:url value='/resources/strelka.png'/>' width='30' height='30'></td> --%>
-		<%-- <td><input name="${item.key}" type="image" src="resources/kalendar.png" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td> --%>
-		<%-- <td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td> --%>
-		<%-- <td><a name="${item.key}" href=#  onclick="collab(this.name)"><img src="resources/chel.png" title="Collaboration" width='30' height='30'></a></td> --%>
-		<%-- <td><input name="${item.key}" type="image" src="resources/mus.png" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td> --%>
-		
-   </tr>
-   <tr id="${item.key}" style="display:none; height:50px">
-   		<td> </td>
-   		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Share" onclick="table.value=this.name, tableForm.action='mail'" width='30' height='30' ></td>
-        <td><a  id="googleshare" href="https://plus.google.com/share?url=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item.key}%26username%3D${userName}" 
-                onclick=" sharegoogle(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                <img src="https://www.gstatic.com/images/icons/gplus-32.png" title="Share on Google+" width='30' height='30'/></a></td>
-        <td><a id="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt%3Ftable%3D${item.key}%26username%3D${userName}" 
-                onclick=" sharefb(); javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                <img src="http://math.hawaii.edu/home/images/logo_facebook_small.gif" title="Share on Facebook" width="30" height="30"></a></td>
-   </tr>
-   <tr id="collab${item.key}" style="display:none; height:50px">
-   		<td> </td><td> </td><td> </td><td> </td><td> </td>
-   		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Send invitation" onclick="table.value=this.name, tableForm.action='invitation'" width='30' height='30' ></td>
-    	<td><input name="${item.key}" type="image" src="resources/chel.png" title="Set appointment" onclick="table.value=this.name, tableForm.action='invitation'" width='30' height='30' ></td>
+   <d:forEach items="${listNotifications}" var="item" > 
  
-    </tr>
-   		
-   </table>
+		<button id="${item[0]}" type="submit" onclick="table.value=this.id">Invitation for:  ${item[2]}  Initiator name:   ${item[1]} ID: ${item[0]}</button>
+
+        
 <br>
   </d:forEach>
             </div>

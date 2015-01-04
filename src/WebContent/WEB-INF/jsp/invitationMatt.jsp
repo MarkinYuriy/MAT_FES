@@ -16,7 +16,7 @@
    
     <script type="text/javascript">
 	 function submit1(e) {
-		if (e==1){document.getElementById("myform").action="homereturn";
+		if (e==1){document.getElementById("myform").action="invitations";
 			document.forms["myform"].submit();}
 		if (e==2){ajaxjson();
 			document.getElementById("myform").action="saveMattInvitation";
@@ -291,7 +291,7 @@ function ajaxjson(){
 	<form id="blok-form" name="blok-form">
     <div id="first">
         <div class="left">
-            <p style="font-size: 1em ">${name}'s Calendar</p>
+            <p style="font-size: 1em ">Calendar: ${name}</p>
             <button id="back" type="button" disabled onclick="mback()">back</button>
             <button id="next" type="button" disabled onclick="mnext()">next</button>
         </div>
@@ -317,8 +317,8 @@ function ajaxjson(){
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name Sozdatel:<input id="nameSozd" name="nameSozd" type="text" value='${nameSozd}' disabled style="width: 70%; float: right;"  ><br>
-   				id:<input id="tableId" name="tableId" type="text" value='${tableId}' disabled style="width: 70%; float: right;"  ><br>
+   				Name:<input id="nameSozd" name="nameSozd" type="text" value='${nameSozd}' disabled style="width: 70%; float: right;"  ><br>
+   				<input id="tableId" name="tableId" value='${tableId}' disabled type="hidden" style="width: 70%; float: right;"  ><br>
             </div>
                 <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' disabled style="border: none; color: blue; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
                 <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' disabled style="border: none; color: blue; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
