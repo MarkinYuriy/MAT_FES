@@ -9,7 +9,7 @@
     <meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <title>MyMatt</title>
+    <title>MyAvailableTime_UserInvitations</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
    
@@ -96,7 +96,7 @@ function collab(element) {
             font-size: 0.6em;
         }
         td {
-        	width:100px;
+        	width:300px;
         }
 		
         #wrapper {
@@ -148,7 +148,7 @@ function collab(element) {
             /*border is optional*/
             cursor: pointer;
             font-size: 1em;
-            color: red;
+            color: blue;
         }
        
         #table1
@@ -180,7 +180,7 @@ function collab(element) {
     <span class="topmenu" style="float:right;"> Logout</span>
     <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='accountsettings'">Account settings</button></span>
     <span class="topmenu" style="float:right;"> Logged in as: ${userName}</span>
-    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='invitations'">Invitations</button></span>
+    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='homereturn'">Home</button></span>
     
 </form>
 </div>
@@ -188,15 +188,15 @@ function collab(element) {
 <div id="wrapper">
     <div id="first">
         <div class="left">
-            <p style="font-size: 1em ">${name}'s Distribution Calendars</p>
+            <p style="font-size: 1em ">${name}'s Invitations</p>
         </div>
-        <form  id="form2" >
+        <%-- <form  id="form2" >
          <div>	<button  onclick="form2.action='dom'">Create a new Available calendar</button>
-         <p style="font-size:1em">Existing calendars</p>
+        <!--  <p style="font-size:1em">Existing calendars</p> -->
          
          </div>
        
-        </form>
+        </form> --%>
         <form id="tableForm" name="tableForm" >
 	<input type="hidden" id="table" name="table">
 	<input type="hidden" name="username" value="${userName}">
@@ -206,23 +206,34 @@ function collab(element) {
          
    <table style="width:80%; margin-left:10%">  <!-- border='1' --> 
    <tr>
-   <td colspan='8'>${item.value} AND ${item.key}</td>
+   <td colspan='8'>${item.value}  ${item.key}</td>
    </tr>
    <tr>
-   <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}</a></td>
+   <form  id="form2" >
+         <%-- <div>	
+         <!-- <p style="font-size:1em">Existing calendars</p> -->
+         <button  onclick="form2.action='getMatt4Edit'">Invitation for:  ${item.key}  Initiator name:   ${userName}</button>
+        <!--   <p style="text-align: center"><button>Knopa</button> -->
+         
+         </div> --%>
+       
+        </form>
+       
+        <td colspan='1'><button  onclick="form2.action='getMatt4EditNotif'">Invitation for:  ${item.key}  Initiator name:   ${userName}</button></td>
+   <%-- <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}">Invitation for:  ${item.key}  Initiator name:   ${userName}</a></td> --%>
    
  </tr>
    
    <tr>
-		<td><input name="${item.key}" type="image" src="resources/glas.png" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td>
-		<td><input name="${item.key}" type="image" src="resources/karandash.png" title="Edit" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td>
-		<td><a name="${item.key}" href=#  onclick="toggle(this.name)"><img   src="resources/soed.png" title="Share" width='30' height='30' ></a></td>
-		<td><img src='<d:url value='/resources/grafik.png'/>' width='30' height='30'></td>
-		<td><img src='<d:url value='/resources/strelka.png'/>' width='30' height='30'></td>
-		<td><input name="${item.key}" type="image" src="resources/kalendar.png" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td>
+		<%-- <td><input name="${item.key}" type="image" src="resources/glas.png" title="View" onclick="table.value=this.name, tableForm.action='viewMatt'" width='30' height='30'></td> --%>
+		<%-- <td><input name="${item.key}" type="image" src="resources/karandash.png" title="Edit" onclick="table.value=this.name, tableForm.action='action_edit'" width='30' height='30'></td> --%>
+		<%-- <td><a name="${item.key}" href=#  onclick="toggle(this.name)"><img   src="resources/soed.png" title="Share" width='30' height='30' ></a></td> --%>
+		<%-- <td><img src='<d:url value='/resources/grafik.png'/>' width='30' height='30'></td> --%>
+		<%-- <td><img src='<d:url value='/resources/strelka.png'/>' width='30' height='30'></td> --%>
+		<%-- <td><input name="${item.key}" type="image" src="resources/kalendar.png" title="Upload" onclick="table.value=this.name, tableForm.action='upload_matt'" width='30' height='30'></td> --%>
 		<%-- <td><img src='<d:url value='/resources/kalendar.jpg'/>' width='30' height='30'></td> --%>
-		<td><a name="${item.key}" href=#  onclick="collab(this.name)"><img src="resources/chel.png" title="Collaboration" width='30' height='30'></a></td>
-		<td><input name="${item.key}" type="image" src="resources/mus.png" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td>
+		<%-- <td><a name="${item.key}" href=#  onclick="collab(this.name)"><img src="resources/chel.png" title="Collaboration" width='30' height='30'></a></td> --%>
+		<%-- <td><input name="${item.key}" type="image" src="resources/mus.png" title="Remove" onclick="table.value=this.name, tableForm.action='removematt'" width='30' height='30'></td> --%>
 		
    </tr>
    <tr id="${item.key}" style="display:none; height:50px">
@@ -238,7 +249,7 @@ function collab(element) {
    <tr id="collab${item.key}" style="display:none; height:50px">
    		<td> </td><td> </td><td> </td><td> </td><td> </td>
    		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Send invitation" onclick="table.value=this.name, tableForm.action='invitation'" width='30' height='30' ></td>
-    	<td><input name="${item.key}" type="image" src="resources/chel.png" title="Set appointment" onclick="table.value=this.name, tableForm.action='setAppointment'" width='30' height='30' ></td>
+    	<td><input name="${item.key}" type="image" src="resources/chel.png" title="Set appointment" onclick="table.value=this.name, tableForm.action='invitation'" width='30' height='30' ></td>
  
     </tr>
    		

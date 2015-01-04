@@ -107,10 +107,42 @@ public class MatAppl {
 		return response;
 	}
 	
-	@RequestMapping({"/invitations"})
-	public String Invitations (Model model) {
-		return "buf";
-	}
+	@RequestMapping({"/invitations"})///notifications
+	  public String showInvitations(Model model){
+	   List<Notification> listNotifications=ifesbes1.getNotifications(userName);
+	   List<String[]> listStrBuff=new ArrayList<String[]>();
+	   String strMattId="";
+	   String nameOfUser="";
+	   String strMattName="";
+	   Integer mattId;
+	   for(Notification notifInfo:listNotifications){
+	    String[] strBuf=new String[3];
+	    
+	    mattId=notifInfo.mattId;
+	    if(mattId!=null){
+	     strMattId=mattId.toString();
+	    }
+	    strBuf[0]=strMattId;
+	    
+	    nameOfUser=notifInfo.nameOfUser;
+	    if(nameOfUser!=null){
+	     strBuf[1]=nameOfUser;
+	    } else{strBuf[1]="";}
+	    
+	    strMattName=notifInfo.mattName;
+	    if(strMattName!=null){
+	     strBuf[2]=strMattName;
+	    } else{strBuf[2]="";}
+	    
+	    listStrBuff.add(strBuf);   
+	   }
+	   model.addAttribute("listNotifications", listStrBuff);
+	   model.addAttribute("name",m_name);
+	   model.addAttribute("userName",userName);
+	   model.addAttribute("email",userEmail);
+	   model.addAttribute("matt",ifesbes1.getMattNames(userName));
+	   return "invitations";
+	  }
 //-----------------Account settings
 	@RequestMapping({"/accountsettings"})
 	public String accountSettings (Model model) {
@@ -641,39 +673,6 @@ System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IF
 		connector.uploadMatt(userName, curentMatt);
 		return homereturn(model);
 	}
-		@SuppressWarnings("null")
-		@RequestMapping({"/notifications"})
-		public String showInvitations(HttpServletRequest request,Model model){
-			List<Notification> listNotifications=ifesbes1.getNotifications(userEmail);
-			List<String[]> listStrBuff=null;
-			String strMattId="";
-			String nameOfUser="";
-			String strMattName="";
-			Integer mattId;
-			for(Notification notifInfo:listNotifications){
-				String[] strBuf=new String[3];
-				
-				mattId=notifInfo.mattId;
-				if(mattId!=null){
-					strMattId=mattId.toString();
-				}
-				strBuf[0]=strMattId;
-				
-				nameOfUser=notifInfo.nameOfUser;
-				if(nameOfUser!=null){
-					strBuf[1]=nameOfUser;
-				} else{strBuf[1]="";}
-				
-				strMattName=notifInfo.mattName;
-				if(strMattName!=null){
-					strBuf[2]=strMattName;
-				} else{strBuf[2]="";}
-				
-				listStrBuff.add(strBuf);			
-			}
-			model.addAttribute("listNotifications", listStrBuff);
-			return "notifications";
-		}
-
+		
 
 }
