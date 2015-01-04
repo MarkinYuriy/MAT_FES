@@ -238,7 +238,7 @@ function collab(element) {
    <tr id="collab${item.key}" style="display:none; height:50px">
    		<td> </td><td> </td><td> </td><td> </td><td> </td>
    		<td><input name="${item.key}" type="image" src="resources/mail_icon.png" title="Send invitation" onclick="table.value=this.name, tableForm.action='invitation'" width='30' height='30' ></td>
-    	<td><input name="${item.key}" type="image" src="resources/chel.png" title="Set appointment" onclick="table.value=this.name, tableForm.action='invitation'" width='30' height='30' ></td>
+    	<td><input name="${item.key}" type="image" src="resources/chel.png" title="Set appointment" onclick="table.value=this.name, tableForm.action='setAppointment'" width='30' height='30' ></td>
  
     </tr>
    		

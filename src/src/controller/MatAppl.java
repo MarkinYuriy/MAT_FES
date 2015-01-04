@@ -544,6 +544,47 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 	    ifesbes1.setGuests(mattId, sendEmails);	
 		return homereturn(model);
 	}
+	//Created by Konstantin Dvoyashov. Calling form Set Appointment
+	@RequestMapping({"/setAppointment"})
+	public String set_appointment (@RequestParam ("table") String mattId4Matt,Model model) {
+		  int tableId=Integer.parseInt(mattId4Matt);
+		  oldMatt=ifesbes1.getMatt(tableId);
+		  String mattToJson4URL = oldMatt.matt2browser();
+		  int m_nwek=(oldMatt.getData().getnDays())/7-1;
+		  String m_nameMatt=oldMatt.getData().getName();
+		  int timeSlotStr=oldMatt.getData().getTimeSlot();
+		  String dateStr =new SimpleDateFormat("d.M.y").format(oldMatt.getData().getStartDate());		  
+		  String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(oldMatt.getData().getStartDate(), oldMatt.getData().getnDays()));
+		  model.addAttribute("matJSON", mattToJson4URL);
+		  model.addAttribute("userName", userName);
+		  model.addAttribute("name", m_nameMatt);
+		  model.addAttribute("nWek", m_nwek);
+		  model.addAttribute("ts"+timeSlotStr, "selected");
+		  model.addAttribute("startDate",dateStr);
+		  model.addAttribute("endDate",dateEnd);
+		return "setAppointment";
+	}
+	//Created by Konstantin Dvoyashov. This function calls onClick Set Appointment button Set Appointment form
+	@RequestMapping({"/setAppoSave"})
+	public String saveAppointmentData(HttpServletRequest request, @RequestParam ("table") String m_mattname, Model model){
+		newTabList=new ArrayList<Boolean>();
+		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
+		newMatt = new Matt();
+		oldMatt.getData().setName(m_mattname);
+		mattName=m_mattname;
+		newMatt.setData(oldMatt.getData());
+		newMatt.setSlots(newTabList);
+		ifesbes1.saveMatt(newMatt,userEmail);
+		
+		String mattIdStr=request.getParameter("table");
+		int mattId=Integer.parseInt(mattIdStr);
+		String[] guests = ifesbes1.getGuests(mattId);
+		connector.setEvent(guests, userName, newMatt);
+		
+		
+		return  homereturn (model);
+    }
+	/////////////////////////////////////////////////////////////
 		
 	@RequestMapping(value = "setsocialseti", method = RequestMethod.GET)
 	public @ResponseBody void setMattCalendarSocialseti(@RequestParam(value = "seti", required = false) String seti){

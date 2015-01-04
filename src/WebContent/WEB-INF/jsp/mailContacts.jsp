@@ -19,6 +19,7 @@
 <head>
 <title>E-mail addresses</title>
 <script type="text/javascript">
+    var MesValidAddr = 'Please enter valid Email-Address.';
 	function addItems() {
 		var ai = document.getElementById("availableEmails");
 		var si = document.getElementById("sendEmails");
@@ -156,9 +157,9 @@
 	    return true;
 	}
 	
-    function isValidEmail (email, strict){
-       if ( !strict ) email = email.replace(/^\s+|\s+$/g, '');
-       return (/^([a-z0-9_\-]+\.)*[a-z0-9_\-]+@([a-z0-9][a-z0-9\-]*[a-z0-9]\.)+[a-z]{2,4}$/i).test(email);
+	function isValidEmail (emailAddress) {
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        return pattern.test(emailAddress);
     }
 	
 	function addWritedAddress(val) {
@@ -170,9 +171,16 @@
 		var arr = ai.split(delims);
 		var si = document.getElementById("sendEmails");
 		for (i = 0; i < arr.length; i++) {
-  		   //if (!isValidEmail(arr[i], true))
-			  si.options[si.options.length] = new Option(arr[i]);
-		}
+	  		   if (!isValidEmail(arr[i]))
+	  		       {
+	                  alert(MesValidAddr);
+	  		       }
+	  		   else
+	  			   {
+				      si.options[si.options.length] = new Option(arr[i]);
+				      document.getElementById("typedAddress").value=null;	
+	  			   }
+			}
 	}
 	
 </script>
