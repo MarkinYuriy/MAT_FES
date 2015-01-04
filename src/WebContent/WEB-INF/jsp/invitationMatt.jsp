@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,14 +15,12 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
    
     <script type="text/javascript">
-	 function submit1() {
-		ajaxjson();
-		var val = document.getElementById("table").value.trim();
-		if (!val) {
-			alert("no name");
-			return false;
-		}
-		document.forms["myform"].submit();
+	 function submit1(e) {
+		if (e==1){document.getElementById("myform").action="homereturn";
+			document.forms["myform"].submit();}
+		if (e==2){ajaxjson();
+			document.getElementById("myform").action="saveMattInvitation";
+			document.forms["myform"].submit();}
   return true;
  }
 </script>
@@ -38,39 +37,7 @@ function ajaxjson(){
 	});
 	}
 </script>
-<script type="text/javascript">
-function newJson1(){
-	var dateStr=document.getElementById("startDate").value;
-	var dateEnd=document.getElementById("endDate").value;
-	var timeSlotStr=document.getElementById("timeSlot").value;
-	var data="dateStr="+encodeURIComponent(dateStr)+"&dateEnd="+encodeURIComponent(dateEnd)+"&timeSlotStr="+encodeURIComponent(timeSlotStr);
-	$.ajax({
-		url : "newJson",
-		data : data,
-		type : "GET",
-		success : function(mattToJSON) {
-			document.getElementById("par1").value=mattToJSON;
-			viewTab(0);
-		}
-	});
-	var data1="dateStr="+encodeURIComponent(dateStr)+"&dateEnd="+encodeURIComponent(dateEnd);
-	$.ajax({
-		url : "nWek",
-		data : data1,
-		type : "GET",
-		success : function(buf) {
-			var mbuf=buf;
-			if (mbuf>0){document.getElementById("txtnext").value=mbuf;	
-						document.getElementById("next").disabled= false;
-						document.getElementById("mRepeat").disabled=false;}
-			else {document.getElementById("next").disabled= true;}
-			document.getElementById("txtback").value=0;
-			document.getElementById("back").disabled= true;
-		}
-	});
-}
-    </script> 
-    <script>
+<script>
     function viewTab(s1){
     	var s=s1;
 		var arr = $('#par1').attr('value');
@@ -94,8 +61,6 @@ function newJson1(){
             var id = "th" + i;
             th1.id = id;
             th1.appendChild(document.createTextNode(json[1][i]));
-            th1.style.cursor = "pointer";
-            th1.setAttribute("onClick", "changeWek(this.id)");
             tr1.appendChild(th1);
         }
 	       newTable.appendChild(tr1);
@@ -140,8 +105,7 @@ function newJson1(){
   	  document.getElementById("txtback").value=y;
   	  viewTab(y*7);
   	  if(x>0)document.getElementById("next").disabled=false;
-  	  if(y==0){document.getElementById("back").disabled=true;
-			document.getElementById("mRepeat").disabled=false;}
+  	  if(y==0){document.getElementById("back").disabled=true;}
     }
     </script>
     <script>
@@ -154,77 +118,8 @@ function newJson1(){
 	  document.getElementById("txtback").value=y;
 	  viewTab(y*7);	  
 	  if(x==0)document.getElementById("next").disabled=true;
-	  if(y>0){document.getElementById("back").disabled=false;
-			document.getElementById("mRepeat").disabled=true;}
+	  if(y>0){document.getElementById("back").disabled=false;}
     }
-  </script>
-  <script type="text/javascript">
-  function repea(arg){
-	  if (arg){
-		  var arr = $('#par1').attr('value');
-		  var json = JSON.parse(arr);
-	      wekbuf=document.getElementById("txtnext").value;
-	      wekbuf++;
-          for(var i = 0; i < json[3].length; i++){//строка              
-              for(var j = 0; j < json[2].length && j<7; j++){//столбец
-                  for (var x1=1;x1<wekbuf;x1++){
-            			var j1=parseInt(j)+x1*7;
-            			if (json[4][i][j]==0)json[4][i][j1]=0;
-            			if (json[4][i][j]==1)json[4][i][j1]=1;
-            			if (json[4][i][j]==2)json[4][i][j1]=2;
-                		$('#par1').attr('value', JSON.stringify(json));}
-              }
-          }
-	  }
-  }
-  </script>
-  <script type="text/javascript">
-  function changeWek(arg){
- 	 var arr = $('#par1').attr('value');
- 	 var json = JSON.parse(arr);
-      var j = arg.slice(2);
-      var wekbuf=1;
-      if(document.getElementById("mRepeat").checked && !document.getElementById("mRepeat").disabled){
-     	 wekbuf=document.getElementById("txtnext").value;
-     	 wekbuf++;
-      }		
-      if (document.getElementById(arg).style.backgroundColor == "yellow"){
-    	  document.getElementById(arg).style.backgroundColor = "#f0f0f0"
-      }else{
-    	  document.getElementById(arg).style.backgroundColor = "yellow" 
-      }
-          for(var i = 0; i < json[3].length; i++){
-         	var id1 = "td" + i + "s" + j;
-         	var cell = document.getElementById(id1);
-          	if(cell.style.backgroundColor == "yellow" && document.getElementById(arg).style.backgroundColor != "yellow"){
-         		cell.style.backgroundColor = "#f0f0f0";
-         		cell.style.cursor =" ";
-          		for (var x1=0;x1<wekbuf;x1++){
-          		var j1=parseInt(j)+x1*7;
-         		json[4][i][j1]=1;
-          		$('#par1').attr('value', JSON.stringify(json));}
-          		}else{
-          	if(cell.style.backgroundColor != "green" && document.getElementById(arg).style.backgroundColor == "yellow"){
-          		cell.style.backgroundColor = "yellow"
-          		cell.setAttribute("onClick", "changeColor(id)");
-          		cell.style.cursor = "pointer";
-          		for(var x1=0;x1<wekbuf;x1++){
-          		var j1=parseInt(j)+x1*7;
-          		json[4][i][j1]=2;
-          		$('#par1').attr('value', JSON.stringify(json));}
-         		}}
-          	if(cell.style.backgroundColor=="green" && document.getElementById(arg).style.backgroundColor != "yellow"){
-         		cell.style.backgroundColor = "#f0f0f0";
-         		cell.style.cursor =" ";
-          		for (var x1=0;x1<wekbuf;x1++){
-          		var j1=parseInt(j)+x1*7;
-         		json[4][i][j1]=1;
-          		$('#par1').attr('value', JSON.stringify(json));}
-         		}
-          	
-          }
-	  
-  }
   </script>
   <script type="text/javascript">
   function changeColor(arg) {
@@ -236,10 +131,6 @@ function newJson1(){
       j=j.replace ( /[^\d.]/g, '' );	   	                
       var cell = document.getElementById(arg);
       var wekbuf=1;
-      if(document.getElementById("mRepeat").checked && !document.getElementById("mRepeat").disabled){
-     	 wekbuf=document.getElementById("txtnext").value;
-     	 wekbuf++;
-      }		
       if(cell.style.backgroundColor == "green")
       {
           cell.style.backgroundColor = "yellow";
@@ -263,13 +154,32 @@ function newJson1(){
   function myLoad() {
 		var mbuf=document.getElementById("txtnext").value;
 		if (mbuf>0){document.getElementById("txtnext").value=mbuf;	
-					document.getElementById("next").disabled= false;
-					document.getElementById("mRepeat").disabled=false;
-					document.getElementById("mRepeat").checked=true;}
+					document.getElementById("next").disabled= false;}
 		else {document.getElementById("next").disabled= true;}
 		document.getElementById("txtback").value=0;
 		document.getElementById("back").disabled= true;
 	}</script>
+<script type="text/javascript">
+	function socialseti(name){
+	    var x = document.getElementsByName(name);
+	    var i;
+	    var google="";
+	    for (i = 0; i < x.length; i++) {
+	        if (x[i].checked)google=google+x[i].value+";";
+	    }		
+		var data ="seti="+encodeURIComponent(name)+"&value="+encodeURIComponent(google)+"&tableId"+encodeURIComponent(document.getElementsByName("tableId").value);		
+		$.ajax({
+			url : "socialsetiinvitation",
+			data : data,
+			type : "GET",
+			success : function(mattToJSON) {
+				document.getElementById("par1").value=mattToJSON;
+				viewTab(0);
+			}
+		});
+	}
+	</script>
+	
     <style>
         head {
             width: auto;
@@ -407,57 +317,34 @@ function newJson1(){
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name:<input id="mattName" name="mattName" type="text" value='${name}' onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
+   				Name Sozdatel:<input id="nameSozd" name="nameSozd" type="text" value='${nameSozd}' disabled style="width: 70%; float: right;"  ><br>
+   				id:<input id="tableId" name="tableId" type="text" value='${tableId}' disabled style="width: 70%; float: right;"  ><br>
             </div>
-                <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
-                <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
-               <script>
-    var dates = $("#startDate").datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      numberOfMonths: 1,
-      dateFormat: "dd.mm.yy",
-      onSelect: function(selectedDate){
-        var option = this.id == "startDate" ? "minDate" : "maxDate",
-        instance = $( this ).data( "datepicker" ),
-        date = $.datepicker.parseDate(
-          instance.settings.dateFormat || $.datepicker._defaults.dateFormat,
-          selectedDate, instance.settings);
-        dates.not(this).datepicker("option", option, date);
-        newJson1();}
-    });
-    var dates = $("#endDate").datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        numberOfMonths: 1,
-        dateFormat: "dd.mm.yy",
-        onSelect: function(selectedDate){
-          var option = this.id == "endDate" ? "minDate" : "maxDate",
-          instance = $( this ).data( "datepicker" ),
-          date = $.datepicker.parseDate(
-            instance.settings.dateFormat || $.datepicker._defaults.dateFormat,
-            selectedDate, instance.settings);
-          dates.not(this).datepicker("option", option, date);
-          newJson1();}
-      });
-  </script> 
-            <p>Time slot 	<select id="timeSlot" name="timeSlot" onchange="newJson1()" style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
+                <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' disabled style="border: none; color: blue; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
+                <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' disabled style="border: none; color: blue; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
+            <p>Time slot 	<select id="timeSlot" name="timeSlot" disabled style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
                 <option value="15" ${ts15}>15 min</option>
                 <option value="30" ${ts30}>30 min</option>
                 <option value="60" ${ts60}>1 hour</option>
             </select></p>
-                <p>repeat <input type="checkbox" id="mRepeat" disabled onclick="repea(this.checked)"></p>
-           
+            <d:forEach items="${download}" var="item" >
+				<p>${item.key}</p>
+				<d:forEach items="${item.value}" var="itemM" >
+					<p> <input type="checkbox" name="${item.key}" value="${itemM}" onclick="socialseti(this.name)"/>${itemM}</p>
+				</d:forEach>	
+			</d:forEach>
+                 
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="button" onclick="submit1()" >SAVE</button>
+                	<button id="saveMatt" type="button" onclick="submit1(1)" >BACK</button>
+                	<button id="saveMatt" type="button" onclick="submit1(2)" >SAVE</button>
             	</div>
             	
         	</div>
 		</div>
     </div>
 	</form>
-	<form id=myform action="saveMatt">
+	<form id=myform>
 	<input type="hidden" id="table" name="table" value='${name}'>
 	</form>
 </div>

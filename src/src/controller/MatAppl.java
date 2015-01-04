@@ -52,11 +52,61 @@ public class MatAppl {
 	public String login() {
 		return "loginon";
 	}
+
 	@RequestMapping({"/buf"})
 	public String buf(@RequestParam ("tablename") String firstName,Model model) {
 		model.addAttribute("buf", firstName);
 		return "buf";
 	}
+
+	@RequestMapping({"/invitationMatt"})
+	public String invitationMatt(/*@RequestParam ("table") String mattId4Matt,*/Model model) {
+		 // int tableId=Integer.parseInt(mattId4Matt);
+		  int tableId=106;
+		  oldMatt=ifesbes1.getMatt(tableId);
+		  String mattToJson4URL = oldMatt.matt2browser();
+		  int m_nwek=(oldMatt.getData().getnDays())/7-1;
+		  String m_nameMatt=oldMatt.getData().getName();
+		  int timeSlotStr=oldMatt.getData().getTimeSlot();
+		  String dateStr = new SimpleDateFormat("d.M.y").format(oldMatt.getData().getStartDate());		  
+		  String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(oldMatt.getData().getStartDate(), oldMatt.getData().getnDays()));
+		  String nameSozd=null;
+		  
+		  model.addAttribute("matJSON", mattToJson4URL);
+		  model.addAttribute("userName", userName);
+		  model.addAttribute("nameSozd", nameSozd);
+		  model.addAttribute("tableId", tableId);
+		  model.addAttribute("name", m_nameMatt);
+		  model.addAttribute("nWek", m_nwek);
+		  model.addAttribute("ts"+timeSlotStr, "selected");
+		  model.addAttribute("startDate",dateStr);
+		  model.addAttribute("endDate",dateEnd);
+		  model.addAttribute("download",connector.getAvailableCalendars(userName));
+		return "invitationMatt";
+	}
+	@RequestMapping(value = "socialsetiinvitation", method = RequestMethod.GET)
+	public @ResponseBody String socialSetiInvitation(@RequestParam(value = "seti", required = false) String seti,
+									@RequestParam(value = "value", required = false) String value,
+									@RequestParam(value = "tableId", required = false) String tableId){
+		String response;
+		int tableIdInt=Integer.parseInt(tableId);
+		if (value != null){ HashMap<String, List<String>> hmOne=new HashMap<String, List<String>>();
+	    	String[] sendseti = value.split(";");
+	    	List<String>l1 = new ArrayList<String>();
+	    	    for (String lang : sendseti) {
+	    		    l1.add(lang);
+	    	    }
+	    	hmOne.put(seti, l1);
+			oldMatt=ifesbes1.updateInvitationMatt(tableIdInt, userName, hmOne);
+			response = oldMatt.matt2browser();
+	    }else {
+	    	oldMatt=ifesbes1.getMatt(tableIdInt);
+	    	response=oldMatt.matt2browser();
+	    }
+	    
+		return response;
+	}
+	
 	@RequestMapping({"/invitations"})
 	public String Invitations (Model model) {
 		return "buf";
@@ -245,10 +295,7 @@ private Date endDate(Date date) {
 	return calendar.getTime();
 	}
 @RequestMapping(value = "ajaxjson", method = RequestMethod.POST)
-public @ResponseBody  void ajaxjson(@RequestParam(value = "mattjson", required = false) String mattjson,
-		@RequestParam(value = "mattName", required = false) String mattname){
-		oldMatt.getData().setName(mattname);
-		mattName=mattname;
+public @ResponseBody  void ajaxjson(@RequestParam(value = "mattjson", required = false) String mattjson){
 		newTablJSON=mattjson;
 }
 @RequestMapping(value = "nWek", method = RequestMethod.GET)
@@ -375,22 +422,7 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 }
 
 	@RequestMapping({"/saveMatt"})
-	public String saveMattData(/*HttpServletRequest request,*/@RequestParam ("table") String m_mattname, Model model){
-/*		HashMap<String, List<String>> hmOne=connector.getAvailableCalendars(userName);
-		Iterator<String>  it=hmOne.keySet().iterator();
-		while(it.hasNext()){
-			String element = it.next();
-			String languages[] = request.getParameterValues(element);
-		if (languages != null) {
-		    System.out.println("set:"+element);
-		    List<String>l1 = new ArrayList<String>();
-		    for (String lang : languages) {
-			    l1.add(lang);
-		    	System.out.println("\t" + lang);
-		    }
-			oldMatt.getData().setUploadCalendars(element, l1);
-		}
-		}*/
+	public String saveMattData(@RequestParam ("table") String m_mattname, Model model){
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
@@ -399,11 +431,6 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(newMatt,userEmail);
-/*		model.addAttribute("name", m_name);
-		model.addAttribute("userName", userName);
-		model.addAttribute("matJSON", newTablJSON);
-		model.addAttribute("mattName",mattName);	*/
-
 		return  homereturn (model);
     }
 	   

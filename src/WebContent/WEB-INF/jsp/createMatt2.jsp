@@ -31,8 +31,7 @@
 <script type="text/javascript">
 function ajaxjson(){
 	var json=document.getElementById("par1").value;
-	var mattname=document.getElementById("mattName").value;
-	var data ="mattjson="+json+"&mattname="+mattname;
+	var data ="mattjson="+json;
 	$.ajax({
 		url : "ajaxjson",
 		data : data,

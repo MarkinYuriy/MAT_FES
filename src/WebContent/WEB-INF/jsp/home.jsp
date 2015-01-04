@@ -180,7 +180,7 @@ function collab(element) {
     <span class="topmenu" style="float:right;"> Logout</span>
     <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='accountsettings'">Account settings</button></span>
     <span class="topmenu" style="float:right;"> Logged in as: ${userName}</span>
-    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='invitations'">Invitations</button></span>
+    <span class="topmenu" style="float:right;"> <button type="submit" style="color: white;" onclick="log.action='invitationMatt'">Invitations</button></span>
     
 </form>
 </div>
@@ -206,7 +206,7 @@ function collab(element) {
          
    <table style="width:80%; margin-left:10%">  <!-- border='1' --> 
    <tr>
-   <td colspan='8'>${item.value}</td>
+   <td colspan='8'>${item.value} AND ${item.key}</td>
    </tr>
    <tr>
    <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}</a></td>
