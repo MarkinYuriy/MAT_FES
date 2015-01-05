@@ -59,8 +59,8 @@ public class MatAppl {
 		return "buf";
 	}
 
-	@RequestMapping({"/invitationMatt"})
-	public String invitationMatt(/*@RequestParam ("table") String mattId4Matt,*/Model model) {
+/*	@RequestMapping({"/invitationMatt"})
+	public String invitationMatt(@RequestParam ("table") String mattId4Matt,Model model) {
 		 // int tableId=Integer.parseInt(mattId4Matt);
 		  int tableId=106;
 		  oldMatt=ifesbes1.getMatt(tableId);
@@ -83,28 +83,28 @@ public class MatAppl {
 		  model.addAttribute("endDate",dateEnd);
 		  model.addAttribute("download",connector.getAvailableCalendars(userName));
 		return "invitationMatt";
-	}
-	@RequestMapping(value = "socialsetiinvitation", method = RequestMethod.GET)
+	}*/
+	
+	@RequestMapping(value = "socialsetiinvitation", method = RequestMethod.POST)
 	public @ResponseBody String socialSetiInvitation(@RequestParam(value = "seti", required = false) String seti,
-									@RequestParam(value = "value", required = false) String value,
-									@RequestParam(value = "tableId", required = false) String tableId){
-		String response;
+								@RequestParam(value = "tableid", required = false) String tableId,
+								@RequestParam(value = "values", required = false) String values){
+		String mattToJSON;
 		int tableIdInt=Integer.parseInt(tableId);
-		if (value != null){ HashMap<String, List<String>> hmOne=new HashMap<String, List<String>>();
-	    	String[] sendseti = value.split(";");
+		if (!values.equals("")){HashMap<String, List<String>> hmOne=new HashMap<String, List<String>>();
+	    	String[] sendseti = values.split(";");
 	    	List<String>l1 = new ArrayList<String>();
 	    	    for (String lang : sendseti) {
 	    		    l1.add(lang);
 	    	    }
 	    	hmOne.put(seti, l1);
 			oldMatt=ifesbes1.updateInvitationMatt(tableIdInt, userName, hmOne);
-			response = oldMatt.matt2browser();
+			mattToJSON = oldMatt.matt2browser();
 	    }else {
 	    	oldMatt=ifesbes1.getMatt(tableIdInt);
-	    	response=oldMatt.matt2browser();
-	    }
-	    
-		return response;
+	    	mattToJSON=oldMatt.matt2browser();
+	    }	    
+		return mattToJSON;
 	}
 	
 	@RequestMapping({"/invitations"})///notifications

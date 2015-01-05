@@ -7,7 +7,7 @@
     <meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <title>Save</title>
+    <title>invitationMatt</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script> 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -37,6 +37,27 @@ function ajaxjson(){
 	});
 	}
 </script>
+<script type="text/javascript">
+	function socialseti(nam){
+		var idm = document.getElementById("tableId").value;
+	    var x = document.getElementsByName(nam);
+	    var i;
+	    var google="";
+	    for (i = 0; i < x.length; i++) {
+	        if (x[i].checked)google=google+x[i].value+";";
+	    }
+		var data ="seti="+encodeURIComponent(nam)+"&tableid="+encodeURIComponent(idm)+"&values="+encodeURIComponent(google);		
+		$.ajax({
+			url : "socialsetiinvitation",
+			data : data,
+			type : "POST",
+			success : function(mattToJSON) {
+				document.getElementById("par1").value=mattToJSON;
+				viewTab(0);
+			}
+		});
+	}
+	</script>
 <script>
     function viewTab(s1){
     	var s=s1;
@@ -159,26 +180,6 @@ function ajaxjson(){
 		document.getElementById("txtback").value=0;
 		document.getElementById("back").disabled= true;
 	}</script>
-<script type="text/javascript">
-	function socialseti(name){
-	    var x = document.getElementsByName(name);
-	    var i;
-	    var google="";
-	    for (i = 0; i < x.length; i++) {
-	        if (x[i].checked)google=google+x[i].value+";";
-	    }		
-		var data ="seti="+encodeURIComponent(name)+"&value="+encodeURIComponent(google)+"&tableId"+encodeURIComponent(document.getElementsByName("tableId").value);		
-		$.ajax({
-			url : "socialsetiinvitation",
-			data : data,
-			type : "GET",
-			success : function(mattToJSON) {
-				document.getElementById("par1").value=mattToJSON;
-				viewTab(0);
-			}
-		});
-	}
-	</script>
 	
     <style>
         head {
@@ -318,8 +319,8 @@ function ajaxjson(){
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
    				Name:<input id="nameSozd" name="nameSozd" type="text" value='${nameSozd}' disabled style="width: 70%; float: right;"  ><br>
-   				<input id="tableId" name="tableId" value='${tableId}' disabled type="hidden" style="width: 70%; float: right;"  ><br>
-            </div>
+           		<input id="tableId" name="tableId" value='${tableId}' type="hidden">
+			</div>
                 <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' disabled style="border: none; color: blue; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
                 <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' disabled style="border: none; color: blue; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
             <p>Time slot 	<select id="timeSlot" name="timeSlot" disabled style="margin-left: 20px; float:right; vertical-align: text-bottom; width: 75px">
