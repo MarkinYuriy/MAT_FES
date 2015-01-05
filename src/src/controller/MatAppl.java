@@ -575,12 +575,16 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 	    ifesbes1.setGuests(mattId, sendEmails);	
 		return homereturn(model);
 	}
-	//Created by Konstantin Dvoyashov. Calling form Set Appointment
+//Created by Konstantin Dvoyashov. Calling form Set Appointment
 	@RequestMapping({"/setAppointment"})
 	public String set_appointment (@RequestParam ("table") String mattId4Matt,Model model) {
 		  int tableId=Integer.parseInt(mattId4Matt);
+System.out.println(tableId);
 		  oldMatt=ifesbes1.getMatt(tableId);
+System.out.println(oldMatt.toString());
+System.out.println("old ID: "+oldMatt.getData().getMattId());
 		  String mattToJson4URL = oldMatt.matt2browser();
+System.out.println(mattToJson4URL);		  
 		  int m_nwek=(oldMatt.getData().getnDays())/7-1;
 		  String m_nameMatt=oldMatt.getData().getName();
 		  int timeSlotStr=oldMatt.getData().getTimeSlot();
@@ -593,23 +597,28 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		  model.addAttribute("ts"+timeSlotStr, "selected");
 		  model.addAttribute("startDate",dateStr);
 		  model.addAttribute("endDate",dateEnd);
-		return "setAppointment";
+		  return "setAppointment";
 	}
-	//Created by Konstantin Dvoyashov. This function calls onClick Set Appointment button Set Appointment form
+//Created by Konstantin Dvoyashov. This function calls onClick Set Appointment button Set Appointment form
 	@RequestMapping({"/setAppoSave"})
 	public String saveAppointmentData(HttpServletRequest request, @RequestParam ("table") String m_mattname, Model model){
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
-		oldMatt.getData().setName(m_mattname);
+		//oldMatt.getData().setName(m_mattname);
 		mattName=m_mattname;
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(newMatt,userEmail);
 		
-		String mattIdStr=request.getParameter("table");
-		int mattId=Integer.parseInt(mattIdStr);
-		String[] guests = ifesbes1.getGuests(mattId);
+//		String mattIdStr=request.getParameter("table");
+System.out.println("idnew: "+newMatt.getData().getMattId());
+System.out.println("idold: "+oldMatt.getData().getMattId());
+//		int mattId=Integer.parseInt(mattIdStr);
+		String[] guests = ifesbes1.getGuests(newMatt.getData().getMattId());
+System.out.println(guests.toString());
+System.out.println(userName);
+System.out.println(newMatt.getSlots().toString());
 		connector.setEvent(guests, userName, newMatt);
 		
 		
