@@ -447,7 +447,6 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 	newMatt.setData(oldMatt.getData());
 	newMatt.setSlots(newTabList);
 	int id=ifesbes1.saveMatt(newMatt,userEmail);
-	ifesbes1.saveMatt(newMatt,userEmail);
 	String buf=Integer.toString(id);	
 	return  action_edit(buf,model);
 }
@@ -469,9 +468,11 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		newTabList=new ArrayList<Boolean>();
 		newTabList=Matt.fromBrowser2ArrayList(newTablJSON);
 		newMatt = new Matt();
+		int m_idmat=Integer.parseInt(idmatt);
+		oldMatt=ifesbes1.getMatt(m_idmat);
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
-		ifesbes1.saveMatt(newMatt,userEmail);
+		ifesbes1.saveMatt(newMatt,namesozd);
 		return  homereturn (model);
     }
 	   

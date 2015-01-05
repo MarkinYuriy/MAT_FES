@@ -15,13 +15,13 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
    
     <script type="text/javascript">
-	 function submit1(e) {
+	function submit1(e) {
 		if (e==1){document.getElementById("myform").action="invitations";
 			document.forms["myform"].submit();}
 		if (e==2){ajaxjson();
 			document.getElementById("myform").action="saveMattInvitation";
 			document.forms["myform"].submit();}
-  return true;
+	return true;
  }
 </script>
 <script type="text/javascript">
@@ -346,8 +346,8 @@ function ajaxjson(){
     </div>
 	</form>
 	<form id=myform>
-	<input type="hidden" id="idmatt" name="idmatt" value='${name}'>
-	<input type="hidden" id="sozd" name="sozd" value='${name}'>
+	<input type="hidden" id="idmatt" name="idmatt" value='${tableId}'>
+	<input type="hidden" id="sozd" name="sozd" value='${nameSozd}'>
 	</form>
 </div>
 </body>
