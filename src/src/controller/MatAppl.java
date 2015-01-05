@@ -673,28 +673,35 @@ System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IF
 		return homereturn(model);
 	}
 	@RequestMapping({"/getMatt4EditNotif"})
-	  public String getMatt4EditNotif(HttpServletRequest request, Model model){   
-	   String strMattId=request.getParameter("table");
-	   Integer mattId=Integer.parseInt(strMattId);
-	   Matt matt4EditNotif=ifesbes1.getMatt(mattId);
-	   int nWeeks=(matt4EditNotif.getData().getnDays())/7-1;
-	   int timeSlot=matt4EditNotif.getData().getTimeSlot();
-	   String dateStr =new SimpleDateFormat("d.M.y").format(matt4EditNotif.getData().getStartDate());
-	   String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(matt4EditNotif.getData().getStartDate(), matt4EditNotif.getData().getnDays()));
-	   Notification notif=null;
-	   String nameSozd=null;
-	   model.addAttribute("matJSON", matt4EditNotif.matt2browser());
-	   model.addAttribute("tableId", mattId);
-	   model.addAttribute("userName", userName);
-	   model.addAttribute("nameSozd", nameSozd);
-	   model.addAttribute("name", matt4EditNotif.getData().getName());
-	   model.addAttribute("nWek", nWeeks);
-	   model.addAttribute("ts"+timeSlot, "selected");
-	   model.addAttribute("startDate",dateStr);
-	   model.addAttribute("endDate",dateEnd);
-	   model.addAttribute("download",connector.getAvailableCalendars(userName));
-	   return "invitationMatt";
-	   
-	  }		
+	   public String getMatt4EditNotif(HttpServletRequest request, Model model){   
+	    String strMattId=request.getParameter("table");
+	    Integer mattId=Integer.parseInt(strMattId);
+	    Matt matt4EditNotif=ifesbes1.getMatt(mattId);
+	    int nWeeks=(matt4EditNotif.getData().getnDays())/7-1;
+	    int timeSlot=matt4EditNotif.getData().getTimeSlot();
+	    String dateStr =new SimpleDateFormat("d.M.y").format(matt4EditNotif.getData().getStartDate());
+	    String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(matt4EditNotif.getData().getStartDate(), matt4EditNotif.getData().getnDays()));
+	    List<Notification> listNotif=ifesbes1.getNotifications(userName);
+	    String nameSozd="not found";
+	    for(Notification notific:listNotif){
+	     if(notific.mattId==mattId){
+	      nameSozd=notific.userEmail;
+	      break;
+	     }
+	    }
+	    
+	    model.addAttribute("matJSON", matt4EditNotif.matt2browser());
+	    model.addAttribute("tableId", mattId);
+	    model.addAttribute("userName", userName);
+	    model.addAttribute("nameSozd", nameSozd);
+	    model.addAttribute("name", matt4EditNotif.getData().getName());
+	    model.addAttribute("nWek", nWeeks);
+	    model.addAttribute("ts"+timeSlot, "selected");
+	    model.addAttribute("startDate",dateStr);
+	    model.addAttribute("endDate",dateEnd);
+	    model.addAttribute("download",connector.getAvailableCalendars(userName));
+	    return "invitationMatt";
+	    
+	   }
 
 }
