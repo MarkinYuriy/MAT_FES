@@ -385,10 +385,10 @@ function newJson1(){
             <button id="back" type="button" disabled onclick="mback()">back</button>
             <button id="next" type="button" disabled onclick="mnext()">next</button>
         </div>
-        <div  >
+         <div  >
  			  <input id="par1" name="mattToJSON" value='${matJSON}' type=hidden style="display:none"/>
-              <input id="txtback" name="txtback" value=0 />
- 			  <input id="txtnext" name="txtnext" value='${nWek}' />
+              <input id="txtback" name="txtback" value=0 type=hidden style="display:none" />
+ 			  <input id="txtnext" name="txtnext" value='${nWek}' type=hidden style="display:none" /> 
  			<div>
             <table id="mattTable" border="1" width="100%" >
             </table>
