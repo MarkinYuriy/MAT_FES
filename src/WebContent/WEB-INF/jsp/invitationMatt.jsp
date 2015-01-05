@@ -53,7 +53,9 @@ function ajaxjson(){
 			type : "POST",
 			success : function(mattToJSON) {
 				document.getElementById("par1").value=mattToJSON;
-				viewTab(0);
+				var b=document.getElementById("txtback").value;
+				var mbuf=parseInt(b);
+				viewTab(mbuf*7);	
 			}
 		});
 	}
@@ -298,8 +300,8 @@ function ajaxjson(){
         </div>
         <div  >
  			  <input id="par1" name="mattToJSON" value='${matJSON}' type="hidden" style="display:none"/>
-              <input id="txtback" name="txtback" value=0 type="hidden"/>
- 			  <input id="txtnext" name="txtnext" value='${nWek}' type="hidden"/>
+              <input id="txtback" name="txtback" value=0 />
+ 			  <input id="txtnext" name="txtnext" value='${nWek}' />
  			<div>
             <table id="mattTable" border="1" width="100%" >
             </table>

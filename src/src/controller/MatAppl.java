@@ -473,7 +473,7 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		newMatt.setData(oldMatt.getData());
 		newMatt.setSlots(newTabList);
 		ifesbes1.saveMatt(newMatt,namesozd);
-		return  homereturn (model);
+		return  showInvitations (model);
     }
 	   
 	@RequestMapping({"/viewMatt"})
