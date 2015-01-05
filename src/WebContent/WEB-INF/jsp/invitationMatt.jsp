@@ -346,7 +346,8 @@ function ajaxjson(){
     </div>
 	</form>
 	<form id=myform>
-	<input type="hidden" id="table" name="table" value='${name}'>
+	<input type="hidden" id="idmatt" name="idmatt" value='${name}'>
+	<input type="hidden" id="sozd" name="sozd" value='${name}'>
 	</form>
 </div>
 </body>
