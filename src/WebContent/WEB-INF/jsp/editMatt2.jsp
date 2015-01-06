@@ -407,7 +407,7 @@ function newJson1(){
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name:<input id="mattName" name="mattName" type="text" value='${name}' onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
+   				Name:<input id="mattName" name="mattName" type="text" value='${name}' disabled onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
             </div>
                 <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
                 <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>

@@ -264,7 +264,24 @@ function download(){
 	document.forms["myform"].submit();;
 }
 </script>
+<script type="text/javascript">
+function m_nameerror(){
+	var val = document.getElementById("mattName").value.trim();
+	if (val) {
+		document.getElementById("table").value=document.getElementById("mattName").value;
+		document.getElementById("b_download").disabled= false;
+		document.getElementById("b_download").style.cursor="pointer";
+		document.getElementById("saveMatt").disabled= false;
+		document.getElementById("saveMatt").style.cursor="pointer";
+	}else{
+		document.getElementById("b_download").disabled= true;
+		document.getElementById("b_download").style.cursor="";
+		document.getElementById("saveMatt").disabled= true;
+		document.getElementById("saveMatt").style.cursor="";
+	}
 
+}
+</script>
     <style>
         head {
             width: auto;
@@ -465,7 +482,7 @@ function download(){
             <p style="font-size: 1em ">Settings</p>
             <p style="font-size:0.6em">Adjust credentials to generate calendar:</p>
             <div style="font-size: 0.6em">
-   				Name:<input id="mattName" name="mattName" type="text" onchange="table.value=this.value" style="width: 70%; float: right;"  ><br>
+   				Name:<input id="mattName" name="mattName" type="text" onchange="m_nameerror()" style="width: 70%; float: right;"  ><br>
             </div>
                 <p>Starting date <input type="text" id="startDate" name="startDate" value='${startDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right;  "></p>
                 <p>Ending date<input type="text" id="endDate" name="endDate" value='${endDate}' style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.8em; float: right; width: 120px; text-align: right; "></p>
@@ -505,10 +522,10 @@ function download(){
                 <option value="60" ${ts60}>1 hour</option>
             </select></p>
                 <p>repeat <input type="checkbox" id="mRepeat" disabled onclick="repea(this.checked)"></p>
-            	<a href="javascript:PopUpShow()"  style="border: none; color: blue; cursor: pointer; background: #d6f000; font-size: 0.6em; width: 75px; text-align: right; ">download</a>
+            	<button id="b_download" type="button" disabled onclick="javascript:PopUpShow()"  style="border: none; color: blue; background: #d6f000; font-size: 0.6em; width: 75px; text-align: right; ">download</button>
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="button" onclick="submit1()" >SAVE</button>
+                	<button id="saveMatt" type="button" disabled onclick="submit1()" >SAVE</button>
             	</div>
             	
         	</div>
@@ -527,7 +544,7 @@ function download(){
 			</d:forEach>	
 		</d:forEach>
 <!-- 		<button  onclick="javascript:PopUpHide()">close</button> -->
-		<button  onclick="download()">download</button>
+		<button onclick="download()" >download</button>
     	</div>
     </div>
 	</form>

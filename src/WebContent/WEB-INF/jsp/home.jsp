@@ -168,6 +168,7 @@ function collab(element) {
             border:solid 1px;
             vertical-align:middle;
         }
+        #placetable::-webkit-scrollbar { width: 0 !important }
 
     </style>
  
@@ -200,7 +201,7 @@ function collab(element) {
         <form id="tableForm" name="tableForm" >
 	<input type="hidden" id="table" name="table">
 	<input type="hidden" name="username" value="${userName}">
-            <div id="placetable">
+            <div id="placetable" style="overflow:scroll; height:380px; width:100% ">
                      
    <d:forEach items="${matt}" var="item" >
          
