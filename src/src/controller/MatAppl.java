@@ -59,32 +59,7 @@ public class MatAppl {
 		return "buf";
 	}
 
-/*	@RequestMapping({"/invitationMatt"})
-	public String invitationMatt(@RequestParam ("table") String mattId4Matt,Model model) {
-		 // int tableId=Integer.parseInt(mattId4Matt);
-		  int tableId=106;
-		  oldMatt=ifesbes1.getMatt(tableId);
-		  String mattToJson4URL = oldMatt.matt2browser();
-		  int m_nwek=(oldMatt.getData().getnDays())/7-1;
-		  String m_nameMatt=oldMatt.getData().getName();
-		  int timeSlotStr=oldMatt.getData().getTimeSlot();
-		  String dateStr = new SimpleDateFormat("d.M.y").format(oldMatt.getData().getStartDate());		  
-		  String dateEnd = new SimpleDateFormat("d.M.y").format(getDateAfter(oldMatt.getData().getStartDate(), oldMatt.getData().getnDays()));
-		  String nameSozd=null;
-		  
-		  model.addAttribute("matJSON", mattToJson4URL);
-		  model.addAttribute("userName", userName);
-		  model.addAttribute("nameSozd", nameSozd);
-		  model.addAttribute("tableId", tableId);
-		  model.addAttribute("name", m_nameMatt);
-		  model.addAttribute("nWek", m_nwek);
-		  model.addAttribute("ts"+timeSlotStr, "selected");
-		  model.addAttribute("startDate",dateStr);
-		  model.addAttribute("endDate",dateEnd);
-		  model.addAttribute("download",connector.getAvailableCalendars(userName));
-		return "invitationMatt";
-	}*/
-	
+
 	@RequestMapping(value = "socialsetiinvitation", method = RequestMethod.POST)
 	public @ResponseBody String socialSetiInvitation(@RequestParam(value = "seti", required = false) String seti,
 								@RequestParam(value = "tableid", required = false) String tableId,
@@ -188,8 +163,6 @@ public class MatAppl {
 	}
 	@RequestMapping({"/resauto"})
 	 public String resultAuthorization(String code, String access_token, Model model) {
-/*		System.out.println("A code: "+code);
-		System.out.println("A access_token: "+access_token);*/
 		if (code!=null) {
 			try {
 				connector.authorize(userName, IFrontConnector.GOOGLE, code);
@@ -222,7 +195,6 @@ public class MatAppl {
 		} catch (Exception e) {
 			model.addAttribute("exception", "don't update profile");
 		}
-//		System.out.println(resultSave);
 		return homereturn (model);
 	}
 //-------------------Create Matt
@@ -246,7 +218,7 @@ public class MatAppl {
 		int timeSlot =60;
 		String password = null;
 		mat.MattData data = new MattData(name,7,startDate,startHour,endHour,timeSlot,password);
-		mattName=name;//----???----for creating URL
+		mattName=name;
 		  ArrayList<Boolean> newTabList=new ArrayList<Boolean>();
 		  int slotsNumber=(60/timeSlot)*(endHour-startHour)*7;
 		  for(int i=0;i<slotsNumber;i++){
@@ -256,9 +228,6 @@ public class MatAppl {
 		  oldMatt.setData(data);
 		  oldMatt.setSlots(newTabList);
 		  mattToJSON = oldMatt.matt2browser();
-	/*	mattName=name;//----???----for creating URL
-		oldMatt=ifesbes1.createMatt(data, userName);
-		mattToJSON = oldMatt.matt2browser();  */
 		addingAtributes(model,name,null,dateStr,dateEnd,Integer.toString(startHour),Integer.toString(endHour),Integer.toString(timeSlot),mattToJSON);
 		model.addAttribute("download",connector.getAvailableCalendars(userName));
 		return "createMatt2";
@@ -382,8 +351,6 @@ public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = 
 		  oldMatt.setData(data);
 		  oldMatt.setSlots(newTabList);
 		  mattToJSON = oldMatt.matt2browser();  
-	//	oldMatt=ifesbes1.createMatt(data, userName);
-	//	mattToJSON = oldMatt.matt2browser();
 	return mattToJSON;
 }
 @RequestMapping({"/createMatt"})
@@ -407,20 +374,10 @@ public @ResponseBody String newJson(@RequestParam(value = "dateStr", required = 
 		int endHour = Integer.parseInt(endHourStr);
 		String timeSlotStr=request.getParameter("timeSlot");
 		int timeSlot = Integer.parseInt(timeSlotStr); //in minutes
-/*System.out.println(name);
-System.out.println(startDate);
-System.out.println(dateEnd);
-System.out.println(nDays);
-System.out.println(startHour);
-System.out.println(endHour);
-System.out.println(timeSlot);*/
 		String password = null;
 		mat.MattData data = new MattData(name,nDays,startDate,startHour,endHour,timeSlot,password);
 		mattName=name;//----???----for creating URL
-	//	oldMatt=ifesbes1.createMatt(data, userName);
-//System.out.println(oldMatt.getSlots().toString());
 		mattToJSON = oldMatt.matt2browser();  
-//System.out.println(mattToJSON);
 		addingAtributes(model,name,nDaysStr,dateStr,dateEnd,startHourStr,endHourStr,timeSlotStr,mattToJSON);
 		return "saveMatt";
 	}
@@ -521,15 +478,12 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 		model.addAttribute("userName",userName);
 		model.addAttribute("email",userEmail);
 		model.addAttribute("matt",ifesbes1.getMattNames(userName));
-//		model.addAttribute("SNdisabl",getAuthorizedSocial());
-//		model.addAttribute("SNchek",getSocial());
 		return "home";	
 	}
 	@RequestMapping({"/home"})
 	public String home(@RequestParam ("name") String name,@RequestParam ("password") String password,Model model) {
 		if (ifesbes1.matLogin(name,password)==Response.NO_PASSWORD_MATCHING || ifesbes1.matLogin(name,password)==Response.NO_REGISTRATION || ifesbes1.matLogin(name,password)==Response.IN_ACTIVE){
 			return "loginon";}
-	//	m_name=pers.getFirstName()+" "+pers.getLastName();
 		user=ifesbes1.getProfile(name);
 		userName=user.getEmail();
 		userEmail=user.getEmail();
@@ -668,12 +622,10 @@ public String download(HttpServletRequest request,@RequestParam ("table") String
 	public String upload_matt(HttpServletRequest request,Model model){
 		String mattIdStr=request.getParameter("table");
 		int mattId=Integer.parseInt(mattIdStr);
-System.out.println("mattId "+mattId);
 		Matt curentMatt = ifesbes1.getMatt(mattId);
 		List<String> uploadSN = new ArrayList<String>();
 		uploadSN.add(userName);
 		curentMatt.getData().setUploadCalendars(IFrontConnector.GOOGLE, uploadSN);
-System.out.println("uploadCalendars "+curentMatt.getData().getUploadCalendars(IFrontConnector.GOOGLE));
 		connector.uploadMatt(userName, curentMatt);
 		return homereturn(model);
 	}
