@@ -285,6 +285,7 @@ public class MatAppl {
 	}
 	private static Calendar getFirstWeekDayTime(Calendar calendar){
 		int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+		
 	    switch(weekDay) {
 	    case 1:
 	        weekDay = -6;
@@ -309,13 +310,22 @@ public class MatAppl {
 	        break;
 	    }
 	    calendar.add(Calendar.DAY_OF_MONTH, weekDay);
+	  //Updated code -Yuri
+	    calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.AM_PM, Calendar.AM);
 		return calendar;	
 	}
 private Date startDate(Date date) {
 	if (date==null) date = new Date();
 	Calendar calendar= new GregorianCalendar();
 	calendar.setTime(date);	
-	return getFirstWeekDayTime(calendar).getTime();
+	Date tmp=getFirstWeekDayTime(calendar).getTime();
+	 
+	return tmp;
 	}
 private Date endDate(Date date) {
 	if (date==null)date= new Date();
