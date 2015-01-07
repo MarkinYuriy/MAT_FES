@@ -101,6 +101,8 @@
 		else {document.getElementById("next").disabled= true;}
 		document.getElementById("txtback").value=0;
 		document.getElementById("back").disabled= true;
+		var n=document.getElementById("xxx").value;
+		if (n.length<2) document.getElementById("saveMatt").style.display = 'none';
 	}</script>
     <style>
         head {
@@ -221,6 +223,7 @@
  			  <input id="par1" name="mattToJSON" value='${matJSON}' type="hidden" style="display:none"/>
               <input id="txtback" name="txtback" value=0 type="hidden"/>
  			  <input id="txtnext" name="txtnext" value='${nWek}' type="hidden"/>
+ 			  <input id="xxx" name="xxx" value='${userName}' type="hidden"/>
  			<div>
             <table id="mattTable" border="1" width="100%" >
             </table>

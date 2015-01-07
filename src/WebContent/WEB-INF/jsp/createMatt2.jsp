@@ -14,22 +14,8 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     
-   
-    <script type="text/javascript">
-	 function submit1() {
-		ajaxjson();
-		var val = document.getElementById("table").value.trim();
-		if (!val) {
-			alert("no name");
-			return false;
-		}
-		document.getElementById("myform").action="saveMatt";
-		document.forms["myform"].submit();
-  return true;
- }
-</script>
 <script type="text/javascript">
-function ajaxjson(){
+function ajaxjson1(){
 	var json=document.getElementById("par1").value;
 	var data ="mattjson="+json;
 	$.ajax({
@@ -37,7 +23,8 @@ function ajaxjson(){
 		data : data,
 		type : "POST",
 		complete : function() {
-			
+			document.getElementById("myform").action="saveMatt";
+			document.forms["myform"].submit();
 		}
 	});
 	}
@@ -256,13 +243,20 @@ function PopUpShow(){ $("#window-popup").show(); }
 function PopUpHide(){ $("#window-popup").hide(); 
 
 }
-</script>
-<script type="text/javascript">
-function download(){
-	ajaxjson();
-	document.getElementById("myform").action="download";
-	document.forms["myform"].submit();;
-}
+</script><script type="text/javascript">
+function ajaxjson2(){
+	var json=document.getElementById("par1").value;
+	var data ="mattjson="+json;
+	$.ajax({
+		url : "ajaxjson",
+		data : data,
+		type : "POST",
+		complete : function() {
+			document.getElementById("myform").action="download";
+			document.forms["myform"].submit();
+		}
+	});
+	}
 </script>
 <script type="text/javascript">
 function m_nameerror(){
@@ -525,7 +519,7 @@ function m_nameerror(){
             	<button id="b_download" type="button" disabled onclick="javascript:PopUpShow()"  style="border: none; color: blue; background: #d6f000; font-size: 0.6em; width: 75px; text-align: right; ">download</button>
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="button" disabled onclick="submit1()" >SAVE</button>
+                	<button id="saveMatt" type="button" disabled onclick="ajaxjson1()" >SAVE</button>
             	</div>
             	
         	</div>
@@ -544,7 +538,7 @@ function m_nameerror(){
 			</d:forEach>	
 		</d:forEach>
 <!-- 		<button  onclick="javascript:PopUpHide()">close</button> -->
-		<button onclick="download()" >download</button>
+		<button onclick="ajaxjson2()" >download</button>
     	</div>
     </div>
 	</form>

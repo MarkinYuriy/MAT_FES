@@ -210,7 +210,7 @@ function collab(element) {
    <td colspan='8'>${item.value}</td>
    </tr>
    <tr>
-   <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt2?table=${item.key}&username=${userName}</a></td>
+   <td colspan='8'><a href="http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item.key}&username=${userName}">http://ec2-54-166-51-117.compute-1.amazonaws.com:8080/myavailabletime/viewMatt?table=${item.key}&username=${userName}</a></td>
    
  </tr>
    

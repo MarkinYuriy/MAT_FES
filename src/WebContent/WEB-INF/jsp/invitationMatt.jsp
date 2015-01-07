@@ -15,12 +15,9 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
    
     <script type="text/javascript">
-	function submit1(e) {
-		if (e==1){document.getElementById("myform").action="invitations";
-			document.forms["myform"].submit();}
-		if (e==2){ajaxjson();
-			document.getElementById("myform").action="saveMattInvitation";
-			document.forms["myform"].submit();}
+	function submit1() {
+		document.getElementById("myform").action="invitations";
+		document.forms["myform"].submit();
 	return true;
  }
 </script>
@@ -33,6 +30,8 @@ function ajaxjson(){
 		data : data,
 		type : "POST",
 		complete : function() {
+			document.getElementById("myform").action="saveMattInvitation";
+			document.forms["myform"].submit();
 		}
 	});
 	}
@@ -339,8 +338,8 @@ function ajaxjson(){
                  
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="button" onclick="submit1(1)" >BACK</button>
-                	<button id="saveMatt" type="button" onclick="submit1(2)" >SAVE</button>
+                	<button id="saveMatt" type="button" onclick="submit1()" >BACK</button>
+                	<button id="saveMatt" type="button" onclick="ajaxjson()" >SAVE</button>
             	</div>
             	
         	</div>

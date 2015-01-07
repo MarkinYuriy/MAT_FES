@@ -13,18 +13,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
    
-    <script type="text/javascript">
-	 function submit1() {
-		ajaxjson();
-		var val = document.getElementById("table").value.trim();
-		if (!val) {
-			alert("no name");
-			return false;
-		}
-		document.forms["myform"].submit();
-  return true;
- }
-</script>
+
 <script type="text/javascript">
 function ajaxjson(){
 	var json=document.getElementById("par1").value;
@@ -34,6 +23,7 @@ function ajaxjson(){
 		data : data,
 		type : "POST",
 		complete : function() {
+			document.forms["myform"].submit();
 		}
 	});
 	}
@@ -450,7 +440,7 @@ function newJson1(){
            
             <div>
                 <div style="text-align:right; margin: 40px 10px 0px 0px; color: white">
-                	<button id="saveMatt" type="button" onclick="submit1()" >SAVE</button>
+                	<button id="saveMatt" type="button" onclick="ajaxjson()" >SAVE</button>
             	</div>
             	
         	</div>
