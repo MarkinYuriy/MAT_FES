@@ -228,5 +228,6 @@
 		</select>
 		<p> Enter e-mail address:</p> 
 			<input type="text" name="typedAddress" id="typedAddress" style="width: 250;" value="" onchange="addWritedAddress(this.value)">	</div>
+	<body onload="sortAvailable()">
 </body>
 </html>

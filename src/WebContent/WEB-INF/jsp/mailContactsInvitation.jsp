@@ -136,13 +136,6 @@
 
 	function frmSubmit() {
 		var si = document.getElementById("sendEmails");
-//		for (i = 0; i < si.options.length; i++) {
-//			si.options[i].selected = true;
-//		}
-		
-//		document.getElementById("sendEmails").submit();
-//		document.getElementById("sendE").submit();
-	//	var si = document.getElementById("sendEmails");
 	    var txt = "";
 	    var i;
 	    for (i = 0; i < si.length; i++) {
@@ -190,7 +183,7 @@
 <body bgcolor="white">
 	<!-- Here are all addresses matching your search critera: -->
 	<div style="float: left; width: 270;">
-		<p>Available Emails</p>
+		<p>Available Contacts</p>
 		<select name="availableEmails" id="availableEmails"
 			style="width: 250; height: 275;" multiple="multiple">
 			<c:set var="iteration" value="0"/>
@@ -208,8 +201,6 @@
 		<input type="button" class="btn" value="Add All" onclick="addAll();" />
 		<input type="button" class="btn" value="Remove" onclick="removeItems();" /> 
 		<input type="button" class="btn" value="Remove All" onclick="removeAll();" /> 
-		<!-- <input type="button" class="btn" value="Move Up" onclick="moveUp();" /> 
-		<input type="button" class="btn" value="Move Down" onclick="moveDown();" /> -->
 		<input type="submit" class="btn" value="Send" onclick="frmSubmit();" />
 	</div>
 	<input type="hidden" id="hiddenemail" name="hiddenemail" />
@@ -224,5 +215,6 @@
 		<p> Enter e-mail address:</p> 
 		<input type="text" name="typedAddress" id="typedAddress" style="width: 250;" value="" onchange="addWritedAddress(this.value)">
 	</div>
+	<body onload="sortAvailable()">
 </body>
 </html>
